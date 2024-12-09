@@ -5,4 +5,26 @@
 
 {% block content %}
 
+<section class="section-1">
+
+    <div class="video-container">
+        <video autoplay muted loop id="background-video">
+            <source src="{% static 'videos/skills-exchange.mp4' %}" type="video/mp4">
+        </video>
+        <div class="overlay"></div> 
+    </div>
+
+    <div class="section-1-text text-center">
+        <h1 class="main-text">Learn. Share. Grow. Your Skills<br>Exchange Journey Starts Here</h1>
+        <h5 class="second-text">
+            Discover a community where you can exchange skills, connect with others, and grow<br>
+            —all for free</h5>
+            <div class="main-links">
+                <a href="" class="btn-lime-main">Start Exchanging</a>
+                <a href="" class="btn-blue-main"><i class="bi bi-lightbulb me-2"></i>Explore Skills</a>
+            </div>
+    </div>
+
+</section>
+
 {% endblock %}

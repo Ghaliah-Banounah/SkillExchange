@@ -16,7 +16,7 @@ def register_view(request:HttpRequest):
                 new_user.save()
 
                 # Create profile
-                profile = Profile(user=new_user, bio=request.POST['bio'], pfp=request.FILES.get('pfp', Profile.pfp.field.get_default()))
+                profile = Profile(user=new_user, bio=request.POST['bio'], pfp=request.FILES.get('pfp', Profile.pfp.field.get_default()), linkedin_url=request.POST['linkedin_url'], phone=request.POST['phone'])
                 profile.save()
 
             messages.success(request, "Register successfull.", "alert-success")   
@@ -25,7 +25,7 @@ def register_view(request:HttpRequest):
         except IntegrityError:
             messages.warning(request, "The username is already taken. Please choose another one.", "alert-warning")
         except Exception as e:
-            messages.error(request, f"{e} Register failed. Try again", "alert-danger")    
+            messages.error(request, f"Register failed. Try again", "alert-danger")    
 
     return render(request, 'accounts/register.html')
 
@@ -80,17 +80,18 @@ def update_profile_view(request: HttpRequest):
                 # Update user instance
                 user.first_name=request.POST['fname']
                 user.last_name=request.POST['lname']
-                user.username=request.POST['username']
                 user.email=request.POST['email']
                 user.save()
                 
                 # Update user profile
                 profile.bio=request.POST['bio']
                 profile.pfp=request.FILES.get('pfp', profile.pfp)
+                profile.linkedin_url=request.POST['linkedin_url']
+                profile.phone=request.POST['phone']
                 profile.save()
 
             messages.success(request, "Profile updated successfully.", "alert-success")
-            return redirect('accounts:profile_iew', user.username)
+            return redirect('accounts:profile_view', user.username)
         
         except Exception as e:
             messages.error(request, f"Profile wasn't updated.", "alert-danger")

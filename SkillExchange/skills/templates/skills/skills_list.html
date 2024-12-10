@@ -1,0 +1,166 @@
+{% extends 'main/base.html' %}
+{% block title %}Skills{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4" style="font-size: 3rem; font-weight: bold;">Skills List</h1>
+    <form method="get" action="" class="mb-3 d-flex justify-content-center">
+        <input type="text" name="search" class="form-control form-control-lg" placeholder="Search for a skill..." value="{{ request.GET.search }}" style="width: 500px; border-radius: 25px;">
+        <button type="submit" class="btn-lime btn-lg" style="border-radius: 25px; margin-left: 10px;">
+            <i class="fa-solid fa-magnifying-glass" style="font-size: 28px;"></i>
+            <i class="bi bi-search" style="font-size: 25px;"></i>
+        </button>
+        <a href="{% url 'skills:add_skill' %}" class="btn-blue btn-lg" style="border-radius: 25px; margin-left: 10px;">
+            <i class="bi bi-plus bl" style="font-size: 30px; padding-top: 20px; color:black"></i>
+        </a>
+    </form>
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger text-center" role="alert" style="font-size: 15px; margin: 20px auto; width: 40%;">
+                {{ message }}
+            </div>
+        {% elif message.tags == 'info' %}
+            <div class="alert alert-info text-center" role="alert" style="font-size: 15px; margin: 20px auto; width: 40%;">
+                {{ message }}
+            </div>
+        {% elif message.tags == 'warning' %}
+            <div class="alert alert-warning text-center" role="alert" style="font-size: 15px; margin: 20px auto; width: 40%;">
+                {{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-primary text-center" role="alert" style="font-size: 15px; margin: 20px auto; width: 40%;">
+                {{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+    <div class="row">
+        {% for skill in skills %}
+        <div class="col-md-4 mb-4">
+            <div class="card card_skills_list">
+                <div>
+                    <img src="{{ skill.image.url }}" alt="{{ skill.name }}" class="image_skills_list">
+                </div>
+                <div>
+                    <h5 class="skill_name mt-2">{{ skill.name }}</h5>
+                    <p class="mt-2"><i class="bi bi-people icon_skills_list"></i> : {{ skill.your_skill.count }}</p>
+                    <div class="text-end">
+                        <a href="{% url 'skills:skill_detail' skill.id %}">Info <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if skills.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo; First</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ skills.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo; Previous</span>
+                        </a>
+                    </li>
+                {% endif %}
+    
+                {% for num in skills.paginator.page_range %}
+                    {% if skills.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+    
+                {% if skills.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ skills.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="Next">
+                            <span aria-hidden="true">Next &raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ skills.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="Last">
+                            <span aria-hidden="true">Last &raquo;&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+<style>
+    .pagination {
+        display: inline-flex;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .pagination .page-item {
+        margin: 0 5px;
+    }
+
+    .pagination .page-link {
+        color: black;
+        text-decoration: none;
+        padding: 10px 15px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .pagination .page-link:hover {
+        color:#6986d5;
+    }
+
+    .pagination .page-item.active .page-link {
+        color: #007bff; 
+        font-weight: bold;
+        background-color: transparent;
+    }
+
+    .pagination .page-item a.page-link {
+        border-radius: 0;
+        background-color: transparent;
+    }
+
+    .pagination .page-item.disabled .page-link {
+        color: #d6d6d6;
+        pointer-events: none;
+    }
+
+    .skill_name {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .card_skills_list {
+        background-color: #F6F6F6;
+        border-radius: 10px;
+        box-shadow: none;
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 15px;
+        padding: 10px;
+        position: relative;
+    }
+
+    .card_skills_list .text-end {
+        text-align: right;
+    }
+
+    .icon_skills_list {
+        color: #d7e7ac;
+    }
+
+    .image_skills_list {
+        width: 100%;
+        height: 6rem;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+</style>
+{% endblock %}

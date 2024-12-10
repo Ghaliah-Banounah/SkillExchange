@@ -5,6 +5,282 @@
 
 {% block content %}
 
+<style>
+/* Home */
+
+/* Section 1 */
+.section-1 {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Background Video Styling */
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#background-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark Overlay */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.557);
+  z-index: 1;
+}
+
+.section-1-text {
+  position: relative;
+  right: 17rem;
+  top: 3rem;
+  z-index: 2;
+  color: white;
+}
+
+.main-text {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.second-text {
+  font-size: 1.25rem;
+  color: #7a98e9;
+  margin-bottom: 4rem;
+  text-align: left;
+  font-weight: 200;
+}
+
+.main-links {
+  position: relative;
+  right: 13rem;
+  z-index: 2;
+  color: white;
+}
+
+.btn-lime-main {
+  background-color: #ebfdb8;
+  color: black;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+  border-radius: 0.25rem;
+}
+
+.btn-lime-main:hover {
+  background-color: #b6c982;
+}
+
+.btn-blue-main {
+  color: white;
+  border: 1px solid #7a98e9;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.btn-blue-main:hover {
+  background-color: #6986d5;
+  border-color: #6986d5;
+}
+
+.bi-lightbulb{
+    color: #7a98e9 ;
+}
+
+
+/* Section 2 */
+
+.section-2 {
+  padding: 50px 0;
+}
+
+.section-2-text h1 {
+  font-size: 64px;
+  margin-bottom: 50px;
+
+}
+
+
+.card-custom {
+  position: relative;
+  margin-top: 80px;
+  border-radius: 20px;
+
+}
+
+.card-custom::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 0;
+  opacity: 0.2;
+}
+
+.card-1::before {
+  background-image: url("/static/images/Vector 1-2.png");
+  width: 97%;
+}
+
+.card-2::before {
+  background-image: url("/static/images/Vector 2.png");
+}
+
+.card-3::before {
+  background-image: url("/static/images/Vector 3.png");
+}
+
+.card-body {
+  position: relative;
+  z-index: 1;
+}
+
+.card-custom .number {
+  font-size: 5rem;
+  font-weight: normal;
+  color: rgba(160, 158, 158, 0.519);
+  position: absolute;
+  top: -65px;
+  right: 15px;
+  z-index: 0;
+}
+
+.card-custom .card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 60px;
+}
+
+.card-custom .card-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: justify;
+  font-weight: normal;
+}
+
+/* Section 3 */
+
+.section-3 {
+   margin-top: 200px;
+  
+}
+
+.section-3-text {
+    align-items: center;
+
+}
+
+.section-3-text h1 {
+  font-size: 64px;
+  margin-bottom: 50px;
+
+}
+
+.section-3-text .container-link {
+    font-size: 14px;
+}
+
+.card-exchanger {
+  overflow: hidden;
+  border: none;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.card-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.card-image .icon-plus {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.card-info {
+  background-color: #fff;
+  padding: 30px;
+  display: none;
+  height: 0;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.card-exchanger.expanded .card-image img {
+  transform: scale(0.7);
+}
+
+.card-exchanger.expanded .card-info {
+  display: block;
+  height: auto;
+  opacity: 1;
+}
+
+
+.card-info h5 {
+  font-size: 1.8rem; 
+  font-weight: bold;
+}
+
+.card-info p {
+  font-size: 1.2rem; 
+  line-height: 1.8; 
+}
+
+.card-info a {
+  font-size: 1.2rem; 
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+</style>
+
 <section class="section-1">
 
     <div class="video-container">
@@ -26,5 +302,164 @@
     </div>
 
 </section>
+
+<!--Section 2-->
+
+<section class="section-2">
+    <div class="container text-center">
+        <div class="section-2-text text-start">
+            <h1>Why <span class="bg-blue p-1 rounded-3">Us</span> ?</h1>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4">
+
+            <!--Card 1-->
+            <div class="col mb-3">
+                <div class="card card-custom card-1" style="height: 510px; background-color: rgba(122, 152, 233, 0.75); border:none">
+                    <!--<img src="{% static 'images/Vector 1.png' %}" alt="background-motion" class="card-bg">-->
+
+                    <div class="card-body">
+                      <h1 class="number">01</h1>
+                      <h5 class="card-title">Free of Cost</h5>
+                      <p class="card-text">
+                        Our platform enables you to share and acquire skills through a reciprocal exchange model, eliminating the need for expensive courses or subscriptions. Whether you’re looking to learn something new or teach what you already know, you can do it here without worrying about costs.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+            <!-- Card 2 -->
+             <div class="col mb-3">
+                <div class="card card-custom card-2"  style="height: 510px; background-color: rgba(235, 253, 184, 0.75); border:none ">
+                    <!--<img src="{% static 'images/Vector 2.png' %}" alt="background-motion" class="card-bg">-->
+
+                    <div class="card-body">
+                        <h1 class="number">02</h1>
+                        <h5 class="card-title">Easy to Use</h5>
+                        <p class="card-text">
+                            Our user-friendly platform is designed to help you get started quickly and effortlessly. With just a few clicks, you can create your profile, list your skills, and search for others to connect with. With built-in messaging allows seamless communication to arrange skill exchanges. Whether you’re a beginner or tech-savvy, our platform ensures a smooth and enjoyable experience for everyone.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 3 -->
+             <div class="col mb-3">
+                <div class="card card-custom card-3" style="height: 510px; background-color: #F6F6F6; border: none;">
+                    <!--<img src="{% static 'images/Vector 2.png' %}" alt="background-motion" class="card-bg">-->
+
+                    <div class="card-body">
+                        <h1 class="number">03</h1>
+                        <h5 class="card-title">Personalized Learning Journey</h5>
+                        <p class="card-text">
+                            Our platform tailors your journey based on your interests, goals, and preferences, ensuring you get the most relevant matches and resources. From discovering new skills to collaborating with peers, you’re in control of how and what you learn, making your experience truly personal and impactful.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Section 3-->
+
+<section class="section-3">
+    <div class="container text-center">
+        <div class="section-3-text text-start d-flex justify-content-between align-items-center">
+            <h1>Explore Our <span class="bg-lime p-2 rounded-4">Top Exchangers</span></h1>
+            <a href="#" class="bg-lime py-2 px-4 rounded-pill">See All</a>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4">
+            <!-- Card 1 -->
+             <div class="col mb-4">
+                <div class="card card-exchanger position-relative">
+                    <div class="card-image">
+                        <img src="{% static 'images/exchanger 1.jpg' %}" class="img-fluid" alt="Exchanger 1">
+                        <div class="icon-plus" onclick="toggleCard(this)">+</div>
+                    </div>
+                    <div class="card-info">
+                        <h5>Khalid Al........</h5>
+                        <p class="text-muted">Web Developer</p>
+                        <p>Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills</p>
+                        <a href="#" class="text-primary">View Profile</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+             <div class="col mb-4">
+                <div class="card card-exchanger position-relative">
+                    <div class="card-image">
+                        <img src="{% static 'images/exchanger 1.jpg' %}" class="img-fluid" alt="Exchanger 2">
+                        <div class="icon-plus" onclick="toggleCard(this)">+</div>
+                    </div>
+                    <div class="card-info">
+                        <h5>Fatima Y........</h5>
+                        <p class="text-muted">Graphic Designer</p>
+                        <p>Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills</p>
+                        <a href="#" class="text-primary">View Profile</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Too add more cards -->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      ScrollReveal().reveal('.projects-header-text-1', { 
+        duration: 1200, 
+        origin: 'left', 
+        distance: '80px', 
+        easing: 'ease-in-out', 
+        opacity: 0
+      });
+  
+      ScrollReveal().reveal('.projects-text-1', { 
+        duration: 1200, 
+        origin: 'bottom', 
+        distance: '50px', 
+        delay: 200, 
+        easing: 'ease-in-out', 
+        opacity: 0 
+      });
+  
+      ScrollReveal().reveal('.spline-container', { 
+        duration: 1500, 
+        origin: 'right', 
+        distance: '80px', 
+        delay: 200, 
+        easing: 'ease-in-out', 
+        opacity: 0
+      });
+  
+    });
+  </script>
+
+<script>
+    function toggleCard(element) {
+  const card = element.closest('.card-exchanger');
+  const info = card.querySelector('.card-info');
+  const image = card.querySelector('.card-image img');
+  const button = card.querySelector('.icon-plus');
+
+  if (!card.classList.contains('expanded')) {
+    // Shrink and move the card
+    card.classList.add('expanded');
+    image.style.transform = 'scale(0.5) translate(-50%, -50%)';
+    info.style.display = 'block';
+    button.style.display = 'none';
+  } else {
+    // Reset to original state
+    card.classList.remove('expanded');
+    image.style.transform = 'scale(1) translate(0, 0)';
+    info.style.display = 'none';
+    button.style.display = 'flex';
+  }
+}
+  </script>
 
 {% endblock %}

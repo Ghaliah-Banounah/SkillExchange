@@ -58,7 +58,7 @@
                 {% url 'accounts:profile_view' user.username as profile_url %}
 
                 {% if user.is_authenticated %}
-                <div class="dropdown order-3 pe-4">
+                <div class="dropdown order-3 pe-md-4">
                     <button class="border-0 bg-transparent dropdown-toggle rounded-4" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <div class="d-flex flex-row gap-1 align-items-end py-2">
@@ -67,19 +67,19 @@
                         </div>
                     </button>
                     <ul class="dropdown-menu p-2 border-light-subtle" style="--bs-dropdown-min-width: 3rem; --bs-dropdown-link-hover-bg: #EBFDB8;">
-                        <li><a class="dropdown-item" href="{{profile_url}}">Profile</a></li>
+                        <li><a class="dropdown-item rounded-2" href="{{profile_url}}">Profile</a></li>
                         <li><a class="btn-blue" href="{{logout_url}}?next={{request.path}}">Logout</a></li>
                     </ul>
                 </div>
                 {% else %}
-                <div class="dropdown order-3 pe-4">
+                <div class="dropdown order-3 pe-md-5">
                     <button class="btn btn-secondary dropdown-toggle rounded-4" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <i class="bi bi-person-fill h5"></i>
                     </button>
-                    <ul class="dropdown-menu py-0 border-light-subtle" style="--bs-dropdown-min-width: 3rem; --bs-dropdown-link-hover-bg: #EBFDB8;">
-                        <li><a class="dropdown-item {% if request.path == login_url %}bg-secondary-subtle disabled{% endif %}" href="{{login_url}}?next={{request.path}}">Login</a></li>
-                        <li><a class="dropdown-item {% if request.path == register_url %}bg-secondary-subtle disabled{% endif %}" href="{{register_url}}">Register</a></li>
+                    <ul class="dropdown-menu p-2 border-light-subtle" style="--bs-dropdown-min-width: 3rem; --bs-dropdown-link-hover-bg: #EBFDB8;">
+                        <li><a class="dropdown-item rounded-2 {% if request.path == login_url %}bg-secondary-subtle disabled{% endif %}" href="{{login_url}}?next={{request.path}}">Login</a></li>
+                        <li><a class="dropdown-item rounded-2 {% if request.path == register_url %}bg-secondary-subtle disabled{% endif %}" href="{{register_url}}">Register</a></li>
                     </ul>
                 </div>
                 {% endif %}

@@ -6,7 +6,7 @@ body a {
 
 /* Navbar color */
 .navigation{
-    background-color: rgba(255, 255, 255, 0.20);
+    background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
 }
 

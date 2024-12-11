@@ -4,7 +4,7 @@
 {% block title %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock %}
 
 {% block content %}
-<section class="container-md mt-5 rounded-3 bg-blue position-relative text-white">
+<section class="container-md mt-5 rounded-4 bg-blue position-relative text-white">
     {% if request.user == profile.user %}
         <a href="{% url 'accounts:update_profile_view' %}" class="btn-lime position-absolute top-0 end-0 m-3 py-2"><i class="bi bi-pencil-square"></i></a>
     {% endif %}
@@ -23,7 +23,19 @@
         </div>
         <div class="profile mt-1 mt-sm-5 py-2 text-black">
             <div class="bg-gray p-3 rounded-4 w-100">
-                <p class="my-1"><span class="fw-medium">Bio: </span>{{profile.bio}}</p>
+                <p class="my-2"><span class="fw-medium">Bio: </span>{{profile.bio}}</p>
+                <p class="my-2">
+                    <span class="fw-medium">Skills: </span>
+                    {% for skill in profile.skills.all %}
+                    {{skill.name}}
+                    {% endfor %}
+                </p>
+                <p class="my-2">
+                    <span class="fw-medium">Skills Needed: </span>
+                    {% for skill in profile.skills_needed.all %}
+                    {{skill.name}}
+                    {% endfor %}
+                </p>
             </div>
         </div>
     </div>

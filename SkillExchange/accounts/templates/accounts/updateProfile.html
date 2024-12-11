@@ -32,6 +32,20 @@
                 <label for="bio" class="form-label fw-medium">Bio</label>
                 <textarea class="form-control focus-ring focus-ring-primary" id="bio" name="bio" rows="3">{{user.profile.bio}}</textarea>
             </div>
+            <p class="mb-1 fw-medium">Skills</p>
+            <div class="d-flex flex-wrap mb-3 gap-2">
+                {% for skill in skills %}
+                <input type="checkbox" class="btn-check" id="{{skill.id}}" name="skills" value="{{skill.id}}" autocomplete="off" {% if skill in user.profile.skills.all %}checked{% endif %}>
+                <label class="btn btn-outline-dark py-0 rounded-3" for="{{skill.id}}">{{skill.name}}</label>
+                {% endfor %}
+            </div>
+            <p class="mb-1 fw-medium">Skills Needed</p>
+            <div class="d-flex flex-wrap mb-3 gap-2">
+                {% for skill in skills %}
+                <input type="checkbox" class="btn-check" id="needed-{{skill.id}}" name="skills_needed" value="{{skill.id}}" autocomplete="off" {% if skill in user.profile.skills_needed.all %}checked{% endif %}>
+                <label class="btn btn-outline-dark py-0 rounded-3" for="needed-{{skill.id}}">{{skill.name}}</label>
+                {% endfor %}
+            </div>
             <div class="mb-3 d-flex gap-3 align-items-end">
                 <img src="{{user.profile.pfp.url}}" id="preview" class="preview rounded-3 shadow-sm" alt="Preview">
                 <div class="flex-fill">

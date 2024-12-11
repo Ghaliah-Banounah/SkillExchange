@@ -4,11 +4,16 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Profile
+from .forms import ProfileForm
 from django.db import transaction, IntegrityError
+from skills.models import Skill
 
 # Create new account View
 def register_view(request:HttpRequest):
- 
+    
+    skills = Skill.objects.all()
+    profile_form = ProfileForm()
+
     if request.method == "POST":
         try:
             with transaction.atomic():
@@ -16,8 +21,12 @@ def register_view(request:HttpRequest):
                 new_user.save()
 
                 # Create profile
-                profile = Profile(user=new_user, bio=request.POST['bio'], pfp=request.FILES.get('pfp', Profile.pfp.field.get_default()), linkedin_url=request.POST['linkedin_url'], phone=request.POST['phone'])
-                profile.save()
+                new_profile = Profile(user=new_user)
+                profile_form = ProfileForm(request.POST, request.FILES, instance=new_profile)
+                if profile_form.is_valid():
+                    profile_form.save()
+                else:
+                    raise Exception(profile_form.errors.as_data())
 
             messages.success(request, "Register successfull.", "alert-success")   
             return redirect('accounts:login_view')
@@ -25,9 +34,9 @@ def register_view(request:HttpRequest):
         except IntegrityError:
             messages.warning(request, "The username is already taken. Please choose another one.", "alert-warning")
         except Exception as e:
-            messages.error(request, f"Register failed. Try again", "alert-danger")    
+            messages.error(request, f"{e} Register failed. Try again", "alert-danger")    
 
-    return render(request, 'accounts/register.html')
+    return render(request, 'accounts/register.html', {'skills': skills})
 
 # Login to existing account View
 def login_view(request:HttpRequest):
@@ -72,6 +81,7 @@ def update_profile_view(request: HttpRequest):
         messages.warning(request, "Login to update your account.", "alert-warning")
         return redirect('accounts:login_view')
     
+    skills = Skill.objects.all()
     if request.method == 'POST':
         try:
             user:User = request.user
@@ -84,16 +94,16 @@ def update_profile_view(request: HttpRequest):
                 user.save()
                 
                 # Update user profile
-                profile.bio=request.POST['bio']
-                profile.pfp=request.FILES.get('pfp', profile.pfp)
-                profile.linkedin_url=request.POST['linkedin_url']
-                profile.phone=request.POST['phone']
-                profile.save()
+                profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
+                if profile_form.is_valid():
+                    profile_form.save()
+                else:
+                    raise Exception(profile_form.errors.as_data())
 
             messages.success(request, "Profile updated successfully.", "alert-success")
             return redirect('accounts:profile_view', user.username)
         
         except Exception as e:
-            messages.error(request, f"Profile wasn't updated.", "alert-danger")
+            messages.error(request, f"{e} Profile wasn't updated.", "alert-danger")
 
-    return render(request, 'accounts/updateProfile.html')
+    return render(request, 'accounts/updateProfile.html', {'skills': skills})

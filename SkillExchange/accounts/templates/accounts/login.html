@@ -11,7 +11,7 @@
 
     <!-- Login form -->
     <div class="d-flex justify-content-center">
-        <form action="{% url 'accounts:login_view' %}{% if 'next' in request.GET %}?next={{request.GET.next}}{% endif %}" method="post" enctype="multipart/form-data" class="text-start bg-lime p-4 rounded-1 shadow-sm needs-validation form-width" novalidate>
+        <form action="{% url 'accounts:login_view' %}{% if 'next' in request.GET %}?next={{request.GET.next}}{% endif %}" method="post" enctype="multipart/form-data" class="text-start bg-lime p-4 rounded-4 shadow-sm needs-validation form-width" novalidate>
             {% csrf_token %}
             <div class="mb-3">
                 <label for="username" class="form-label fw-medium">Username</label>

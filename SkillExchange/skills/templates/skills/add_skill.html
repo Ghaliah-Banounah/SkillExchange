@@ -1,116 +1,53 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
 {% block title %}Add New Skill{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h4 class="text-center mb-4" style="font-size: 2rem; font-weight: bold; color: #4a4a4a;">
-        <span style="font-size: 2.5rem; font-weight: bold;">
-        </span>Add New Skill
-    </h4>
+    <h1 class="m-5 mx-auto title">
+        Add New Skill
+    </h1>
     <div class="d-flex justify-content-center">
-        <form method="POST" enctype="multipart/form-data" class="bg-lime p-4 w-50">
+        <form method="POST" enctype="multipart/form-data" class="bg-lime p-4 rounded-4 shadow-sm form-width needs-validation" novalidate>
             {% csrf_token %}
-            
-            <div class="form-group mb-4">
-                <label for="id_name" class="font-weight-bold">Skill Name</label>
-                <input type="text" name="name" id="id_name" class="form-control" value="{{ form.name.value|default:'' }}" style="background-color: #f8f9fa; border: 1px solid #dfe2e5;">
-            </div>
 
-            <div class="form-group mb-4">
-                <label for="id_description" class="font-weight-bold">Skill Description</label>
-                <textarea name="description" id="id_description" class="form-control" rows="4" style="background-color: #f8f9fa; border: 1px solid #dfe2e5; resize: none;">{{ form.description.value|default:'' }}</textarea>
-            </div>
-
-            <div class="form-group mb-4">
-                <label for="id_image" class="font-weight-bold">Skill Image</label>
-                <div class="custom-file">
-                    <input type="file" name="image" id="id_image" class="custom-file-input" onchange="updateFileName()">
-                    <label for="id_image" class="custom-file-label mt-2" id="fileLabel">Choose an image</label>
+            <div class="mb-3">
+                <label for="id_name" class="form-label fw-medium">Skill Name</label>
+                <input type="text" name="name" id="id_name" class="form-control"
+                    value="{{ form.name.value|default:'' }}" required>
+                <div class="invalid-feedback">
+                    Please enter a valid skill name.
                 </div>
             </div>
 
-            <div class="d-flex justify-content-center mb-4">
-                <button type="submit" class="btn-blue px-4 py-2">Add Skill</button>
+            <div class="mb-3">
+                <label for="id_description" class="form-label fw-medium">Skill Description</label>
+                <textarea name="description" id="id_description" class="form-control"
+                    rows="4" required>{{ form.description.value|default:'' }}</textarea>
+                <div class="invalid-feedback">
+                    Please enter a valid skill description.
+                </div>
             </div>
-            <div class="d-flex justify-content-center mt-4">
-                <a href="{% url 'skills:skills_list' %}" class="btn-blue px-4 py-2">
-                    Back to Skills List
+            <div class="mb-3 d-flex gap-3 align-items-end">
+                <img src="{% static 'images/white.png' %}" id="preview" class="preview rounded-3 shadow-sm"
+                    alt="Preview">
+                <div class="flex-fill">
+                    <label for="image" class="form-label fw-medium">Skill Picture</label>
+                    <input class="form-control focus-ring focus-ring-primary" type="file" id="image" name="image"
+                        onchange="previewImage(event)" accept="image/*" required>
+                    <div class="invalid-feedback">
+                        Please choose a skill image.
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-5 gap-2">
+                <a href="{% url 'skills:skills_list' %}" class="btn-gray text-center w-25">
+                    Cancel
                 </a>
+                <button type="submit" class="btn-blue w-25">Add Skill</button>
             </div>
         </form>
     </div>
 
-    <!-- <div class="card" style="border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); max-width: 700px; margin: 0 auto;">
-        <div class="card-body">
-            {% if messages %}
-                <ul class="alert alert-warning">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            <form method="POST" enctype="multipart/form-data" class="bg-lime">
-                {% csrf_token %}
-                
-                <div class="form-group mb-4">
-                    <label for="id_name" class="font-weight-bold">Skill Name</label>
-                    <input type="text" name="name" id="id_name" class="form-control" value="{{ form.name.value|default:'' }}" style="background-color: #f8f9fa; border: 1px solid #dfe2e5;">
-                </div>
-
-                <div class="form-group mb-4">
-                    <label for="id_description" class="font-weight-bold">Skill Description</label>
-                    <textarea name="description" id="id_description" class="form-control" rows="4" style="background-color: #f8f9fa; border: 1px solid #dfe2e5; resize: none;">{{ form.description.value|default:'' }}</textarea>
-                </div>
-
-                <div class="form-group mb-4">
-                    <label for="id_image" class="font-weight-bold">Skill Image</label>
-                    <div class="custom-file">
-                        <input type="file" name="image" id="id_image" class="custom-file-input" onchange="updateFileName()">
-                        <label for="id_image" class="custom-file-label mt-2" id="fileLabel">Choose an image</label>
-                    </div>
-                </div>
-
-                <div class="d-flex justify-content-center mb-4">
-                    <button type="submit" class="btn-lime" style="border-radius: 25px; height: 45px; width: 200px; font-size: 1rem;">Add Skill</button>
-                </div>
-                <div class="d-flex justify-content-center mt-4">
-                    <a href="{% url 'skills:skills_list' %}" class="btn-blue" style="border-radius: 25px; height: 45px; width: 200px; display: flex; justify-content: center; align-items: center;">
-                        Back to Skills List
-                    </a>
-                </div>
-            </form>
-        </div>
-    </div>
-</div> -->
-
-<style>
-    .custom-file-input {
-        display: none;
-    }
-
-    .custom-file-label {
-        display: inline-block;
-        background-color: #7A98E9;
-        color: white;
-        padding: 8px 20px;
-        border-radius: 25px;
-        cursor: pointer;
-        font-weight: 600;
-    }
-
-    .custom-file-label:hover {
-        background-color: #6986d5;
-    }
-</style>
-
-<script>
-    function updateFileName() {
-        var fileInput = document.getElementById('id_image');
-        var fileName = fileInput.files[0] ? fileInput.files[0].name : "Choose an image";
-        var fileLabel = document.getElementById('fileLabel');
-        fileLabel.textContent = fileName;
-    }
-</script>
-
-{% endblock %}
+    {% endblock %}

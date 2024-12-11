@@ -84,6 +84,32 @@ body a {
   transform: translateY(0px);
 }
 
+.btn-gray {
+    display: block;
+    padding: 0.3rem 1rem;
+    align-items: center;
+    background-color: #a6a8af;
+    border: 1px solid transparent;
+    color: white;
+    border-radius: .3rem;
+    cursor: pointer;
+    justify-content: center;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    width: auto;
+}
+
+.btn-gray:hover {
+  background-color: #9698a0;
+  transform: translateY(-1px);
+}
+
+.btn-gray:active {
+  background-color: #81838a;
+  transform: translateY(0px);
+}
+
 /* Forms width */
 @media only screen and (min-width: 600px) {
     .form-width {

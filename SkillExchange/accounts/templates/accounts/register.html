@@ -10,7 +10,7 @@
     </h1>
     <!-- Register form -->
     <div class="d-flex justify-content-center">
-        <form action="{% url 'accounts:register_view' %}" method="post" enctype="multipart/form-data" class="text-start p-4 shadow-sm bg-lime needs-validation form-width" novalidate>
+        <form action="{% url 'accounts:register_view' %}" method="post" enctype="multipart/form-data" class="text-start p-4 rounded-4 shadow-sm bg-lime needs-validation form-width" novalidate>
             {% csrf_token %}
             <div class="mb-3 d-flex flex-row gap-2">
                 <div class="flex-fill">

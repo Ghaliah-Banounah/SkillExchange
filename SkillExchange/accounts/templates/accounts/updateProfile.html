@@ -10,7 +10,7 @@
     </h1>
     <!-- Update profile form -->
     <div class="d-flex justify-content-center">
-        <form action="{% url 'accounts:update_profile_view' %}" method="post" enctype="multipart/form-data" class="text-start p-4 shadow-sm bg-lime needs-validation form-width" novalidate>
+        <form action="{% url 'accounts:update_profile_view' %}" method="post" enctype="multipart/form-data" class="text-start p-4 rounded-4 shadow-sm bg-lime needs-validation form-width" novalidate>
             {% csrf_token %}
             <div class="mb-3 d-flex flex-row gap-2">
                 <div class="flex-fill">
@@ -69,8 +69,11 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center">
-                <button class="w-50 btn-blue" type="submit">
+            <div class="d-flex justify-content-center gap-2">
+                <a href="{% url 'accounts:profile_view' user.username %}" class="btn-gray text-center w-25">
+                    Cancel
+                </a>
+                <button class="btn-blue w-25" type="submit">
                     Update
                 </button>
             </div>

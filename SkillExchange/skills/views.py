@@ -9,11 +9,10 @@ def skills_list(request):
     search_query = request.GET.get('search', '')
     if search_query:
         skills_list = Skill.objects.filter(name__icontains=search_query)
-        if not skills_list:
-            messages.info(request, 'No results found')
+
     else:
         skills_list = Skill.objects.all()
-
+        
     paginator = Paginator(skills_list, 9)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -41,7 +40,7 @@ def edit_skill(request, skill_id):
         form = SkillForm(request.POST, request.FILES, instance=skill)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Skill updated successfully')
+            messages.success(request, 'Skill updated successfully' , 'alert-primary')
             return redirect('skills:skills_list')
     else:
         form = SkillForm(instance=skill)
@@ -52,7 +51,7 @@ def delete_skill(request, skill_id):
     skill = get_object_or_404(Skill, id=skill_id)
     if request.method == 'POST':
         skill.delete()
-        messages.success(request, 'Skill deleted successfully.')
+        messages.success(request, 'Skill deleted successfully.', 'alert-danger')
         return redirect('skills:skills_list')  
     else:
         return render(request, 'skills/skill_detail.html', {'skill': skill})

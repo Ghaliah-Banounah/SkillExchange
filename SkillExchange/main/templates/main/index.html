@@ -101,7 +101,7 @@
 }
 
 .bi-lightbulb{
-    color: #7a98e9 ;
+  color: #7a98e9 ;
 }
 
 
@@ -188,95 +188,151 @@
   
 }
 
-.section-3-text {
-    align-items: center;
-
-}
-
 .section-3-text h1 {
   font-size: 64px;
   margin-bottom: 50px;
 
 }
 
-.section-3-text .container-link {
-    font-size: 14px;
+.card-exchanger {
+  position: relative;
+  display: block;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 15px;
+  border: none;
+  background-color: #F6F6F6;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  height: 300px;
+  margin: auto;
 }
 
-.card-exchanger {
-  overflow: hidden;
-  border: none;
-  border-radius: 15px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  max-width: 450px;
-  margin: 0 auto;
+.card-exchanger.expanded {
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 300x;
+  padding: 10px;
 }
 
 .card-image {
   position: relative;
-  overflow: hidden;
+  flex: none;
+  width: 100%;
+  height: auto;
+  transition: all 0.3s ease;
 }
 
 .card-image img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+  object-position: top;
   transition: transform 0.3s ease;
 }
 
-.card-image .icon-plus {
+.card-image .icon-toggle {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 50px;
-  height: 50px;
-  background-color: rgba(255, 255, 255, 0.8);
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: #000;
   cursor: pointer;
   z-index: 1;
 }
 
+
 .card-info {
-  background-color: #fff;
-  padding: 30px;
-  display: none;
-  height: 0;
+  flex: 1;
+  padding: 15px;
+  text-align: left;
   opacity: 0;
+  transform: translateY(20px);
   transition: all 0.3s ease;
 }
 
-.card-exchanger.expanded .card-image img {
-  transform: scale(0.7);
+.card-header h5 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.card-header p {
+  font-size: 1rem;
+  color: #888;
+}
+
+.card-details {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-top: 10px;
+}
+
+.card-link {
+  color: #A09E9E;
+  text-decoration: underline;
+}
+
+.card-link:hover {
+  color: #CDE685;
+  text-decoration: underline;
+}
+
+.card-exchanger.expanded .card-image {
+  flex: none;
+  bottom: 8px;
+  right: 20px;
+  width: 200px;
+  height: 120px;
+  transform: scale(0.8);
 }
 
 .card-exchanger.expanded .card-info {
-  display: block;
-  height: auto;
   opacity: 1;
+  transform: translateY(0);
+}
+
+/* Icon Toggle Content */
+.card-exchanger .icon-toggle:after {
+  content: '+';
+  font-size: 1.2rem;
+  color: #000;
+}
+
+.card-exchanger.expanded .icon-toggle:after {
+  content: '-';
+  color: #000;
 }
 
 
-.card-info h5 {
-  font-size: 1.8rem; 
-  font-weight: bold;
+/* Section 4 */
+
+.section-4 {
+   margin-top: 200px;
+  
 }
 
-.card-info p {
-  font-size: 1.2rem; 
-  line-height: 1.8; 
+.section-4-text h1 {
+  font-size: 64px;
+  margin-bottom: 20px;
+  margin-top: 50px;
+
 }
 
-.card-info a {
-  font-size: 1.2rem; 
-  color: #007bff;
-  text-decoration: none;
-  font-weight: bold;
+.section-4-second-text h1 {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.review-button .bi-arrow-down-right{
+  font-size: 2rem;
 }
 
 </style>
@@ -296,8 +352,8 @@
             Discover a community where you can exchange skills, connect with others, and grow<br>
             —all for free</h5>
             <div class="main-links">
-                <a href="" class="btn-lime-main">Start Exchanging</a>
-                <a href="" class="btn-blue-main"><i class="bi bi-lightbulb me-2"></i>Explore Skills</a>
+                <a href="{}" class="btn-lime-main">Start Exchanging</a>
+                <a href="{}" class="btn-blue-main"><i class="bi bi-lightbulb me-2"></i>Explore Skills</a>
             </div>
     </div>
 
@@ -305,7 +361,7 @@
 
 <!--Section 2-->
 
-<section class="section-2">
+<section class="section-2" id="about">
     <div class="container text-center">
         <div class="section-2-text text-start">
             <h1>Why <span class="bg-blue p-1 rounded-3">Us</span> ?</h1>
@@ -366,44 +422,72 @@
     <div class="container text-center">
         <div class="section-3-text text-start d-flex justify-content-between align-items-center">
             <h1>Explore Our <span class="bg-lime p-2 rounded-4">Top Exchangers</span></h1>
-            <a href="#" class="bg-lime py-2 px-4 rounded-pill">See All</a>
+            <a href="#" class="bg-lime py-1 px-3 rounded-pill small">See All</a>
         </div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4">
             <!-- Card 1 -->
              <div class="col mb-4">
-                <div class="card card-exchanger position-relative">
-                    <div class="card-image">
-                        <img src="{% static 'images/exchanger 1.jpg' %}" class="img-fluid" alt="Exchanger 1">
-                        <div class="icon-plus" onclick="toggleCard(this)">+</div>
-                    </div>
-                    <div class="card-info">
-                        <h5>Khalid Al........</h5>
-                        <p class="text-muted">Web Developer</p>
-                        <p>Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills</p>
-                        <a href="#" class="text-primary">View Profile</a>
-                    </div>
+                <div class="card card-exchanger">
+                        <div class="card-image">
+                            <img src="{% static 'images/exchanger 1.jpg' %}" class="img-fluid" alt="Exchanger 1">
+                            <div class="icon-toggle" onclick="toggleCard(this)"></div>
+                        </div>
+                        <div class="card-info">
+                          <div class="header-info ">
+                            <h5>Khalid Al........</h5>
+                            <p class="text-muted">Web Developer</p>
+                          </div>
+                          <div class="card-details">
+                            <p>Skills: HTML, CSS, JavaScript, Python, etc.</p>
+                            <a href="{}" class="card-link">View Profile</a>
+                          </div>
+                        </div>
                 </div>
-            </div>
-            <!-- Card 2 -->
+              </div>
+            <!-- Card 1 -->
              <div class="col mb-4">
-                <div class="card card-exchanger position-relative">
-                    <div class="card-image">
-                        <img src="{% static 'images/exchanger 1.jpg' %}" class="img-fluid" alt="Exchanger 2">
-                        <div class="icon-plus" onclick="toggleCard(this)">+</div>
-                    </div>
-                    <div class="card-info">
-                        <h5>Fatima Y........</h5>
-                        <p class="text-muted">Graphic Designer</p>
-                        <p>Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills</p>
-                        <a href="#" class="text-primary">View Profile</a>
-                    </div>
+              <div class="card card-exchanger">
+                <div class="card-image">
+                  <img src="{% static 'images/exchanger 3.jpg' %}" class="img-fluid" alt="Exchanger 1">
+                  <div class="icon-toggle" onclick="toggleCard(this)"></div>
                 </div>
-            </div>
-            <!-- Too add more cards -->
+                <div class="card-info w-100">
+                  <div class="header-info ">
+                    <h5>Khalid Al........</h5>
+                    <p class="text-muted">Web Developer</p>
+                  </div>
+                  <div class="card-details">
+                    <p>Skills: HTML, CSS, JavaScript, Python, etc.</p>
+                    <a href="{}" class="card-link">View Profile</a>
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
     </div>
 </section>
+
+<!--Section 4-->
+
+<section class="section-4 bg-lime">
+  <div class="container text-center">
+      <div class="section-4-text text-start d-flex align-items-center">
+        <h1>Click to Explore What</h1>
+      </div>
+      <div class="section-4-second-text text-start d-flex align-items-center">
+        <h1><span class="bg-gray px-2 py-1 rounded-4">Our Users</span> Thinks</h1>
+      </div>
+
+      <div class="review-button">
+        <i class="bi bi-arrow-down-right me-3 bg-gray p-4 rounded-circle"></i>
+      </div>
+
+      <div class="view-cards">
+        <i class="bi bi-arrow-down-right me-3 bg-gray p-4 rounded-circle"></i>
+      </div>
+  </div>
+</section>
+  
 
 
 
@@ -440,26 +524,10 @@
   </script>
 
 <script>
-    function toggleCard(element) {
-  const card = element.closest('.card-exchanger');
-  const info = card.querySelector('.card-info');
-  const image = card.querySelector('.card-image img');
-  const button = card.querySelector('.icon-plus');
-
-  if (!card.classList.contains('expanded')) {
-    // Shrink and move the card
-    card.classList.add('expanded');
-    image.style.transform = 'scale(0.5) translate(-50%, -50%)';
-    info.style.display = 'block';
-    button.style.display = 'none';
-  } else {
-    // Reset to original state
-    card.classList.remove('expanded');
-    image.style.transform = 'scale(1) translate(0, 0)';
-    info.style.display = 'none';
-    button.style.display = 'flex';
-  }
-}
-  </script>
+function toggleCard(element) {
+    const card = element.closest('.card-exchanger');
+    card.classList.toggle('expanded');
+    }
+</script>
 
 {% endblock %}

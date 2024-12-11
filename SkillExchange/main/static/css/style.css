@@ -1,10 +1,15 @@
 body a {
-  text-decoration: none;
-  color: black;
+    text-decoration: none;
+    color: #45474d;
+    transition: all 0.3s;
+}
+
+.hover-links:hover {
+    color: #b2c972;
 }
 
 /* Navbar color */
-.navigation{
+.navigation {
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
 }
@@ -49,13 +54,13 @@ body a {
 }
 
 .btn-lime:hover {
-  background-color: #d0e596;
-  transform: translateY(-1px);
+    background-color: #d0e596;
+    transform: translateY(-1px);
 }
 
 .btn-lime:active {
-  background-color: #b2c972;
-  transform: translateY(0px);
+    background-color: #b2c972;
+    transform: translateY(0px);
 }
 
 .btn-blue {
@@ -75,13 +80,13 @@ body a {
 }
 
 .btn-blue:hover {
-  background-color: #6986d5;
-  transform: translateY(-1px);
+    background-color: #6986d5;
+    transform: translateY(-1px);
 }
 
 .btn-blue:active {
-  background-color: #5570bc;
-  transform: translateY(0px);
+    background-color: #5570bc;
+    transform: translateY(0px);
 }
 
 .btn-gray {
@@ -101,36 +106,36 @@ body a {
 }
 
 .btn-gray:hover {
-  background-color: #9698a0;
-  transform: translateY(-1px);
+    background-color: #9698a0;
+    transform: translateY(-1px);
 }
 
 .btn-gray:active {
-  background-color: #81838a;
-  transform: translateY(0px);
+    background-color: #81838a;
+    transform: translateY(0px);
 }
 
 /* Forms width */
 @media only screen and (min-width: 600px) {
-    .form-width {
+    .custom-width {
         width: 100%;
     }
 }
 
 @media only screen and (min-width: 768px) {
-    .form-width {
+    .custom-width {
         width: 90%;
     }
 }
 
 @media only screen and (min-width: 992px) {
-    .form-width {
+    .custom-width {
         width: 80%;
     }
 }
 
 @media only screen and (min-width: 1200px) {
-    .form-width {
+    .custom-width {
         width: 60%;
     }
 }
@@ -139,12 +144,6 @@ body a {
 .preview {
     height: 100px;
     width: 100px;
-    object-fit: cover;
-}
-
-.pfp {
-    max-height: 200px;
-    aspect-ratio: 3/2;
     object-fit: cover;
 }
 
@@ -164,7 +163,7 @@ body a {
     position: absolute;
     content: '';
     display: block;
-    padding:.7em .88em;
+    padding: .7em .88em;
     background: #7A98E9;
     z-index: -1;
     left: -0.5em;
@@ -181,7 +180,7 @@ body a {
         "two";
 }
 
-@media screen and (min-width: 36em) {
+@media screen and (min-width: 576px) {
     .profile-grid {
         grid-template-areas:
             "one two";
@@ -210,3 +209,24 @@ body a {
     grid-area: two;
 }
 
+.pfp {
+    max-height: 195px;
+    aspect-ratio: 3/2;
+    object-fit: cover;
+}
+
+@media screen and (min-width: 665px) {
+    .pfp {
+        max-height: 230px;
+        aspect-ratio: 3/2;
+        object-fit: cover;
+    }
+}
+
+@media screen and (min-width: 54em) {
+    .pfp {
+        max-height: 250px;
+        aspect-ratio: 3/2;
+        object-fit: cover;
+    }
+}

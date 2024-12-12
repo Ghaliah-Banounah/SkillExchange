@@ -6,9 +6,11 @@
 {% block content %}
 <section class="container-lg mt-5 rounded-4 bg-blue position-relative text-white">
     {% if request.user == profile.user %}
-        <a href="{% url 'accounts:update_profile_view' %}" class="btn-lime position-absolute top-0 end-0 mt-3 me-5 py-2"><i class="bi bi-pencil-square"></i></a>
+    <a href="{% url 'accounts:update_profile_view' %}" class="btn-lime position-absolute top-0 end-0 mt-3 me-5 py-2"><i
+            class="bi bi-pencil-square"></i></a>
     {% endif %}
     <div class="profile-grid px-4">
+        <!-- pfp and contact information -->
         <div class="profile mt-5 py-2">
             <img src="{{profile.pfp.url}}" class="pfp rounded-4 mx-auto" alt="Profile picture">
             <div class="d-flex flex-column p-3 mx-auto">
@@ -23,26 +25,61 @@
             </div>
         </div>
         <div class="profile mt-1 mt-sm-5 py-2 text-black">
+            <!-- Profile details -->
             <div class="bg-gray mb-4 p-3 rounded-4 w-100">
                 <p class="my-2"><span class="fw-medium">Bio: </span>{{profile.bio}}</p>
                 <p class="my-2">
                     <span class="fw-medium">Skills: </span>
                     {% for skill in profile.skills.all %}
-                    {{skill.name}}, 
+                    <a href="{% url 'skills:skill_detail' skill.id %}" class="a-blue-hover">{{skill.name}}</a>,
                     {% endfor %}
                 </p>
                 <p class="my-2">
                     <span class="fw-medium">Skills Needed: </span>
                     {% for skill in profile.skills_needed.all %}
-                    {{skill.name}}, 
+                    <a href="{% url 'skills:skill_detail' skill.id %}" class="a-blue-hover">{{skill.name}}</a>,
                     {% endfor %}
                 </p>
             </div>
-            <div class="bg-gray p-3 rounded-4 w-100">
-                <p class="my-2"><span class="fw-medium">Bio: </span>{{profile.bio}}</p>
-                
+            <!-- Requests and Exchangers list -->
+            <div class="bg-gray rounded-4 w-100 organization-profile-container">
+                <!-- Profile Header -->
+                <div class="profile-header">
+                    <!-- Tabs Navigation -->
+                    <nav class="tabs-navigation">
+                        <button class="tab-button active" data-tab="sent">Sent Requests</button>
+                        <button class="tab-button" data-tab="received">Received Requests</button>
+                        <button class="tab-button" data-tab="current">Current Exchanges</button>
+                    </nav>
+
+                    <!-- Tabs Content -->
+                    <div class="tabs-content py-2">
+                        <!-- Sent Requests Section -->
+                        <section id="sent" class="tab-content active">
+                        
+                        </section>
+
+                        <!-- Received Requests Section -->
+                        <section id="received" class="tab-content">
+                            
+                        </section>
+
+                        <!-- Current Exchanges Section -->
+                        <section id="current" class="tab-content">
+                            
+                        </section>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Reviews section -->
+<section class="container-lg px-3">
+    <h1 class="title">
+        Reviews:
+    </h1>
+</section>
+
 {% endblock %}

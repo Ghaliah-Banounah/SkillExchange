@@ -1,0 +1,26 @@
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-gap-4">
+    <!-- Exchangers loop here -->
+    {% for exchanger in exchangers %}
+    <div class="col">
+        <div class="card_exchangers">
+            <img src="{{exchanger.profile.pfp.url}}" class="image-exchangers"
+                alt="Profile Image">
+            <div class="rating">
+                <span class="rating-number">2</span>
+                <span class="star">&#9733;</span>
+            </div>
+            <div class="card-inner">
+                <a href="" class="fs-5 fw-medium">{{exchanger.first_name}} {{exchanger.last_name}}</a>
+                <p><span class="fw-medium">Skills: </span> 
+                    {% for skill in exchanger.profile.skills.all %}
+                    <a href="{% url 'skills:skill_detail' skill.id %}" class="a-blue-hover">{{skill.name}}</a>,
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="d-flex position-absolute bottom-0 end-0 m-2">
+                <a href="{% url 'accounts:profile_view' exchanger.username %}" class="btn-lime shadow-sm p-2 rounded-4 text-center"><i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

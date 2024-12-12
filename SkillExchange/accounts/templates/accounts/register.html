@@ -10,7 +10,7 @@
     </h1>
     <!-- Register form -->
     <div class="d-flex justify-content-center">
-        <form action="{% url 'accounts:register_view' %}" method="post" enctype="multipart/form-data" class="text-start p-4 rounded-4 shadow-sm bg-lime needs-validation form-width" novalidate>
+        <form action="{% url 'accounts:register_view' %}" method="post" enctype="multipart/form-data" class="text-start p-4 rounded-4 shadow-sm bg-lime needs-validation custom-width" novalidate>
             {% csrf_token %}
             <div class="mb-3 d-flex flex-row gap-2">
                 <div class="flex-fill">
@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="password" class="form-label fw-medium">Password</label>
                 <div class="input-group has-validation">
                     <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-key"></i></span>
@@ -103,7 +103,8 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center">
+            <a href="{% url 'accounts:login_view' %}" class="text-decoration-underline a-blue-hover">Already have an account?</a>
+            <div class="d-flex justify-content-center mt-3">
                 <button class="w-50 btn-blue" type="submit">
                     Register
                 </button>

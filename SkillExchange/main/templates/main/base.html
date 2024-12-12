@@ -26,6 +26,7 @@
 
                 {% url 'main:home_view' as home_url %}
                 {% url 'skills:skills_list' as skills_url %}
+                {% url 'exchangers:display_exchangers_view' as exchangers_url %}
 
                 <!-- Brand name -->
                 <a class="text-center px-4 navbar-brand" href="{{home_url}}">
@@ -43,16 +44,16 @@
                     <!-- Links -->
                     <ul class="navbar-nav align-items-center gap-4">
                         <li class="nav-item">
-                            <a href="{{home_url}}#about" class="hover-links fw-medium">About</a>
+                            <a href="{{home_url}}#about" class="a-lime-hover fw-medium">About</a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="hover-links fw-medium">Exchangers</a>
+                            <a href="{{exchangers_url}}" class="a-lime-hover fw-medium">Exchangers</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{skills_url}}" class="hover-links fw-medium">Skills</a>
+                            <a href="{{skills_url}}" class="a-lime-hover fw-medium">Skills</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{home_url}}#contact" class="hover-links fw-medium">Contact</a>
+                            <a href="{{home_url}}#contact" class="a-lime-hover fw-medium">Contact</a>
                         </li>
                     </ul>
                 </div>

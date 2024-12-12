@@ -1,11 +1,15 @@
 body a {
     text-decoration: none;
-    color: #45474d;
+    color: #3c3e44;
     transition: all 0.3s;
 }
 
-.hover-links:hover {
+.a-lime-hover:hover {
     color: #b2c972;
+}
+
+.a-blue-hover:hover {
+    color: #527bea;
 }
 
 /* Navbar color */
@@ -50,7 +54,6 @@ body a {
     transition: all 250ms;
     user-select: none;
     -webkit-user-select: none;
-    width: auto;
 }
 
 .btn-lime:hover {
@@ -76,7 +79,6 @@ body a {
     transition: all 250ms;
     user-select: none;
     -webkit-user-select: none;
-    width: auto;
 }
 
 .btn-blue:hover {
@@ -102,7 +104,6 @@ body a {
     transition: all 250ms;
     user-select: none;
     -webkit-user-select: none;
-    width: auto;
 }
 
 .btn-gray:hover {
@@ -115,7 +116,7 @@ body a {
     transform: translateY(0px);
 }
 
-/* Forms width */
+/* Custom width */
 @media only screen and (min-width: 600px) {
     .custom-width {
         width: 100%;
@@ -213,6 +214,7 @@ body a {
     max-height: 195px;
     aspect-ratio: 3/2;
     object-fit: cover;
+    object-position: top;
 }
 
 @media screen and (min-width: 665px) {
@@ -220,6 +222,7 @@ body a {
         max-height: 230px;
         aspect-ratio: 3/2;
         object-fit: cover;
+        object-position: top;
     }
 }
 
@@ -228,5 +231,84 @@ body a {
         max-height: 250px;
         aspect-ratio: 3/2;
         object-fit: cover;
+        object-position: top;
     }
+}
+
+/* Tabs section in profile */
+.tabs-navigation {
+    display: flex;
+}
+
+.tab-button {
+    padding: 0.3rem 1rem;
+    border: none;
+    color: #333;
+    background-color: #F6F6F6;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 1rem 1rem 0 0;
+    transition: background-color 0.3s ease;
+}
+
+.tab-button.active {
+    background-color: #ddf894;
+    font-weight: 600;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content.active p {
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Exchangers */
+.card_exchangers {
+    position: relative;
+    height: 350px;
+    border-radius: 1rem;
+    background-color: #F6F6F6;
+    padding-bottom: 0.1rem;
+}
+
+.card-inner {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    padding: 1rem;
+}
+
+.image-exchangers {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 1rem 1rem 0 0;
+} 
+
+.rating {
+    position: absolute;
+    top: 3px;
+    right: 15px;
+    display: flex;
+    align-items: end;
+    gap: 5px;
+    color: #EBFDB8;
+    text-shadow: 0 0 5px #56585f6f;
+}
+
+.star {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.rating-number {
+    font-size: 1.2rem;
 }

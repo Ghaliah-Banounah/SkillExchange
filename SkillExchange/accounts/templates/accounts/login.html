@@ -11,7 +11,7 @@
 
     <!-- Login form -->
     <div class="d-flex justify-content-center">
-        <form action="{% url 'accounts:login_view' %}{% if 'next' in request.GET %}?next={{request.GET.next}}{% endif %}" method="post" enctype="multipart/form-data" class="text-start bg-lime p-4 rounded-4 shadow-sm needs-validation form-width" novalidate>
+        <form action="{% url 'accounts:login_view' %}{% if 'next' in request.GET %}?next={{request.GET.next}}{% endif %}" method="post" enctype="multipart/form-data" class="text-start bg-lime p-4 rounded-4 shadow-sm needs-validation custom-width" novalidate>
             {% csrf_token %}
             <div class="mb-3">
                 <label for="username" class="form-label fw-medium">Username</label>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="password" class="form-label fw-medium">Password</label>
                 <div class="input-group has-validation">
                     <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-key"></i></span>
@@ -33,7 +33,8 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center">
+            <a href="{% url 'accounts:register_view' %}" class="text-decoration-underline a-blue-hover">Don't have an account?</a>
+            <div class="d-flex justify-content-center mt-3">
                 <button class="w-50 btn-blue" type="submit">
                     Login
                 </button>

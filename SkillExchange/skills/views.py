@@ -2,7 +2,10 @@ from django.shortcuts import render , redirect ,  get_object_or_404
 from .forms import SkillForm
 from .models import Skill
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+from django.db.models import Q, Count
+from accounts.models import Profile
 
 # Create your views here.
 def skills_list(request):
@@ -12,7 +15,9 @@ def skills_list(request):
 
     else:
         skills_list = Skill.objects.all()
-        
+    
+    skills_list = skills_list.annotate(exchangers_count=Count("skills"))
+
     paginator = Paginator(skills_list, 9)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -31,8 +36,11 @@ def add_skill(request):
     return render(request, 'skills/add_skill.html', {'form': form})
 
 def skill_detail(request, skill_id):
+    
     skill = get_object_or_404(Skill, id=skill_id)
-    return render(request, 'skills/skill_detail.html', {'skill': skill})
+    exchangers = User.objects.filter(profile__skills__id=skill.id)[0:3]
+
+    return render(request, 'skills/skill_detail.html', {'skill': skill, 'skill_exchangers': exchangers})
 
 def edit_skill(request, skill_id):
     skill = get_object_or_404(Skill, id=skill_id)

@@ -4,12 +4,22 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from .models import Exchanger, Request
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 # Display exchangers
 def display_exchangers_view(request: HttpRequest):
-    
-    exchangers = User.objects.all()
-    return render(request, 'exchangers/display_exchangers.html', {'exchangers': exchangers})
+
+    search_query = request.GET.get('search', '')
+    if search_query:
+        exchangers = User.objects.filter(Q(first_name__icontains=search_query) | Q(last_name__icontains=search_query))
+    else:
+        exchangers = User.objects.all()
+
+    paginator = Paginator(exchangers, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'exchangers/display_exchangers.html', {'exchangers': page_obj})
 
 # Send request View
 def send_request_view(request: HttpRequest, sender_id: int, receiver_id: int):

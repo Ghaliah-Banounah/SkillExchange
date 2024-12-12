@@ -21,7 +21,9 @@
                 <h5 class="mb-1 text-lime">Contact information:</h5>
                 <p class="text-start m-0"><span class="fw-medium text-lime">Phone Number:</span> {{profile.phone}}</p>
                 <p class="text-start m-0"><span class="fw-medium text-lime">Email:</span> {{profile.user.email}}</p>
+                {% if not user == profile.user %}
                 <a href="" class="btn-lime mx-auto mt-4"><i class="bi bi-person-fill-add pe-2"></i>Connect</a>
+                {% endif %}
             </div>
         </div>
         <div class="profile mt-1 mt-sm-5 py-2 text-black">

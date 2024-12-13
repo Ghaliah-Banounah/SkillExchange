@@ -4,6 +4,8 @@
 {% block title %}Skill Exchange{% endblock %}
 
 {% block content %}
+<script src="https://unpkg.com/scrollreveal"></script>
+
 
 <style>
 /* Home */
@@ -194,6 +196,13 @@
 
 }
 
+@media (max-width: 768px) {
+  .section-3-text h1{
+    font-size: 1.4rem;
+    gap: 5px;
+  }
+}
+
 .card-exchanger {
   position: relative;
   display: block;
@@ -318,7 +327,8 @@
 .section-4 {
   position: relative;
   margin-top: 100px;
-  z-index: 5;
+  padding-top: 100px;
+  padding-bottom: 100px;
   
 }
 
@@ -331,6 +341,13 @@
 .section-4-second-text h1 {
   font-size: 64px;
   margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .section-4-text h1,
+  .section-4-second-text h1 {
+    font-size: 1.8rem; 
+  }
 }
 
 .review-button .bi-arrow-down-right{
@@ -357,17 +374,35 @@
   background-color: #cdcdcd;
 }
 
+/* Small button styling for "Hide X" */
+.review-button .small-button {
+  width: 20px;
+  height: 20px;
+  font-size: 0.7rem;
+  background-color: #EBFDB8;
+  padding: 8px;
+  border: 1px solid #000;
+  border-radius: 50%;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.review-button .small-button:hover {
+  background-color: #b6c982;
+  color: #000;
+}
+
 
 /* Card Preview */
 .card-preview {
   position: absolute;
-  bottom: -120%;
+  bottom: -150%;
   right: 10%; 
   width: 250px;
   height: 350px;
   transform:rotate(15deg);
   overflow: hidden;
-  z-index: -1;
+  z-index: 0;
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
@@ -415,8 +450,8 @@
 .view-cards .card {
   background-color: #fff;
   border-radius: 15px;
-  width: 300px;
-  height: 350px;
+  width: 100%;
+  height: 400px;
   transition: transform 0.3s ease;
 }
 
@@ -444,27 +479,23 @@
   transform: translateY(-5px);
 }
 
-/* Close Button */
-.review-button .bi-x {
-  font-size: 2rem;
-  color: #000;
-}
-
-.review-button .toggle-text {
-  margin:auto;
-}
-
 
 /* Section 5 */
 
 /* Contact Form */
 
-
-.contact-form-left {
-  margin-top: 50px;
-
+.section-5{
+  margin-top: 180px;
 }
 
+.contact-form-left {
+  position: relative;
+  padding: 30px;
+  border-radius: 15px;
+  background-color: #fff;
+  z-index: 1;
+  overflow: hidden;
+}
 
 .form-row {
   display: flex;
@@ -472,11 +503,13 @@
   margin-bottom: 20px;
 }
 
+.form-row .form-group {
+  flex: 1; 
+}
+
 .form-group {
-  display: flex;
-  flex-direction: column;
+  position: relative;
   margin-bottom: 20px;
-  flex: 1;
 }
 
 .form-group label {
@@ -484,6 +517,32 @@
   color: #333;
   margin-bottom: 5px;
   text-align: left;
+  display: block;
+}
+
+/* Gradient Animation 
+.form-group .field-wrapper {
+  position: relative;
+  padding: 2px; 
+  border-radius: 10px;
+  background: linear-gradient(45deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffee, #2b65ff, #8e00ff, #ff00a5, #ff0000);
+  background-size: 300% 300%;
+  animation: gradientAnimation 4s infinite;
+  width: 100%;
+}
+  */
+
+.form-group .field-wrapper input,
+.form-group .field-wrapper textarea,
+.form-group .field-wrapper select {
+  background-color: #f6f6f6;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .form-group input,
@@ -495,6 +554,26 @@
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
+.form-group .field-wrapper input:focus,
+.form-group .field-wrapper textarea:focus,
+.form-group .field-wrapper select:focus {
+  background-color: #fff;
+}
+
+/* Gradient Animation */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 .form-group input::placeholder,
 .form-group textarea::placeholder{
@@ -512,26 +591,22 @@
   padding: 12px;
   font-size: 1rem;
   cursor: pointer;
+  display: block;
+  margin: 0 auto;
 }
 
 /* Contact Image */
 
-.contact-form-right {
-
-}
-
-
 .contact-image {
-  flex: 1;
-  max-width: 500px;
+  max-width: 100%;
+  text-align: center;
 }
 
 .contact-image iframe {
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 400px;
   border-radius: 10px;
   object-fit: cover;
-  object-position: right top;
 }
 
 </style>
@@ -619,9 +694,9 @@
 
 <section class="section-3">
     <div class="container text-center">
-        <div class="section-3-text text-start d-flex justify-content-between align-items-center">
+        <div class="section-3-text text-start d-flex flex-column flex-md-row justify-content-md-between align-items-start align-items-md-center">
             <h1>Explore Our <span class="bg-lime p-2 rounded-4">Top Exchangers</span></h1>
-            <a href="#" class="bg-lime py-1 px-3 rounded-pill small">See All</a>
+            <a href="#" class="bg-lime py-1 px-3 rounded-pill small mt-3 mt-md-0">See All</a>
         </div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4">
             <!-- Card 1 -->
@@ -643,7 +718,7 @@
                         </div>
                 </div>
               </div>
-            <!-- Card 1 -->
+            <!-- Card 2 -->
              <div class="col mb-4">
               <div class="card card-exchanger">
                 <div class="card-image">
@@ -668,7 +743,7 @@
 
 <!--Section 4-->
 
-<section class="section-4 bg-lime h-100">
+<section class="section-4 bg-lime">
   <div class="container text-center position-relative">
       <div class="section-4-text text-start">
         <h1>Click to Explore What</h1>
@@ -733,99 +808,78 @@
 
 <!--Section 5-->
 
-<section class="section-5">
+<section class="section-5" id="contact" >
   
-  <div class="container text-center position-relative">
+  <div class="container">
     <div class="section-4-text text-center">
       <h1>Send Us <span class="bg-lime px-2 py-1 rounded-4">Your Question</span></h1>
     </div>
     
-    <div class="contact-form-left">
+    <div class="row align-items-center mt-5">
       <div class="col-md-6">
-        <form action="{% url 'main:home_view'%}" method="post" enctype="multipart/form-data">
-          {%csrf_token%}
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Name:</label>
-              <input type="text" id="name" name="name" placeholder="Enter Your Name..." required />
+        <div class="contact-form-left">
+          <form action="{% url 'main:home_view'%}" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name:</label>
+                <div class="field-wrapper">
+                  <input type="text" id="name" name="name" placeholder="Enter Your Name..." required />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Email</label>
+                <div class="field-wrapper">
+                  <input type="email" id="email" name="email" placeholder="Enter Your Email..." required />
+                </div>
+              </div>
             </div>
             
             <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="Enter Your Email..." required />
+              <label for="inquiries_type">Your inquiries Type:</label>
+              <div class="field-wrapper">
+                <select name="inquiries_type" id="inquiries_type" class="form-control" required>
+                  <option value="">Select Inquiry Type...</option>
+                  <option value="General Questions">General Questions</option>
+                  <option value="Technical Support">Technical Support</option>
+                  <option value="Feedback or Suggestions">Feedback or Suggestions</option>
+                  <option value="Account Issues">Account Issues</option>
+                  <option value="Subscription and Payments">Subscription and Payments</option>
+                  <option value="Skill Exchange Requests">Skill Exchange Requests</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
             </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="inquiries_type">Your inquiries Type:</label>
-            <select name="inquiries_type" id="inquiries_type" class="form-control" required>
-              <option value=""> inquiries Type</option>
-              <option value="General Questions">General Questions</option>
-              <option value="Technical Support">Technical Support</option>
-              <option value="Feedback or Suggestions">Feedback or Suggestions</option>
-              <option value="Account Issues">Account Issues</option>
-              <option value="Subscription and Payments">Subscription and Payments</option>
-              <option value="Skill Exchange Requests">Skill Exchange Requests</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="message">Your message</label>
-            <textarea id="message" name="message" placeholder="Enter your Question or Message..." required></textarea>
-          </div>
-          
-          <button type="submit" class="submit-button btn-lime px-5 py-2 justify-content-center">Send</button>
-        </form>
+            
+            <div class="form-group">
+              <label for="message">Your message</label>
+              <div class="field-wrapper">
+                <textarea id="message" name="message" placeholder="Type your Question or Message..." required></textarea>
+              </div>
+            </div>
+            <button type="submit" class="submit-button btn-lime px-5 py-2">Send</button>
+          </form>
+        </div>
       </div>
-    </div>
-    
-    <!-- Image Section -->
-    <div class="contact-form-right">
-      <div class="col-md-6">
+      
+      <!-- Image Section -->
+      <div class="col-md-6 text-center">
         <div class="contact-image">
-          <iframe src='https://my.spline.design/voiceinteractionanimation-253c2051460bff078eadad6f2846e15f/' frameborder='0' width='100%' height='100%'></iframe>
+          <iframe src='https://my.spline.design/voiceinteractionanimation-253c2051460bff078eadad6f2846e15f/' frameborder='0'></iframe>
         </div>
       </div>
     </div>
   </div>
-
 </section>
   
 
 
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-      ScrollReveal().reveal('.projects-header-text-1', { 
-        duration: 1200, 
-        origin: 'left', 
-        distance: '80px', 
-        easing: 'ease-in-out', 
-        opacity: 0
-      });
-  
-      ScrollReveal().reveal('.projects-text-1', { 
-        duration: 1200, 
-        origin: 'bottom', 
-        distance: '50px', 
-        delay: 200, 
-        easing: 'ease-in-out', 
-        opacity: 0 
-      });
-  
-      ScrollReveal().reveal('.spline-container', { 
-        duration: 1500, 
-        origin: 'right', 
-        distance: '80px', 
-        delay: 200, 
-        easing: 'ease-in-out', 
-        opacity: 0
-      });
-  
-    });
-  </script>
+
+<!-- Top Exchangers Cards -->
+
 
 <script>
 function toggleCard(element) {
@@ -834,24 +888,66 @@ function toggleCard(element) {
     }
 </script>
 
+
+<!-- Review Cards -->
+
 <script>
   document.getElementById("toggleReviews").addEventListener("click", function () {
   const viewCards = document.querySelector(".view-cards");
   const cardPreview = document.getElementById("cardPreview");
   const toggleText = this.querySelector(".toggle-text");
+  const toggleButton = this;
 
   if (viewCards.classList.contains("d-none")) {
     // Show review cards and hide the preview card
     viewCards.classList.remove("d-none");
     cardPreview.classList.add("hidden");
-    toggleText.textContent = "Hide X"; 
+    toggleButton.textContent = "Hide X"; 
+    toggleButton.classList.add("small-button");
+    toggleButton.classList.remove("rounded-circle"); 
+    toggleButton.style.position = "absolute"; 
+    toggleButton.style.top = "150px"; 
+    toggleButton.style.right = "20px"; 
 
   } else {
     // Hide review cards and show the preview card
     viewCards.classList.add("d-none");
     cardPreview.classList.remove("hidden");
-    toggleText.textContent = "toggle-text";
+    toggleButton.innerHTML = `<i class="bi bi-arrow-down-right"></i>`; 
+    toggleButton.classList.remove("small-button");
+    toggleButton.classList.add("rounded-circle"); 
+    toggleButton.style.position = ""; 
+    toggleButton.style.top = ""; 
+    toggleButton.style.right = "";
   }
+});
+
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cardWrapper = document.querySelector('.card-wrapper');
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        const clone = card.cloneNode(true);
+        cardWrapper.appendChild(clone);
+    });
+});
+
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  // Initialize ScrollReveal
+  const sr = ScrollReveal();
+
+  // Reveal for each section
+  sr.reveal('.section-2', { duration: 2000 });
+  sr.reveal('.section-3', { duration: 2000 });
+  sr.reveal('.section-4', { duration: 2000 });
+  sr.reveal('.section-5', { duration: 2000 });
 });
 
 </script>

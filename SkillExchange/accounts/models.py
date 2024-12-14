@@ -10,6 +10,7 @@ class Profile(models.Model):
     phone = models.CharField(max_length=10)
     skills = models.ManyToManyField(Skill, related_name='skills')
     skills_needed = models.ManyToManyField(Skill, related_name='skills_needed')
+    is_online = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return f'Profile {self.user.username}'

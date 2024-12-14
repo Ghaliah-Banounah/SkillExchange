@@ -22,7 +22,52 @@
                 <p class="text-start m-0"><span class="fw-medium text-lime">Phone Number:</span> {{profile.phone}}</p>
                 <p class="text-start m-0"><span class="fw-medium text-lime">Email:</span> {{profile.user.email}}</p>
                 {% if not user == profile.user %}
-                <a href="" class="btn-lime mx-auto mt-4"><i class="bi bi-person-fill-add pe-2"></i>Connect</a>
+                {% if is_requested %}
+                <a href="{% url 'exchangers:send_request_view' request.user.id profile.user.id %}"
+                    class="btn-gray mx-auto mt-4"><i class="bi bi-clock-fill pe-2"></i>Pending</a>
+                {% else %}
+                <button type="button" class="btn-lime mx-auto mt-4" data-bs-toggle="modal"
+                    data-bs-target="#connectModal">
+                    <i class="bi bi-person-fill-add pe-2"></i>Connect</button>
+                <!-- Request modal -->
+                <div class="modal fade" id="connectModal" tabindex="-1" aria-labelledby="connectModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog text-black">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p class="m-0 fs-5" id="connectModalLabel">Schedule Exchange</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{% url 'exchangers:send_request_view' request.user.id profile.user.id %}"
+                                    method="post" class="needs-validation" novalidate>
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Skill:</label>
+                                        <select class="form-select" name="skill_to_exchange"
+                                            aria-label="Default select example" required>
+                                            <option>Choose</option>
+                                            {% for skill in profile.skills.all %}
+                                            <option value="{{skill.id}}">{{skill.name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="scheduled_at" class="col-form-label">Scheduled at:</label>
+                                        <input type="text" class="form-control" id="scheduled_at" name="scheduled_at"
+                                            required />
+                                    </div>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <button type="button" class="btn-gray" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn-blue">Send request</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
                 {% endif %}
             </div>
         </div>
@@ -43,36 +88,46 @@
                     {% endfor %}
                 </p>
             </div>
+            {% if profile.user == request.user %}
             <!-- Requests and Exchangers list -->
-            <div class="bg-gray rounded-4 w-100 organization-profile-container">
-                <!-- Profile Header -->
-                <div class="profile-header">
-                    <!-- Tabs Navigation -->
-                    <nav class="tabs-navigation">
-                        <button class="tab-button active" data-tab="sent">Sent Requests</button>
-                        <button class="tab-button" data-tab="received">Received Requests</button>
-                        <button class="tab-button" data-tab="current">Current Exchanges</button>
-                    </nav>
+            <div class="bg-gray rounded-4 w-100 overflow-hidden">
+                <!-- Tabs Navigation -->
+                <nav class="tabs-navigation">
+                    <button class="tab-button active" data-tab="sent">Sent Requests</button>
+                    <button class="tab-button" data-tab="received">Received Requests</button>
+                    <button class="tab-button" data-tab="current">Current Exchanges</button>
+                </nav>
 
-                    <!-- Tabs Content -->
-                    <div class="tabs-content py-2">
-                        <!-- Sent Requests Section -->
-                        <section id="sent" class="tab-content active">
-                        
-                        </section>
+                <!-- Tabs Content -->
+                <div class="tabs-content">
+                    <!-- Sent Requests Section -->
+                    <section id="sent" class="tab-content active">
+                        {% for req in sent_requests %}
+                        <div class="listing">
+                            <p class="m-0 p-3 fw-medium"><span class="fw-bold text-lime-200">{{forloop.counter}}. </span>Request to:
+                                {{req.receiver.first_name}} {{req.receiver.last_name}} 
+                            </p>
+                        </div>
+                        {% endfor %}
+                    </section>
 
-                        <!-- Received Requests Section -->
-                        <section id="received" class="tab-content">
-                            
-                        </section>
+                    <!-- Received Requests Section -->
+                    <section id="received" class="tab-content">
+                        {% for req in received_requests %}
+                        <div class="listing">
+                            <p class="m-0 p-3 fw-medium"><span class="fw-bold text-lime-200">{{forloop.counter}}. </span>Request from:
+                                {{req.sender.first_name}}</p>
+                        </div>
+                        {% endfor %}
+                    </section>
 
-                        <!-- Current Exchanges Section -->
-                        <section id="current" class="tab-content">
-                            
-                        </section>
-                    </div>
+                    <!-- Current Exchanges Section -->
+                    <section id="current" class="tab-content">
+
+                    </section>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </section>

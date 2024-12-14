@@ -4,8 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    
+    <!-- Date range picker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
     <!-- Using google fonts to import icons-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
     <!-- Local stylesheet -->
@@ -57,7 +61,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 {% url 'accounts:login_view' as login_url %}
                 {% url 'accounts:logout_view' as logout_url %}
                 {% url 'accounts:register_view' as register_url %}
@@ -65,14 +69,15 @@
 
                 {% if user.is_authenticated %}
                 <div class="dropdown order-3 pe-md-4">
-                    <button class="border-0 bg-transparent dropdown-toggle rounded-4" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <button class="border-0 bg-transparent dropdown-toggle rounded-4" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="d-flex flex-row gap-1 align-items-end py-2">
                             <img src="{{user.profile.pfp.url}}" class="rounded-circle pfp-sm">
                             <p class="m-0 fw-medium">{{user.first_name}}</p>
                         </div>
                     </button>
-                    <ul class="dropdown-menu p-2 border-light-subtle" style="--bs-dropdown-min-width: 3rem; --bs-dropdown-link-hover-bg: #EBFDB8;">
+                    <ul class="dropdown-menu p-2 border-light-subtle"
+                        style="--bs-dropdown-min-width: 3rem; --bs-dropdown-link-hover-bg: #EBFDB8;">
                         <li><a class="dropdown-item rounded-2 mb-2" href="{{profile_url}}">Profile</a></li>
                         <li><a class="btn-blue" href="{{logout_url}}?next={{request.path}}">Logout</a></li>
                     </ul>
@@ -83,9 +88,12 @@
                         aria-expanded="false">
                         <i class="bi bi-person-fill h5"></i>
                     </button>
-                    <ul class="dropdown-menu p-2 border-light-subtle" style="--bs-dropdown-min-width: 3rem; --bs-dropdown-link-hover-bg: #EBFDB8;">
-                        <li><a class="dropdown-item mb-2 rounded-2 {% if request.path == login_url %}bg-secondary-subtle disabled{% endif %}" href="{{login_url}}?next={{request.path}}">Login</a></li>
-                        <li><a class="dropdown-item rounded-2 {% if request.path == register_url %}bg-secondary-subtle disabled{% endif %}" href="{{register_url}}">Register</a></li>
+                    <ul class="dropdown-menu p-2 border-light-subtle"
+                        style="--bs-dropdown-min-width: 3rem; --bs-dropdown-link-hover-bg: #EBFDB8;">
+                        <li><a class="dropdown-item mb-2 rounded-2 {% if request.path == login_url %}bg-secondary-subtle disabled{% endif %}"
+                                href="{{login_url}}?next={{request.path}}">Login</a></li>
+                        <li><a class="dropdown-item rounded-2 {% if request.path == register_url %}bg-secondary-subtle disabled{% endif %}"
+                                href="{{register_url}}">Register</a></li>
                     </ul>
                 </div>
                 {% endif %}
@@ -93,20 +101,20 @@
         </nav>
     </header>
     <main>
-    {% if messages %}
-    {% for msg in messages %}
-    <div class="container-fluid alerts-container">
-        <div class="alert {{msg.tags}} alert-dismissible fade show mx-auto" role="alert">
-            {{msg}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        {% if messages %}
+        {% for msg in messages %}
+        <div class="container-fluid alerts-container">
+            <div class="alert {{msg.tags}} alert-dismissible fade show mx-auto" role="alert">
+                {{msg}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         </div>
-    </div>
-    {% endfor %}
-    {% endif %}
+        {% endfor %}
+        {% endif %}
 
-    {% block content %}
+        {% block content %}
 
-    {% endblock %}
+        {% endblock %}
     </main>
     <footer>
 

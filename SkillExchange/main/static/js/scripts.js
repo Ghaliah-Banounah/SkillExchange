@@ -45,3 +45,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+// Set min date to today and use Date Range Picker
+$('input[name="scheduled_at"]').daterangepicker({
+    locale: {
+        format: 'YYYY-MM-DD'
+    },
+    minDate: new Date(),
+});

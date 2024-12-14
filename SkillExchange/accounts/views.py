@@ -5,8 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Profile
 from .forms import ProfileForm
+from exchangers.models import Exchanger, Request
 from django.db import transaction, IntegrityError
 from skills.models import Skill
+from django.db.models import Q
+from datetime import datetime
 
 # Create new account View
 def register_view(request:HttpRequest):
@@ -64,15 +67,38 @@ def logout_view(request:HttpRequest):
 def profile_view(request: HttpRequest, username: str):
     try:
         user = User.objects.get(username__iexact=username)
-        if Profile.objects.filter(user=user).exists():
-            profile: Profile = user.profile
-        else:
-            profile = Profile(user=user)
     except Exception as e:
         print(e)
         return render(request, '404.html')
     
-    return render(request, 'accounts/profile.html', {'profile': profile})
+    if Profile.objects.filter(user=user).exists():
+            profile: Profile = user.profile
+    else:
+        profile = Profile(user=user)
+
+    # Get requests sent 
+
+    if request.user.is_authenticated:
+        is_requested = Request.objects.filter(sender=request.user, receiver=user).exists()   
+
+        # Check if they already have a connection
+        is_connected = Exchanger.objects.filter(
+            (Q(user=request.user) & Q(exchanger=user)) |
+            (Q(user=user) & Q(exchanger=request.user))).exists()
+        
+        sent_requests = Request.objects.filter(sender=user)
+        received_requests = Request.objects.filter(receiver=user)
+        exchanging_with = Exchanger.objects.filter(Q(user=user) | Q(exchanger=user))
+
+    else:
+        sent_requests = []
+        received_requests = []
+        exchanging_with = []
+        is_requested = False
+        is_connected = False
+    
+    return render(request, 'accounts/profile.html', {'profile': profile, 'is_connected': is_connected, 'is_requested': is_requested,
+                   'sent_requests': sent_requests, 'received_requests': received_requests, 'current_exchangers': exchanging_with})
 
 # Display profile View
 def update_profile_view(request: HttpRequest):

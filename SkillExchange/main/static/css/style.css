@@ -121,6 +121,31 @@ body a {
     transform: translateY(0px);
 }
 
+.btn-lime-200 {
+    display: block;
+    padding: 0.3rem 1rem;
+    align-items: center;
+    background-color: #b6df45;
+    border: 1px solid transparent;
+    color: white;
+    border-radius: .3rem;
+    cursor: pointer;
+    justify-content: center;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.btn-lime-200:hover {
+    background-color: #d0e596;
+    transform: translateY(-1px);
+}
+
+.btn-lime-200:active {
+    background-color: #a2cf27;
+    transform: translateY(0px);
+}
+
 /* Custom width */
 @media only screen and (min-width: 600px) {
     .custom-width {
@@ -275,7 +300,10 @@ body a {
 }
 
 .listing {
-    display: block;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: end;
     background-color: #F6F6F6;
     border-bottom: solid 2px #d6d6d6;
 }

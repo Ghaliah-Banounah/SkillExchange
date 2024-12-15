@@ -81,54 +81,40 @@ def reject_request_view(request: HttpRequest, sender_id: int, receiver_id: int):
             return redirect("main:home_view")
 
 # New exchange View
-def new_exchange_view(request: HttpRequest, user_id: int, exchanger_id: int):
+def new_exchange_view(request: HttpRequest, sender_id: int, receiver_id: int):
 
     if not request.user.is_authenticated:
         messages.warning(request,"Login to accept requests.","alert-warning")
         return redirect("accounts:login_view") 
     
     try:
-        # Logged in user
-        user = User.objects.get(pk=user_id)
-        # The user to exchange with 
-        exchanger = User.objects.get(pk=exchanger_id)
+        # Receiver
+        user = User.objects.get(pk=receiver_id)
+        # Sender 
+        exchanger = User.objects.get(pk=sender_id)
+        print(user, exchanger)
         if request.user == user:
             if request.method == 'POST':
-                with transaction.atomic():
-                    request_obj = Request.objects.get(sender=exchanger_id, receiver=user_id)
-                    request_obj.status = Request.RequestStatus.ACCEPTED
-                    request_obj.save()
-                    
-                    exchange = Exchanger(user=user, exchanger=exchanger, start_date=request_obj.start_date, end_date=request_obj.end_date)
-                    exchange.save()
+                try:
+                    with transaction.atomic():
+                        request_obj = Request.objects.get(Q(sender=exchanger), Q(receiver=user))
+                        request_obj.status = Request.RequestStatus.ACCEPTED
+                        request_obj.save()
+
+                        sender_skill = request_obj.skill_to_exchange
+                        receiver_skill = Skill.objects.get(pk=request.POST['skill_chosen'])
+
+                        new_exchange = Exchanger(user=user, exchanger=exchanger, start_date=request_obj.start_date, end_date=request_obj.end_date)
+                        new_exchange.save()
+                        new_exchange.skills_exchanged.set([sender_skill, receiver_skill])
+    
+                        messages.success(request,"Request accepted.","alert-success")
+                        
+                except Exception as e:
+                    messages.error(request, "Something went wrong, couldn't accept request.", "alert-danger")
 
         return redirect("accounts:profile_view", user.username)
 
     except Exception as e:
-        print(e)
-        return redirect("main:home_view")
-
-# Delete exchange View
-def delete_exchange_view(request: HttpRequest, user_id: int, exchanger_id: int):
-    if not request.user.is_authenticated:
-        messages.warning(request,"Login to reject requests.","alert-warning")
-        return redirect("accounts:login_view") 
-      
-    try:
-        # Logged in user
-        user = User.objects.get(pk=user_id)
-        # The user to exchange with 
-        exchanger = User.objects.get(pk=exchanger_id)
-        if request.user == user:
-            with transaction.atomic():
-                request_obj = Request.objects.get(sender=exchanger_id, receiver=user_id)
-                request_obj.delete()
-
-                exchange_obj = Exchanger.objects.get(user=user, exchanger=exchanger)
-                exchange_obj.delete()
-
+        messages.error(request, "Something went wrong, couldn't accept request", "alert-danger")
         return redirect("accounts:profile_view", user.username)
-
-    except Exception as e:
-        print(e)
-        return redirect("main:home_view")

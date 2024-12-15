@@ -88,17 +88,17 @@ def profile_view(request: HttpRequest, username: str):
         
         sent_requests = Request.objects.filter(sender=user)
         received_requests = Request.objects.filter(receiver=user)
-        exchanging_with = Exchanger.objects.filter(Q(user=user) | Q(exchanger=user))
+        current_exchanges = Exchanger.objects.filter((Q(user=user) | Q(exchanger=user)) & Q(end_date__lte=datetime.now()))
 
     else:
         sent_requests = []
         received_requests = []
-        exchanging_with = []
+        current_exchanges = []
         is_requested = False
         is_connected = False
     
     return render(request, 'accounts/profile.html', {'profile': profile, 'is_connected': is_connected, 'is_requested': is_requested,
-                   'sent_requests': sent_requests, 'received_requests': received_requests, 'current_exchangers': exchanging_with})
+                   'sent_requests': sent_requests, 'received_requests': received_requests, 'current_exchangers': current_exchanges})
 
 # Display profile View
 def update_profile_view(request: HttpRequest):

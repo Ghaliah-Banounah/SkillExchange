@@ -104,8 +104,9 @@
                     <section id="sent" class="tab-content active">
                         {% for req in sent_requests %}
                         <div class="listing">
-                            <p class="m-0 p-3 fw-medium"><span class="fw-bold text-lime-200">{{forloop.counter}}. </span>Request to:
-                                {{req.receiver.first_name}} {{req.receiver.last_name}} 
+                            <p class="m-0 p-3 fw-medium">
+                                <span class="fw-bold text-lime-200">{{forloop.counter}}. </span>
+                                Request to: {{req.receiver.first_name}} {{req.receiver.last_name}}
                             </p>
                         </div>
                         {% endfor %}
@@ -114,10 +115,59 @@
                     <!-- Received Requests Section -->
                     <section id="received" class="tab-content">
                         {% for req in received_requests %}
+                        {% if req.status == 'Pending' %}
                         <div class="listing">
-                            <p class="m-0 p-3 fw-medium"><span class="fw-bold text-lime-200">{{forloop.counter}}. </span>Request from:
-                                {{req.sender.first_name}}</p>
+                            <p class="m-0 p-3 fw-medium">
+                                <span class="fw-bold text-lime-200">{{forloop.counter}}. </span>
+                                Request from: {{req.sender.first_name}}
+                            </p>
+                            <!-- Action buttons -->
+                            <div class="d-flex p-3 gap-2">
+                                <a href="" class="btn-blue p-2"><i class="bi bi-calendar-event"></i></a>
+                                <a href="{% url 'exchangers:reject_request_view' req.sender.id request.user.id %}"
+                                    class="btn-gray p-2"><i class="bi bi-x-circle"></i></a>
+                                <button type="button" class="btn-lime-200 p-2" data-bs-toggle="modal"
+                                    data-bs-target="#acceptModal-{{req.sender.id}}">
+                                    <i class="bi bi-check-circle"></i></button>
+                                <!-- Accept request modal -->
+                                <div class="modal fade" id="acceptModal-{{req.sender.id}}" tabindex="-1"
+                                    aria-labelledby="acceptModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog text-black">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <p class="m-0 fs-5" id="acceptModalLabel">Accept Request</p>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{% url 'exchangers:new_exchange_view' req.sender.id request.user.id %}"
+                                                    method="post" class="needs-validation" novalidate>
+                                                    {% csrf_token %}
+                                                    <div class="mb-3">
+                                                        <label for="skill_chosen" class="col-form-label">
+                                                            Choose from {{req.sender.first_name}}'s skills:
+                                                        </label>
+                                                        <select class="form-select" name="skill_chosen"
+                                                            aria-label="Default select example" required>
+                                                            <option>Choose</option>
+                                                            {% for skill in req.sender.profile.skills.all %}
+                                                            <option value="{{skill.id}}">{{skill.name}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="d-flex justify-content-center gap-2">
+                                                        <button type="button" class="btn-gray"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn-blue">Accept request</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        {% endif %}
                         {% endfor %}
                     </section>
 

@@ -121,31 +121,6 @@ body a {
     transform: translateY(0px);
 }
 
-.btn-lime-200 {
-    display: block;
-    padding: 0.3rem 1rem;
-    align-items: center;
-    background-color: #b6df45;
-    border: 1px solid transparent;
-    color: white;
-    border-radius: .3rem;
-    cursor: pointer;
-    justify-content: center;
-    transition: all 250ms;
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-.btn-lime-200:hover {
-    background-color: #d0e596;
-    transform: translateY(-1px);
-}
-
-.btn-lime-200:active {
-    background-color: #a2cf27;
-    transform: translateY(0px);
-}
-
 /* Custom width */
 @media only screen and (min-width: 600px) {
     .custom-width {
@@ -299,17 +274,8 @@ body a {
     color: #333;
 }
 
-.listing {
-    display: flex;
-    gap: 1rem;
-    justify-content: space-between;
-    align-items: end;
-    background-color: #F6F6F6;
-    border-bottom: solid 2px #d6d6d6;
-}
-
 /* Exchangers */
-.card-exchangers {
+.card_exchangers {
     position: relative;
     height: 350px;
     border-radius: 1rem;
@@ -340,7 +306,7 @@ body a {
     align-items: end;
     gap: 5px;
     color: #EBFDB8;
-    text-shadow: 0 0 5px #56585f;
+    text-shadow: 0 0 5px #56585f6f;
 }
 
 .star {
@@ -350,82 +316,4 @@ body a {
 
 .rating-number {
     font-size: 1.2rem;
-}
-
-/* Skills */
-.pagination {
-    display: inline-flex;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-
-.pagination .page-item {
-    margin: 0 5px;
-}
-
-.pagination .page-link {
-    color: black;
-    text-decoration: none;
-    padding: 10px 15px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.pagination .page-link:hover {
-    color:#6986d5;
-}
-
-.pagination .page-item.active .page-link {
-    color:#7A98E9; 
-    font-weight: bold;
-    background-color: transparent;
-}
-
-.pagination .page-item a.page-link {
-    border-radius: 0;
-    background-color: transparent;
-}
-
-.pagination .page-item.disabled .page-link {
-    color: #d6d6d6;
-    pointer-events: none;
-}
-
-.card-skills-list {
-    background-color: #F6F6F6;
-    border-radius: 10px;
-    box-shadow: none;
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 15px;
-    padding: 10px;
-    position: relative;
-}
-
-.icon-skills-list {
-    font-size: 1.3rem;
-    color: #d7e7ac;
-}
-
-.image-skills-list {
-    width: 100%;
-    height: 6rem;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.details-img {
-    width: 100%;
-    height: 450px;
-    object-fit: cover;
-    border-radius: 1.4rem;
-}
-
-.details-card {
-    width: 100%;
-    height: 400px;
-    border-radius: 1.4rem;
-    background-color: #F6F6F6;
 }

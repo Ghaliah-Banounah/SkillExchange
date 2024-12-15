@@ -173,7 +173,16 @@
 
                     <!-- Current Exchanges Section -->
                     <section id="current" class="tab-content">
-
+                        {% for exchange in current_exchanges %}
+                        {% if exchange.status == 'Ongoing' %}
+                        <div class="listing">
+                            <p class="m-0 p-3 fw-medium">
+                                <span class="fw-bold text-lime-200">{{forloop.counter}}. </span>
+                                Exchange between: {{exchange.user.first_name}} and {{exchange.exchanger.first_name}}
+                            </p>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
                     </section>
                 </div>
             </div>

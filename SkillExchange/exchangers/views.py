@@ -72,13 +72,13 @@ def reject_request_view(request: HttpRequest, sender_id: int, receiver_id: int):
         
         request_obj = Request.objects.get(sender=sender, receiver=receiver)
         request_obj.delete()
-        messages.info(request, "Request rejected.", "alert-primary")
 
+        messages.info(request, "Request rejected.", "alert-primary")
         return redirect("accounts:profile_view", receiver.username)
     
     except Exception as e:
-            print(e)
-            return redirect("main:home_view")
+            messages.error(request, "Request rejected.", "alert-danger")
+            return redirect("accounts:profile_view", receiver.username)
 
 # New exchange View
 def new_exchange_view(request: HttpRequest, sender_id: int, receiver_id: int):
@@ -92,7 +92,6 @@ def new_exchange_view(request: HttpRequest, sender_id: int, receiver_id: int):
         user = User.objects.get(pk=receiver_id)
         # Sender 
         exchanger = User.objects.get(pk=sender_id)
-        print(user, exchanger)
         if request.user == user:
             if request.method == 'POST':
                 try:

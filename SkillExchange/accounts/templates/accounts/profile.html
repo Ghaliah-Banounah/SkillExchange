@@ -104,12 +104,12 @@
                     <section id="sent" class="tab-content active">
                         {% for req in sent_requests %}
                         <div class="listing p-3">
-                            <a href="" class="m-0 fw-medium a-lime-hover">
+                            <a href="{% url 'exchangers:request_details_view' req.id %}" class="m-0 fw-medium a-lime-hover">
                                 <span class="fw-bold text-lime-200">{{forloop.counter}}. </span>
                                 Request to: {{req.receiver.first_name}} {{req.receiver.last_name}}
                             </a>
                             <div class="d-flex gap-2">
-                                <a href="" class="btn-blue p-2"><i class="bi bi-eye"></i></a>
+                                <a href="{% url 'exchangers:request_details_view' req.id %}" class="btn-blue p-2"><i class="bi bi-eye"></i></a>
                                 <a href="{% url 'exchangers:send_request_view' req.sender.id req.receiver.id %}?next={{request.path}}"
                                         class="btn-gray p-2"><i class="bi bi-x-circle"></i></a>
                             </div>
@@ -127,13 +127,13 @@
                     <section id="received" class="tab-content">
                         {% for req in received_requests %}
                         <div class="listing p-3">
-                            <a href="" class="m-0 fw-medium a-lime-hover">
+                            <a href="{% url 'exchangers:request_details_view' req.id %}" class="m-0 fw-medium a-lime-hover">
                                 <span class="fw-bold text-lime-200">{{forloop.counter}}. </span>
                                 Request from: {{req.sender.first_name}} {{req.sender.last_name}}
                             </a>
                             <!-- Action buttons -->
                             <div class="d-flex gap-2">
-                                <a href="" class="btn-blue p-2"><i class="bi bi-eye"></i></a>
+                                <a href="{% url 'exchangers:request_details_view' req.id %}" class="btn-blue p-2"><i class="bi bi-eye"></i></a>
                                 <a href="{% url 'exchangers:reject_request_view' req.sender.id request.user.id %}"
                                     class="btn-gray p-2"><i class="bi bi-x-circle"></i></a>
                                 <button type="button" class="btn-lime-200 p-2" data-bs-toggle="modal"
@@ -190,13 +190,13 @@
                     <section id="current" class="tab-content">
                         {% for exchange in current_exchanges %}
                         <div class="listing p-3">
-                            <a href="" class="m-0 fw-medium a-lime-hover">
+                            <a href="{% url 'exchangers:exchange_details_view' exchange.id %}" class="m-0 fw-medium a-lime-hover">
                                 <span class="fw-bold text-lime-200">{{forloop.counter}}. </span>
                                 Exchange between: 
                                 {{exchange.user.first_name}} {{exchange.user.last_name}} and 
                                 {{exchange.exchanger.first_name}} {{exchange.exchanger.last_name}}
                             </a>
-                            <a href="" class="btn-blue p-2"><i class="bi bi-eye"></i></a>
+                            <a href="{% url 'exchangers:exchange_details_view' exchange.id %}" class="btn-blue p-2"><i class="bi bi-eye"></i></a>
                         </div>
                         {% empty %}
                         <div class="listing p-3">

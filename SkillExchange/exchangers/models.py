@@ -11,8 +11,8 @@ class Exchanger(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="exchanger")
     exchanger = models.ForeignKey(User, on_delete=models.CASCADE, related_name="exchanging_with")
     created_at = models.DateTimeField(auto_now_add=True)
-    start_date = models.DateTimeField(default=timezone.now)
-    end_date = models.DateTimeField(default=timezone.now)
+    start_date = models.DateField(default=timezone.now)
+    end_date = models.DateField(default=timezone.now)
     skills_exchanged = models.ManyToManyField(Skill)
     status = models.CharField(max_length=10, choices=ExchangeStatus.choices, default=ExchangeStatus.ONGOING)
     
@@ -31,8 +31,8 @@ class Request(models.Model):
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="received_request")
     status = models.CharField(max_length=10, choices=RequestStatus.choices, default=RequestStatus.PENDING)
     skill_to_exchange = models.ForeignKey(Skill, on_delete=models.CASCADE)
-    start_date = models.DateTimeField(default=timezone.now)
-    end_date = models.DateTimeField(default=timezone.now)
+    start_date = models.DateField(default=timezone.now)
+    end_date = models.DateField(default=timezone.now)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):

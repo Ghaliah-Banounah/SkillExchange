@@ -1,0 +1,95 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Request Details{% endblock %}
+
+{% block content %}
+<section class="container-md my-5">
+    <h1 class="m-5 mx-auto title">
+    Request Details
+    </h1>
+    <div class="container-md my-5 bg-gray rounded-4 shadow-sm pb-3">
+        <div class="row row-cols-1 row-cols-md-3 row-gap-5 py-4 px-3">
+            <div class="col col-md-5 justify-items-center">
+                <img src="{{req.sender.profile.pfp.url}}" alt="" class="request-details-img rounded-4 shadow">
+            </div>
+            <div class="col col-md-2 text-center align-content-center">
+                <i class="bi bi-arrow-down h1 d-block d-md-none"></i>
+                <i class="bi bi-arrow-right h1 d-none d-md-block"></i>
+            </div>
+            <div class="col col-md-5">
+                <img src="{{req.receiver.profile.pfp.url}}" alt="" class="request-details-img rounded-4 shadow">
+            </div>
+        </div>
+        <h3 class="mb-3 px-3">Request sent from  
+            <a href="{% url 'accounts:profile_view' req.sender.username %}" class="a-lime-hover">{{req.sender.first_name}} {{req.sender.last_name}}</a> to 
+            <a href="{% url 'accounts:profile_view' req.receiver.username %}" class="a-lime-hover">{{req.receiver.first_name}} {{req.receiver.last_name}}</a>
+        </h3>
+        <div class="d-flex flex-column gap-1 px-3 pb-4">    
+            <p class="fs-5 m-0"><span class="fs-4 fw-medium text-lime-200">Skill requested:</span>
+                <a href="{% url 'skills:skill_detail' req.skill_to_exchange.id %}" class="a-blue-hover">{{req.skill_to_exchange.name}}</a>.
+            </p>
+            <p class="fs-5 m-0"><span class="fs-4 fw-medium text-lime-200"><i class="bi bi-calendar-event pe-2 fs-5"></i>Scheduled start date: </span>
+                {{req.start_date}}
+            </p>
+            <p class="fs-5 m-0"><span class="fs-4 fw-medium text-lime-200"><i class="bi bi-calendar-event pe-2 fs-5"></i>Scheduled end date: </span>
+                {{req.end_date}}
+            </p>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="d-flex gap-3 justify-content-center">
+            <!-- Cancel pending request for sender -->
+            {% if request.user == req.sender %}
+            <a href="{% url 'exchangers:send_request_view' req.sender.id req.receiver.id %}?next={% url 'accounts:profile_view' req.sender.username %}"
+            class="btn-gray px-3"><i class="bi bi-x-circle pe-2"></i>Cancel Request</a>
+            {% endif %}
+
+            {% if request.user == req.receiver %}
+            <!-- Reject/Accept for receiver -->
+            <a href="{% url 'exchangers:reject_request_view' req.sender.id request.user.id %}"
+                class="btn-gray px-3"><i class="bi bi-x-circle pe-2"></i>Reject Request</a>
+            <button type="button" class="btn-lime-200 px-3" data-bs-toggle="modal"
+                data-bs-target="#acceptModal-{{req.sender.id}}">
+                <i class="bi bi-check-circle pe-2"></i>Accept Request</button>
+            <!-- Accept request modal -->
+            <div class="modal fade" id="acceptModal-{{req.sender.id}}" tabindex="-1"
+                aria-labelledby="acceptModalLabel" aria-hidden="true">
+                <div class="modal-dialog text-black">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="m-0 fs-5" id="acceptModalLabel">Accept Request</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{% url 'exchangers:new_exchange_view' req.sender.id req.receiver.id %}"
+                                method="post" class="needs-validation" novalidate>
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="skill_chosen" class="col-form-label">
+                                        Choose from {{req.sender.first_name}}'s skills:
+                                    </label>
+                                    <select class="form-select" name="skill_chosen"
+                                        aria-label="Default select example" required>
+                                        <option>Choose</option>
+                                        {% for skill in req.sender.profile.skills.all %}
+                                        <option value="{{skill.id}}">{{skill.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <button type="button" class="btn-gray"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn-lime-200">Accept request</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

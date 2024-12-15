@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'main',
     'skills',
     'exchangers',
-    'chat',
+    'chats',
 ]
 
 MIDDLEWARE = [

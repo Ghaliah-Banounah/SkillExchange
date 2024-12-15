@@ -1,0 +1,185 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Skill Exchange{% endblock %}
+
+
+{% block content %}
+
+<!-- Moyasar Styles -->
+ <link rel="stylesheet" href="https://cdn.moyasar.com/mpf/1.14.0/moyasar.css" />
+    
+<!-- Moyasar Scripts -->
+ <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=4.8.0&features=fetch"></script>
+ <script src="https://cdn.moyasar.com/mpf/1.14.0/moyasar.js"></script>
+
+<style>
+/* Section 2 */
+.plans-section {
+  padding: 50px 0;
+}
+
+.section-2-text h1 {
+  font-size: 64px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.card-custom {
+  position: relative;
+  margin-top: 80px;
+  border-radius: 20px;
+}
+
+.card-custom::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 0;
+  opacity: 0.2;
+}
+
+.card-1::before {
+  background-image: url("/static/images/Vector 1-2.png");
+}
+
+.card-2::before {
+  background-image: url("/static/images/Vector 3.png");
+}
+
+.card-body {
+  position: relative;
+  z-index: 1;
+}
+
+.card-custom .number {
+  font-size: 5rem;
+  font-weight: normal;
+  color: rgba(160, 158, 158, 0.519);
+  position: absolute;
+  top: -65px;
+  right: 15px;
+  z-index: 0;
+}
+
+.card-custom .card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.card-custom p {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.card-custom ul {
+  text-align: left;
+  padding-left: 20px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.card-custom ul li {
+  margin-bottom: 10px;
+  margin-left: 30px;
+  
+}
+
+.card-custom .btn {
+  margin-top: 20px;
+}
+
+.submit-btn {
+  background-color: #EBFDB8;
+  border: 1px solid transparent;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #d0e596;
+  transform: translateY(-1px);
+  border: none;
+  text-decoration: none;
+  color: black;
+}
+
+
+#moyasar-button {
+  display: block;
+  margin-top: 20px;
+  width: auto;
+}
+
+</style>
+
+
+<section class="plans-section">
+  <div class="container text-center d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="section-2-text text-start">
+      <h1>Choose <span class="bg-blue p-1 rounded-3">Your Plan</span></h1>
+    </div>
+
+    <div class="d-flex justify-content-end mb-2">
+      <a href="{% url 'main:add_plan_view' %}" class="btn-blue rounded-pill align-content-center">
+          <i class="bi bi-plus bl fs-4"></i>
+      </a>
+    </div>
+    <div class="d-flex justify-content-center align-items-center mt-5 gap-5">
+      <!-- Free Plan -->
+
+      {% for plan in plans %}
+      <div class="col-md-6 mb-3">
+        <div class="card card-custom card-1" style="width: 400px; height: 400px; background-color: rgba(122, 152, 233, 0.75); border: none;">
+          <div class="card-body">
+            <h5 class="card-title">{plan.plan_name}</h5>
+            <ul>
+                <li>{plan.plan_feture_1}</li>
+                <li>{plan.plan_feture_2}</li>
+                <li>{plan.plan_feture_3}</li>
+              </ul>
+              <p><strong>SAR {plan.plan_amount} / month</strong></p>
+            </div>
+          </div>
+        </div>
+
+      <!-- Premium Plan 
+      <div class="col-md-6 mb-3">
+        <div class="card card-custom card-2" style="width: 400px ;height: 400px; background-color: #F6F6F6; border: none;">
+          <div class="card-body">
+            <h5 class="card-title">Premium Plan</h5>
+            <ul>
+                <li>Unlock all premium features</li>
+                <li>Get exclusive tools and insights</li>
+                <li>Priority customer support</li>
+            </ul>
+            <p><strong>SAR 50 / month</strong></p>
+            <a href="{}" class="submit-btn">Subscribe Now</a>
+          </div>
+        </div>
+      </div>
+      -->
+      
+    </div>
+  </div>
+</section>
+
+
+
+  
+
+{% endblock %}

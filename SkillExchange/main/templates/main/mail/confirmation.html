@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Got Your Message</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #ffffff;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .content {
+            width: 50%;
+            padding: 20px;
+        }
+
+        .image {
+            width: 50%;
+            background-image: url('https://i.ibb.co/6wJb0YT/sticker-1049723-1280.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .image {
+                width: 100%;
+                height: 200px;
+                background-size: cover;
+            }
+
+            .content {
+                width: 100%;
+                padding: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+      <div class="image"></div>  
+      <div class="content">
+            <img src="https://i.ibb.co/6XXZp5H/Screenshot-2024-12-03-030521.png" height="40px" style="align-self: flex-start;"/>
+            <h1>Dear, <span class="bg-blue p-1 rounded-3">{{name}}</span></h1>
+            <p>Thank you for contacting us! We have received your message, and our team is reviewing it. We will get back to you as soon as possible to assist with your inquiry.</p>
+            <p>In the mean time find an exchanger to learn new skill !.</p>
+            
+            <div class="button-container">
+                <a href="{% url 'exchangers:display_exchangers_view' %}" class="btn-lime ">Exchang Skill Now</a>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

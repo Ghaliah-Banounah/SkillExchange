@@ -40,20 +40,21 @@
         {% endfor %}
     </div>
 
+    <!-- Pagination -->
     <div class="d-flex justify-content-center mt-4">
         <nav aria-label="Page navigation">
             <ul class="pagination">
                 {% if skills.has_previous %}
                 <li class="page-item">
                     <a class="page-link"
-                        href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"
+                        href="{% url 'skills:skills_list' %}{% querystring page=1 %}"
                         aria-label="First">
                         <span aria-hidden="true"> First</span>
                     </a>
                 </li>
                 <li class="page-item">
                     <a class="page-link"
-                        href="?page={{ skills.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"
+                        href="{% url 'skills:skills_list' %}{% querystring page=skills.previous_page_number %}"
                         aria-label="Previous">
                         <span aria-hidden="true">Previous</span>
                     </a>
@@ -61,26 +62,30 @@
                 {% endif %}
 
                 {% for num in skills.paginator.page_range %}
+                
                 {% if skills.number == num %}
                 <li class="page-item active"><span class="page-link">{{ num }}</span></li>
                 {% else %}
-                <li class="page-item"><a class="page-link"
-                        href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{
-                        num }}</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'skills:skills_list' %}{% querystring page=num %}">
+                        {{ num }}
+                    </a>
+                </li>
                 {% endif %}
+                
                 {% endfor %}
 
                 {% if skills.has_next %}
                 <li class="page-item">
                     <a class="page-link"
-                        href="?page={{ skills.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"
+                        href="{% url 'skills:skills_list' %}{% querystring page=skills.next_page_number %}"
                         aria-label="Next">
                         <span aria-hidden="true">Next</span>
                     </a>
                 </li>
                 <li class="page-item">
                     <a class="page-link"
-                        href="?page={{ skills.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"
+                        href="{% url 'skills:skills_list' %}{% querystring page=skills.paginator.num_pages %}"
                         aria-label="Last">
                         <span aria-hidden="true">Last</span>
                     </a>

@@ -25,5 +25,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('skills/', include('skills.urls')),
     path('exchangers/', include('exchangers.urls')),
-    path('chat/', include('chat.urls')),
+    path('chats/', include('chats.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

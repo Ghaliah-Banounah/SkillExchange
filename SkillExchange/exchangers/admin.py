@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Exchanger, Request
 
-# Register your models here.
+admin.site.register(Exchanger)
+admin.site.register(Request)

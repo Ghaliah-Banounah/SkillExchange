@@ -23,7 +23,7 @@
                 <p class="text-start m-0"><span class="fw-medium text-lime">Email:</span> {{profile.user.email}}</p>
                 {% if not user == profile.user %}
                 {% if is_requested %}
-                <a href="{% url 'exchangers:send_request_view' request.user.id profile.user.id %}"
+                <a href="{% url 'exchangers:send_request_view' request.user.id profile.user.id %}?next={{request.path}}"
                     class="btn-gray mx-auto mt-4"><i class="bi bi-clock-fill pe-2"></i>Pending</a>
                 {% else %}
                 <button type="button" class="btn-lime mx-auto mt-4" data-bs-toggle="modal"
@@ -40,7 +40,7 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="{% url 'exchangers:send_request_view' request.user.id profile.user.id %}"
+                                <form action="{% url 'exchangers:send_request_view' request.user.id profile.user.id %}?next={{request.path}}"
                                     method="post" class="needs-validation" novalidate>
                                     {% csrf_token %}
                                     <div class="mb-3">
@@ -103,10 +103,21 @@
                     <!-- Sent Requests Section -->
                     <section id="sent" class="tab-content active">
                         {% for req in sent_requests %}
-                        <div class="listing">
-                            <p class="m-0 p-3 fw-medium">
+                        <div class="listing p-3">
+                            <a href="" class="m-0 fw-medium a-lime-hover">
                                 <span class="fw-bold text-lime-200">{{forloop.counter}}. </span>
                                 Request to: {{req.receiver.first_name}} {{req.receiver.last_name}}
+                            </a>
+                            <div class="d-flex gap-2">
+                                <a href="" class="btn-blue p-2"><i class="bi bi-eye"></i></a>
+                                <a href="{% url 'exchangers:send_request_view' req.sender.id req.receiver.id %}?next={{request.path}}"
+                                        class="btn-gray p-2"><i class="bi bi-x-circle"></i></a>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="listing p-3">
+                            <p class="m-0 fw-medium">
+                                No sent requests yet.
                             </p>
                         </div>
                         {% endfor %}
@@ -115,15 +126,14 @@
                     <!-- Received Requests Section -->
                     <section id="received" class="tab-content">
                         {% for req in received_requests %}
-                        {% if req.status == 'Pending' %}
-                        <div class="listing">
-                            <p class="m-0 p-3 fw-medium">
+                        <div class="listing p-3">
+                            <a href="" class="m-0 fw-medium a-lime-hover">
                                 <span class="fw-bold text-lime-200">{{forloop.counter}}. </span>
-                                Request from: {{req.sender.first_name}}
-                            </p>
+                                Request from: {{req.sender.first_name}} {{req.sender.last_name}}
+                            </a>
                             <!-- Action buttons -->
-                            <div class="d-flex p-3 gap-2">
-                                <a href="" class="btn-blue p-2"><i class="bi bi-calendar-event"></i></a>
+                            <div class="d-flex gap-2">
+                                <a href="" class="btn-blue p-2"><i class="bi bi-eye"></i></a>
                                 <a href="{% url 'exchangers:reject_request_view' req.sender.id request.user.id %}"
                                     class="btn-gray p-2"><i class="bi bi-x-circle"></i></a>
                                 <button type="button" class="btn-lime-200 p-2" data-bs-toggle="modal"
@@ -167,21 +177,33 @@
                                 </div>
                             </div>
                         </div>
-                        {% endif %}
+                        {% empty %}
+                        <div class="listing p-3">
+                            <p class="m-0 fw-medium">
+                                No received requests yet.
+                            </p>
+                        </div>
                         {% endfor %}
                     </section>
 
                     <!-- Current Exchanges Section -->
                     <section id="current" class="tab-content">
                         {% for exchange in current_exchanges %}
-                        {% if exchange.status == 'Ongoing' %}
-                        <div class="listing">
-                            <p class="m-0 p-3 fw-medium">
+                        <div class="listing p-3">
+                            <a href="" class="m-0 fw-medium a-lime-hover">
                                 <span class="fw-bold text-lime-200">{{forloop.counter}}. </span>
-                                Exchange between: {{exchange.user.first_name}} and {{exchange.exchanger.first_name}}
+                                Exchange between: 
+                                {{exchange.user.first_name}} {{exchange.user.last_name}} and 
+                                {{exchange.exchanger.first_name}} {{exchange.exchanger.last_name}}
+                            </a>
+                            <a href="" class="btn-blue p-2"><i class="bi bi-eye"></i></a>
+                        </div>
+                        {% empty %}
+                        <div class="listing p-3">
+                            <p class="m-0 fw-medium">
+                                No current exchanges found.
                             </p>
                         </div>
-                        {% endif %}
                         {% endfor %}
                     </section>
                 </div>

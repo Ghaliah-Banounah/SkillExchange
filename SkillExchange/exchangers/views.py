@@ -55,7 +55,7 @@ def send_request_view(request: HttpRequest, sender_id: int, receiver_id: int):
             request_obj.delete()
             messages.info(request, "Request cancelled.", "alert-primary")
 
-        return redirect(request.GET.get('next', '/'))
+        return redirect("accounts:profile_view", receiver.username)
     except Exception as e:
             messages.error(request, f"Request couldn't be sent. {e}", "alert-danger")
             return redirect("accounts:profile_view", receiver.username)
@@ -77,7 +77,7 @@ def reject_request_view(request: HttpRequest, sender_id: int, receiver_id: int):
         return redirect("accounts:profile_view", receiver.username)
     
     except Exception as e:
-            messages.error(request, "Something went wrong, couldn't reject request.", "alert-danger")
+            messages.error(request, "Request rejected.", "alert-danger")
             return redirect("accounts:profile_view", receiver.username)
 
 # New exchange View

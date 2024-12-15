@@ -10,7 +10,7 @@
                 <span class="star">&#9733;</span>
             </div>
             <div class="card-inner">
-                <a href="{% url 'accounts:profile_view' exchanger.username %}" class="fs-5 fw-medium a-lime-hover">{{exchanger.first_name}} {{exchanger.last_name}}</a>
+                <a href="" class="fs-5 fw-medium">{{exchanger.first_name}} {{exchanger.last_name}}</a>
                 <p><span class="fw-medium">Skills: </span> 
                     {% for skill in exchanger.profile.skills.all %}
                     <a href="{% url 'skills:skill_detail' skill.id %}" class="a-blue-hover">{{skill.name}}</a>,

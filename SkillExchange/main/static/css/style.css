@@ -170,6 +170,25 @@ body a {
     }
 }
 
+/* Base footer */
+.social-icon {
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.2) !important;
+    color: #7A98E9 !important;
+}
+
+.social-icon:active {
+    transform: scale(0.9);
+}
+
+footer {
+    background-color: #f6f6f6;
+    backdrop-filter: blur(10px);
+}
+
 /* Accounts */
 .preview {
     height: 100px;
@@ -329,7 +348,7 @@ body a {
     object-fit: cover;
     object-position: top;
     border-radius: 1rem 1rem 0 0;
-} 
+}
 
 .rating {
     position: absolute;
@@ -373,11 +392,11 @@ body a {
 }
 
 .pagination .page-link:hover {
-    color:#6986d5;
+    color: #6986d5;
 }
 
 .pagination .page-item.active .page-link {
-    color:#7A98E9; 
+    color: #7A98E9;
     font-weight: bold;
     background-color: transparent;
 }

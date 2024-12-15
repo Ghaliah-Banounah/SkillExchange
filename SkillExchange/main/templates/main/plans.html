@@ -119,6 +119,27 @@
   color: black;
 }
 
+.view-plan-detail {
+  background-color: #EBFDB8;
+  border: 1px solid transparent;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+
+.view-plan-detail:hover {
+  background-color: #d0e596;
+  transform: translateY(-1px);
+  border: none;
+  text-decoration: none;
+  color: black;
+}
+
 .add-plan {
   display: flex;
   justify-content: flex-end; 
@@ -161,6 +182,7 @@
               <li>{{ plan.plan_feture_3 }}</li>
             </ul>
             <p><strong>SAR {{plan.plan_amount}} / month</strong></p>
+            <a href="{% url 'main:plan_detail_view' plan.id %}" class="view-plan-detail">View Details</a>
           </div>
         </div>
       </div>
@@ -178,6 +200,10 @@
             </ul>
             <p><strong>SAR {{ plan.plan_amount }} / month</strong></p>
             <a href="{% url 'main:payment_view' plan.id %}" class="submit-btn">Subscribe Now</a>
+            {% if user.is_staff %}
+            <a href="{% url 'main:plan_detail_view' plan.id %}" class="view-plan-detail">View Details</a>
+            {% endif%}
+
           </div>
         </div>
       </div>

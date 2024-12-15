@@ -86,10 +86,9 @@ def profile_view(request: HttpRequest, username: str):
             (Q(user=request.user) & Q(exchanger=user)) |
             (Q(user=user) & Q(exchanger=request.user))).exists()
         
-        sent_requests = Request.objects.filter(sender=user)
-        received_requests = Request.objects.filter(receiver=user)
-        current_exchanges = Exchanger.objects.filter((Q(user=user) | Q(exchanger=user)))
-        print(current_exchanges)
+        sent_requests = Request.objects.filter(sender=user, status=Request.RequestStatus.PENDING)
+        received_requests = Request.objects.filter(receiver=user, status=Request.RequestStatus.PENDING)
+        current_exchanges = Exchanger.objects.filter((Q(user=user) | Q(exchanger=user)) & Q(end_date__gte=datetime.now()))
 
     else:
         sent_requests = []

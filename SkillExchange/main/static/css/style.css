@@ -40,13 +40,12 @@ body a {
     color: #b6df45;
 }
 
-
 .text-blue {
     color: #7A98E9;
 }
 
 /* buttons */
-.btlimen- {
+.btn-lime {
     display: block;
     padding: 0.25rem 1rem;
     align-items: center;
@@ -272,6 +271,15 @@ body a {
 .tab-content.active p {
     font-size: 1rem;
     color: #333;
+}
+
+.listing {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: end;
+    background-color: #F6F6F6;
+    border-bottom: solid 2px #d6d6d6;
 }
 
 /* Exchangers */

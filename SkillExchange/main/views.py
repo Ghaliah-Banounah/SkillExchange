@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.core.mail import send_mail
@@ -8,7 +9,12 @@ from django.template.loader import render_to_string
 from .models import Contact
 from .models import Plan
 from .models import Subscription
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
 from django.contrib.auth.models import User
+from django.utils.timezone import now
+from datetime import timedelta
 
 
 
@@ -115,3 +121,47 @@ def payment_view(request, plan_type):
 
 
 
+
+@csrf_exempt
+def subscription_callback(request):
+    if request.method == "POST":
+        try:
+            # Parse the JSON data sent by Moyasar
+            data = json.loads(request.body.decode("utf-8"))
+            payment_status = data.get("status")
+            payment_id = data.get("id")
+            plan_description = data.get("description")
+            user_email = data.get("source", {}).get("email")
+
+            # Validate payment status
+            if payment_status == "paid" and "Premium Plan" in plan_description:
+                user, created = User.objects.get_or_create(email=user_email)
+                if created:
+                    user.username = user_email.split("@")[0]
+                    user.save()
+
+                # Update or create subscription
+                subscription, created = Subscription.objects.get_or_create(user=user)
+                subscription.is_active = True
+                subscription.plan = "premium"
+                subscription.start_date = now()
+                subscription.end_date = now() + timedelta(days=30)
+                subscription.save()
+
+                logger.info(f"Subscription updated for user: {user_email}")
+                return JsonResponse(
+                    {"message": "Payment processed and subscription activated."},
+                    status=200,
+                )
+
+            else:
+                logger.warning("Payment failed or invalid data received.")
+                return JsonResponse(
+                    {"message": "Payment failed or invalid data."}, status=400
+                )
+
+        except Exception as e:
+            logger.exception("Error processing callback data.")
+            return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Invalid request method."}, status=400)

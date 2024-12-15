@@ -47,14 +47,14 @@ class Plan(models.Model):
     plan_feture_1 = models.TextField(blank=True, null=True)
     plan_feture_2 = models.TextField(blank=True, null=True)
     plan_feture_3 = models.TextField(blank=True, null=True)
-    plan_amount = models.PositiveIntegerField(default=0)
+    plan_amount = models.IntegerField(default=0)
 
 
 
 class Subscription(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=False)
-    plan = models.ForeignKey(Plan, on_delete=models.SET_NULL, null=True)
+    plan = models.CharField(max_length=50, default="free")
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(null=True, blank=True)
 
@@ -65,4 +65,4 @@ class Subscription(models.Model):
         return self.end_date and now() <= self.end_date
 
     def __str__(self):
-        return f"{self.user.username} - {self.plan.plan_name if self.plan else 'No Plan'}"
+        return f"{self.user.username} - {self.plan}"

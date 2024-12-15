@@ -106,10 +106,6 @@
   color: #7a98e9 ;
 }
 
-.bi-lightbulb:hover {
-  color: white;
-}
-
 
 /* Section 2 */
 
@@ -332,7 +328,7 @@
   position: relative;
   margin-top: 100px;
   padding-top: 100px;
-  padding-bottom: 400px;
+  padding-bottom: 100px;
   
 }
 
@@ -400,7 +396,7 @@
 /* Card Preview */
 .card-preview {
   position: absolute;
-  bottom: -160%;
+  bottom: -150%;
   right: 10%; 
   width: 250px;
   height: 350px;
@@ -632,8 +628,8 @@
             Discover a community where you can exchange skills, connect with others, and grow<br>
             —all for free</h5>
             <div class="main-links">
-                <a href="{%url 'exchangers:display_exchangers_view'%}" class="btn-lime-main">Start Exchanging</a>
-                <a href="{%url 'skills:skills_list'%}" class="btn-blue-main"><i class="bi bi-lightbulb me-2"></i>Explore Skills</a>
+                <a href="{}" class="btn-lime-main">Start Exchanging</a>
+                <a href="{}" class="btn-blue-main"><i class="bi bi-lightbulb me-2"></i>Explore Skills</a>
             </div>
     </div>
 
@@ -702,7 +698,7 @@
     <div class="container text-center">
         <div class="section-3-text text-start d-flex flex-column flex-md-row justify-content-md-between align-items-start align-items-md-center">
             <h1>Explore Our <span class="bg-lime p-2 rounded-4">Top Exchangers</span></h1>
-            <a href="{%url 'exchangers:display_exchangers_view'%}" class="bg-lime py-1 px-3 rounded-pill small mt-3 mt-md-0">See All</a>
+            <a href="#" class="bg-lime py-1 px-3 rounded-pill small mt-3 mt-md-0">See All</a>
         </div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4">
             <!-- Card 1 -->
@@ -749,7 +745,7 @@
 
 <!--Section 4-->
 
-<section class="section-4 bg-lime overflow-hidden">
+<section class="section-4 bg-lime">
   <div class="container text-center position-relative">
       <div class="section-4-text text-start">
         <h1>Click to Explore What</h1>
@@ -780,7 +776,7 @@
       <div class="view-cards d-none mt-5">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
           <div class="col">
-            <div class="card h-100 text-center p-4">
+            <div class="card text-center p-4">
               <i class="bi bi-person display-5"></i>
               <h5 class="mt-3 text-left">User Name</h5>
               <p class="text-muted text-left">Review Review Review Review Review Review Review Review</p>

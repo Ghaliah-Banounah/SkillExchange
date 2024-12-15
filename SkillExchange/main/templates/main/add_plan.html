@@ -1,0 +1,64 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Skill Exchange{% endblock %}
+
+{% block content %}
+
+<section class="container-md">
+    <h1 class="m-5 mx-auto title">
+    Add Plan
+    </h1>
+    <!-- add plan form -->
+    <div class="d-flex justify-content-center">
+        <form action="{% url 'main:add_plan_view' %}" method="post" enctype="multipart/form-data" class="text-start p-4 rounded-4 shadow-sm bg-lime needs-validation custom-width" novalidate>
+            {% csrf_token %}
+            
+            <div class="form-group mb-3">
+                <label for="plan_name">Plan Type</label>
+                <select name="plan_name" id="plan_name" class="form-control" required>
+                    <option value="">Select Plan...</option>
+                    <option value="Free">Free</option>
+                    <option value="Premium">Premium</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Feature No.1</label>
+                    <input type="text" id="plan_feture_1" name="plan_feture_1" placeholder="Enter the First Feature" class="form-control mb-3" required />
+
+            </div>
+
+
+            <div class="form-group">
+                <label for="name">Feature No.2</label>
+                    <input type="text" id="plan_feture_2" name="plan_feture_2" placeholder="Enter the Second Feature" class="form-control mb-3" required />
+
+            </div>
+
+
+            <div class="form-group">
+                <label for="name">Feature No.3</label>
+                    <input type="text" id="plan_feture_3" name="plan_feture_3" placeholder="Enter the Third Feature" class="form-control mb-3" required />
+
+            </div>
+
+
+            <div class="form-group">
+                <label for="plan_amount">Plan Amount</label>
+                <input type="number" name="plan_amount" id="plan_amount" class="form-control" placeholder="Enter the Plan Amount mb-3" min="1" required>
+            </div>
+
+            <div class="d-flex justify-content-center mt-3">
+                <button class="w-50 btn-blue" type="submit">
+                    Add
+                </button>
+            </div>
+        
+        </div>
+    </form>
+</section>
+
+
+
+{% endblock %}

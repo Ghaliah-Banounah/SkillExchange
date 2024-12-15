@@ -1,4 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.utils.timezone import now
+
+
 
 # Create your models here.
 
@@ -30,3 +34,35 @@ class Contact(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+
+
+
+class PLANTYPE(models.TextChoices):
+        FREE = "Free", "Free"
+        PREMIUM = "Premium", "Premium"
+
+class Plan(models.Model):
+    plan_name = models.CharField(max_length=50, choices=PLANTYPE,blank=True, null=True)
+    plan_feture_1 = models.TextField(blank=True, null=True)
+    plan_feture_2 = models.TextField(blank=True, null=True)
+    plan_feture_3 = models.TextField(blank=True, null=True)
+    plan_amount = models.IntegerField(default=0)
+
+
+
+class Subscription(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=False)
+    plan = models.CharField(max_length=50, default="free")
+    start_date = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateTimeField(null=True, blank=True)
+
+    def is_valid(self):
+        """
+        Check if the subscription is still active.
+        """
+        return self.end_date and now() <= self.end_date
+
+    def __str__(self):
+        return f"{self.user.username} - {self.plan}"

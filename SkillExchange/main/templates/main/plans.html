@@ -6,28 +6,26 @@
 
 {% block content %}
 
-<!-- Moyasar Styles -->
- <link rel="stylesheet" href="https://cdn.moyasar.com/mpf/1.14.0/moyasar.css" />
-    
-<!-- Moyasar Scripts -->
- <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=4.8.0&features=fetch"></script>
- <script src="https://cdn.moyasar.com/mpf/1.14.0/moyasar.js"></script>
-
 <style>
-/* Section 2 */
+/* Plane Section */
 .plans-section {
   padding: 50px 0;
 }
 
 .section-2-text h1 {
   font-size: 64px;
-  margin-bottom: 20px;
   margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+  .section-2-text h1 {
+    font-size: 1.8rem; 
+  }
 }
 
 .card-custom {
   position: relative;
-  margin-top: 80px;
+  margin-top: 20px;
   border-radius: 20px;
 }
 
@@ -118,62 +116,70 @@
   color: black;
 }
 
-
-#moyasar-button {
-  display: block;
-  margin-top: 20px;
-  width: auto;
+.add-plan {
+  display: flex;
+  justify-content: flex-end; 
+  margin-top: 20px; 
+  margin-right: 0; 
+  width: 100%; 
 }
+
+
+
 
 </style>
 
 
 <section class="plans-section">
-  <div class="container text-center d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="section-2-text text-start">
-      <h1>Choose <span class="bg-blue p-1 rounded-3">Your Plan</span></h1>
+  <div class="container text-center">
+    <div class="section-2-text text-center">
+      <h1>Choose <span class="bg-lime p-1 rounded-3">Your Plan</span></h1>
     </div>
-
-    <div class="d-flex justify-content-end mb-2">
-      <a href="{% url 'main:add_plan_view' %}" class="btn-blue rounded-pill align-content-center">
-          <i class="bi bi-plus bl fs-4"></i>
+    
+    <div class="add-plan">
+      <a href="{% url 'main:add_plan_view' %}" class="btn-lime rounded-pill align-content-center" style="margin-top: 30px;">
+        <i class="bi bi-plus bl fs-4"></i>
       </a>
     </div>
-    <div class="d-flex justify-content-center align-items-center mt-5 gap-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4 g-3">
+      
       <!-- Free Plan -->
-
+       
       {% for plan in plans %}
-      <div class="col-md-6 mb-3">
+      {% if plan.plan_name == "Free"%}
+      
+      <div class="col mb-3">
         <div class="card card-custom card-1" style="width: 400px; height: 400px; background-color: rgba(122, 152, 233, 0.75); border: none;">
           <div class="card-body">
-            <h5 class="card-title">{plan.plan_name}</h5>
+            <h5 class="card-title">{{ plan.plan_name}} Plan</h5>
             <ul>
-                <li>{plan.plan_feture_1}</li>
-                <li>{plan.plan_feture_2}</li>
-                <li>{plan.plan_feture_3}</li>
-              </ul>
-              <p><strong>SAR {plan.plan_amount} / month</strong></p>
-            </div>
-          </div>
-        </div>
-
-      <!-- Premium Plan 
-      <div class="col-md-6 mb-3">
-        <div class="card card-custom card-2" style="width: 400px ;height: 400px; background-color: #F6F6F6; border: none;">
-          <div class="card-body">
-            <h5 class="card-title">Premium Plan</h5>
-            <ul>
-                <li>Unlock all premium features</li>
-                <li>Get exclusive tools and insights</li>
-                <li>Priority customer support</li>
+              <li>{{ plan.plan_feture_1 }}</li>
+              <li>{{ plan.plan_feture_2 }}</li>
+              <li>{{ plan.plan_feture_3 }}</li>
             </ul>
-            <p><strong>SAR 50 / month</strong></p>
-            <a href="{}" class="submit-btn">Subscribe Now</a>
+            <p><strong>SAR {{plan.plan_amount}} / month</strong></p>
           </div>
         </div>
       </div>
-      -->
       
+      {% elif plan.plan_name == "Premium" %}
+      <!-- Premium Plan -->
+       <div class="col mb-3">
+        <div class="card card-custom card-2" style="width: 400px ;height: 400px; background-color: #F6F6F6; border: none;">
+          <div class="card-body">
+            <h5 class="card-title">{{ plan.plan_name}} Plan</h5>
+            <ul>
+              <li>{{ plan.plan_feture_1 }}</li>
+              <li>{{ plan.plan_feture_2 }}</li>
+              <li>{{ plan.plan_feture_3 }}</li>
+            </ul>
+            <p><strong>SAR {{ plan.plan_amount }} / month</strong></p>
+            <a href="{% url 'main:payment_view' plan.id %}" class="submit-btn">Subscribe Now</a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {%endfor%}
     </div>
   </div>
 </section>

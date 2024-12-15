@@ -1,29 +1,55 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Skill Exchange{% endblock %}
+{% block title %}Payment{% endblock %}
 
 
 
 {% block content %}
+<style>
+  .payment-section {
+  padding: 50px 0;
+}
 
-<h1>Payment</h1>
-<div class="mysr-form"></div>
+.section-2-text h1 {
+  font-size: 64px;
+  margin-top: 30px;
+  margin-bottom: 60px;
+}
+
+@media (max-width: 768px) {
+  .section-2-text h1 {
+    font-size: 1.8rem; 
+  }
+}
+</style>
+
+<section class="payment-section">
+  <div class="container text-center">
+    <div class="section-2-text text-center">
+      <h1>Your <span class="bg-lime p-1 rounded-3">Payment</span></h1>
+    </div>
+    <div class="mysr-form"></div>
+  </div>
+</section>
+
 <script>
-    Moyasar.init({
-      element: '.mysr-form',
-      // Amount in the smallest currency unit.
-      // For example:
-      // 10 SAR = 10 * 100 Halalas
-      // 10 KWD = 10 * 1000 Fils
-      // 10 JPY = 10 JPY (Japanese Yen does not have fractions)
-      amount: 5000,
-      currency: 'SAR',
-      description: 'Premium Plan',
-      publishable_api_key: 'pk_test_mvBbZSFwEE4tNKSJqF6DV7JcEYpcnkFU8qxD9AgK',
-      callback_url: 'https://moyasar.com/thanks',
-      methods: ['creditcard']
-    })
-  </script>
+  
+  const planAmount = parseInt("{{ plan.plan_amount|default:0 }}", 10); 
+  const amountInHalalas = planAmount * 100; 
+
+  console.log("Plan Amount:", planAmount); 
+  console.log("Amount in Halalas:", amountInHalalas); 
+
+  Moyasar.init({
+    element: '.mysr-form',
+    amount: amountInHalalas,  
+    currency: 'SAR',
+    description: '{{ plan.plan_name }} Plan',
+    publishable_api_key: 'pk_test_mvBbZSFwEE4tNKSJqF6DV7JcEYpcnkFU8qxD9AgK',
+    callback_url: 'https://moyasar.com/thanks',
+    methods: ['creditcard']
+  });
+</script>
 
 {% endblock %}

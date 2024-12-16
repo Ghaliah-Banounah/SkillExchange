@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.db import transaction
 from skills.models import Skill
 
-# Display exchangers
+# Display exchangers View
 def display_exchangers_view(request: HttpRequest):
 
     search_query = request.GET.get('search', '')
@@ -117,3 +117,28 @@ def new_exchange_view(request: HttpRequest, sender_id: int, receiver_id: int):
     except Exception as e:
         messages.error(request, "Something went wrong, couldn't accept request", "alert-danger")
         return redirect("accounts:profile_view", user.username)
+
+# Request details View
+def request_details_view(request: HttpRequest, req_id: int):
+    try:
+        req = Request.objects.get(pk=req_id)
+        if not ((req.sender == request.user) or (req.receiver == request.user)):
+            messages.error(request, "You don't have permission to view this request.", "alert-warning")
+            return redirect('main:home_view')
+        
+    except Exception as e:
+        return render(request, '404.html')
+    
+    return render(request, 'exchangers/request_details.html', {'req': req})
+
+# Request details View
+def exchange_details_view(request: HttpRequest, exchange_id: int):
+    try:
+        exchange = Exchanger.objects.get(pk=exchange_id)
+        if not ((exchange.user == request.user) or (exchange.exchanger == request.user)):
+            messages.error(request, "You don't have permission to view this exchange.", "alert-warning")
+            return redirect('main:home_view')
+        
+    except Exception as e:
+        return render(request, '404.html')
+    return render(request, 'exchangers/exchange_details.html', {'exchange': exchange})

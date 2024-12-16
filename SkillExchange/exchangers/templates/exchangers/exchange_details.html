@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Exchange Details{% endblock %}
+
+{% block content %}
+<section class="container-md my-5">
+    <h1 class="m-5 mx-auto title">
+    Exchange Details
+    </h1>
+    <div class="container-md my-5 bg-gray rounded-4 shadow-sm">
+        <div class="row row-cols-1 row-cols-md-3 row-gap-5 py-4 px-3">
+            <div class="col col-md-5 justify-items-center">
+                <img src="{{exchange.user.profile.pfp.url}}" alt="" class="request-details-img rounded-4 shadow">
+            </div>
+            <div class="col col-md-2 text-center align-content-center">
+                <i class="bi bi-arrow-down-up h1 d-block d-md-none"></i>
+                <i class="bi bi-arrow-left-right h1 d-none d-md-block"></i>
+            </div>
+            <div class="col col-md-5">
+                <img src="{{exchange.exchanger.profile.pfp.url}}" alt="" class="request-details-img rounded-4 shadow">
+            </div>
+        </div>
+        <h3 class="mb-3 px-3">Skill exchange between 
+            <a href="{% url 'accounts:profile_view' exchange.user.username %}" class="a-lime-hover">{{exchange.user.first_name}} {{exchange.user.last_name}}</a> and 
+            <a href="{% url 'accounts:profile_view' exchange.exchanger.username %}" class="a-lime-hover">{{exchange.exchanger.first_name}} {{exchange.exchanger.last_name}}</a>
+        </h3>
+        <div class="d-flex flex-column gap-1 px-3 pb-4">    
+            <p class="fs-5 m-0"><span class="fs-4 fw-medium text-lime-200">Skills exchanged:</span>
+                {% for skill in exchange.skills_exchanged.all %}
+                <a href="{% url 'skills:skill_detail' skill.id %}" class="a-blue-hover">{{skill.name}}</a>,
+                {% endfor %}
+            </p>
+            <p class="fs-5 m-0"><span class="fs-4 fw-medium text-lime-200"><i class="bi bi-calendar-event pe-2 fs-5"></i>Start date: </span>
+                {{exchange.start_date}}
+            </p>
+            <p class="fs-5 m-0"><span class="fs-4 fw-medium text-lime-200"><i class="bi bi-calendar-event pe-2 fs-5"></i>End date: </span>
+                {{exchange.end_date}}
+            </p>
+        </div>         
+    </div>
+</section>
+{% endblock %}

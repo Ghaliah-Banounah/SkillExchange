@@ -6,7 +6,9 @@
             <img src="{{exchanger.profile.pfp.url}}" class="image-exchangers"
                 alt="Profile Image">
             <div class="rating">
-                <span class="rating-number">2</span>
+                {% if exchanger.average_rating %}
+                <span class="rating-number">{{exchanger.average_rating}}</span>
+                {% endif %}
                 <span class="star">&#9733;</span>
             </div>
             <div class="card-inner">

@@ -23,8 +23,8 @@ class Review(models.Model):
         STAR4 = 4, "Great"
         STAR5 = 5, "Awesome"
 
-    exchanger = models.ForeignKey(User, on_delete=models.CASCADE, related_name="profile_owner")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviewer")
+    exchanger = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="my_reviews")
     rating = models.SmallIntegerField(choices=RatingChoices.choices)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

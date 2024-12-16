@@ -75,9 +75,6 @@ def profile_view(request: HttpRequest, username: str):
             profile: Profile = user.profile
     else:
         profile = Profile(user=user)
-    
-    # Get all reviews on current profile
-    profile_reviews = []
 
     # Get requests sent or received by the user
     if request.user.is_authenticated:
@@ -103,7 +100,7 @@ def profile_view(request: HttpRequest, username: str):
     
     return render(request, 'accounts/profile.html', {'profile': profile, 'is_connected': is_connected, 'is_requested': is_requested,
                    'sent_requests': sent_requests, 'received_requests': received_requests, 'current_exchanges': current_exchanges, 'prev_exchanges': prev_exchanges, 
-                   'profile_reviews': profile_reviews, 'rating': reversed(Review.RatingChoices.choices)})
+                    'rating': reversed(Review.RatingChoices.choices)})
 
 # Display profile View
 def update_profile_view(request: HttpRequest):

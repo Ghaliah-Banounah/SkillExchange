@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from .models import Exchanger, Request
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, Avg
 from django.db import transaction
 from skills.models import Skill
 
@@ -16,6 +16,9 @@ def display_exchangers_view(request: HttpRequest):
         exchangers = User.objects.filter(Q(first_name__icontains=search_query) | Q(last_name__icontains=search_query))
     else:
         exchangers = User.objects.all()
+
+    # Calculate average reviews per exchanger and assigining them to temp field
+    exchangers = exchangers.annotate(average_rating=Avg("reviews__rating"))
 
     paginator = Paginator(exchangers, 6)
     page_number = request.GET.get('page')

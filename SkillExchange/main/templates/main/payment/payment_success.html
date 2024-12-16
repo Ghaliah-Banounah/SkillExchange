@@ -7,9 +7,12 @@
 {% block content %}
 
 
-<div class="container text-center" style="margin-top: 50px;">
-    <h1 class="text-success">Payment Successful!</h1>
-    <p>Thank you for subscribing to the {{ plan_name }} Plan.</p>
-    <a href="{% url 'main:home_view' %}" class="btn btn-primary mt-3">Go Back to Home</a>
-</div>
+<title>Payment Success</title>
+    <div class="container text-center mt-5">
+        <div class="alert alert-success p-4 rounded-3">
+            <h1 class="display-4">🎉 Payment Successful!</h1>
+            <p class="lead">Thank you for your payment. Your transaction has been completed successfully.</p>
+        </div>
+        <a href="/" class="btn btn-primary mt-3 mb-5" style="color: black; background-color: #7A98E9; border: none;">Back to Home</a>
+    </div>
 {% endblock %}

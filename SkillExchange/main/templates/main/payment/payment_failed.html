@@ -6,11 +6,17 @@
 {% block content %}
 
 
-<div class="container text-center" style="margin-top: 50px;">
-    <h1 class="text-danger">Payment Failed</h1>
-    <p>Something went wrong. Please try again or contact support.</p>
-    <a href="{% url 'plans_view' %}" class="btn btn-danger mt-3">Retry Payment</a>
-</div>
+
+<title>Payment Success</title>
+    <div class="container text-center mt-5">
+        <div class="alert alert-danger p-4 rounded-3">
+            <h1 class="display-4">❌ Payment Failed</h1>
+            <p class="lead">Something went wrong. Please try again or contact support.</p>
+            
+        </div>
+        <a href="/" class="btn btn-lime mt-3 mb-5" style="background-color: #7A98E9;">Back to Home</a>
+        <a href="{% url 'main:plans_view' %}" class="btn btn-lime mt-3 mb-5" style="background-color: #EBFDB8;">Retry Payment</a>
+    </div>
 
 
 {% endblock %}

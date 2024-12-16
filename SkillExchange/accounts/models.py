@@ -11,6 +11,7 @@ class Profile(models.Model):
     skills = models.ManyToManyField(Skill, related_name='skills')
     skills_needed = models.ManyToManyField(Skill, related_name='skills_needed')
     is_online = models.BooleanField(default=False)
+    last_seen = models.DateTimeField(null=True, blank=True)
 
     def __str__(self) -> str:
         return f'Profile {self.user.username}'

@@ -203,7 +203,11 @@
               <li>{{ plan.plan_feture_3 }}</li>
             </ul>
             <p><strong>SAR {{ plan.plan_amount }} / month</strong></p>
+
+            {% if not user.is_staff and not user.is_superuser %}
             <a href="{% url 'main:payment_view' plan.id %}" class="submit-btn">Subscribe Now</a>
+            {% endif %}
+
             {% if user.is_staff %}
             <a href="{% url 'main:plan_detail_view' plan.id %}" class="view-plan-detail">View Details</a>
             {% endif%}

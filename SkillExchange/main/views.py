@@ -222,24 +222,47 @@ def payment_view(request, plan_id):
 
 
 
-#Success Payment View
+#Payment Result View
 
 def payment_result_view(request, plan_id):
 
     plan = get_object_or_404(Plan, id=plan_id)
 
-    return render(request, "main/payment/payment_success.html", {"plan": plan})
+    payment_status = request.GET.get("status")  
+    transaction_id = request.GET.get("id")      
+    amount = request.GET.get("amount")          
+    message = request.GET.get("message")        
+
+    #For debugging
+    print(f"Payment Status: {payment_status}")
+    print(f"Transaction ID: {transaction_id}")
+    print(f"Amount: {amount}")
+    print(f"Message: {message}")
+
+    if payment_status == "paid":
+        context = {
+            "plan": plan,
+            "transaction_id": transaction_id,
+            "amount": amount,
+            "message": message
+        }
+        return render(request, "main/payment/payment_success.html", context)
+    
 
 
+    elif payment_status in ["failed", "denial"]:
+        context = {
+            "plan": plan,
+            "transaction_id": transaction_id,
+            "amount": amount,
+            "message": message
+        }
+        return render(request, "main/payment/payment_failed.html", context)
+    
 
+    else:
+        context = {"plan": plan, "message": "Unknown payment status."}
 
-
-#Failed Payment View
-
-def payment_failed_view(request):
-
-    plans = Plan.objects.all()
-
-    return render(request, "main/payment/payment_failed.html", {"plans":plans})
+        return render(request, "main/payment/payment_failed.html", context)
 
 

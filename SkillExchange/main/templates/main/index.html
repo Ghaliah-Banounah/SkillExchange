@@ -635,6 +635,105 @@
   object-fit: cover;
 }
 
+
+
+/* Section 6 */
+
+.section-6 {
+  padding: 50px 0;
+  margin-top: 50px;
+}
+
+.section-6-text h1 {
+  font-size: 64px;
+  margin-bottom: 50px;
+
+}
+
+
+.card-custom {
+  position: relative;
+  margin-top: 80px;
+  border-radius: 20px;
+
+}
+
+.card-custom::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 0;
+  opacity: 0.2;
+}
+
+.card-1::before {
+  background-image: url("/static/images/Vector 1-2.png");
+  width: 97%;
+}
+
+.card-2::before {
+  background-image: url("/static/images/Vector 2.png");
+}
+
+.card-3::before {
+  background-image: url("/static/images/Vector 3.png");
+}
+
+.card-body {
+  position: relative;
+  z-index: 1;
+}
+
+.card-body img{
+  position: relative;
+  width: 200px;
+  margin-top: 30px;
+}
+
+.card-custom .number {
+  font-size: 5rem;
+  font-weight: normal;
+  color: rgba(160, 158, 158, 0.519);
+  position: absolute;
+  top: -65px;
+  left: 30px;
+  z-index: 0;
+  text-align: center;
+}
+
+.card-custom .card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 60px;
+}
+
+.card-custom .card-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: justify;
+  font-weight: normal;
+  margin-top: 80px;
+}
+
+.card-custom .custom-list {
+  text-align: justify; 
+  padding-left: 0; 
+  margin-left: 0; 
+  list-style-position: inside; 
+}
+
+.card-custom li {
+  text-align: justify; 
+  margin-bottom: 10px; 
+}
+
 </style>
 
 <section class="section-1">
@@ -715,6 +814,73 @@
         </div>
     </div>
 </section>
+
+
+
+<!--Section 6-->
+
+<section class="section-6">
+  <div class="container text-center">
+      <div class="section-6-text text-start">
+          <h1><span class="bg-blue p-1 rounded-3">Our</span> Mission, Vision, and Values</h1>
+      </div>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4">
+
+          <!--Card 1-->
+          <div class="col mb-3">
+              <div class="card card-custom card-1" style="height: 600px; background-color: rgba(122, 152, 233, 0.75); border:none">
+                  <!--<img src="{% static 'images/Vector 1.png' %}" alt="background-motion" class="card-bg">-->
+
+                  <div class="card-body">
+                    <h1 class="number">Mission</h1>
+                    <p class="card-text">
+                      Our mission is to create a vibrant platform where individuals from all walks of life can connect, exchange skills, and grow together. We aim to empower users by providing an inclusive and cost-effective environment to foster learning, collaboration, and personal development.
+                    </p>
+                    <img src="{% static 'images/mision.png' %}" class="img-mision" alt="Mission">
+                  </div>
+                </div>
+              </div>
+              
+          <!-- Card 2 -->
+           <div class="col mb-3">
+              <div class="card card-custom card-2"  style="height: 600px; background-color: rgba(235, 253, 184, 0.75); border:none ">
+                  <!--<img src="{% static 'images/Vector 2.png' %}" alt="background-motion" class="card-bg">-->
+
+                  <div class="card-body">
+                      <h1 class="number">Vision</h1>
+                      <p class="card-text">
+                        Our vision is to become the leading global hub for skill exchange, where every user can discover, share, and master new skills, bridging gaps between diverse communities and fostering meaningful connections in an ever-evolving digital world.
+                      </p>
+                      <img src="{% static 'images/vision.png' %}" class="img-vision" style="margin-top: 60px;" alt="Vision">
+                  </div>
+              </div>
+          </div>
+          
+          <!-- Card 3 -->
+           <div class="col mb-3">
+              <div class="card card-custom card-3" style="height: 600px; background-color: #F6F6F6; border: none;">
+                  <!--<img src="{% static 'images/Vector 2.png' %}" alt="background-motion" class="card-bg">-->
+
+                  <div class="card-body">
+                      <h1 class="number">Values</h1>
+                      <p class="card-text custom-list">
+                        <ul>
+                          <li><strong>Empowerment:</strong> We believe in enabling individuals to reach their full potential through shared knowledge and resources.</li>
+                          <li><strong>Inclusivity:</strong> Our platform welcomes everyone, ensuring diversity and equal opportunities for all.</li>
+                          <li><strong>Collaboration:</strong> We encourage cooperation and mutual support, fostering strong connections within our community.</li>
+
+                        </ul>
+                        </strong>
+                      </p>
+                      <img src="{% static 'images/value.png' %}" class="img-value" alt="Value">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
 
 <!--Section 3-->
 

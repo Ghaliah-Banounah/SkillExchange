@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,46 +7,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Inquiry Notification</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
+
+        .email-wrapper {
+            background-color: #7A98E9; 
+            width: 60%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
         }
-        .container {
+
+        
+        .email-container {
+            background-color: #fff;
             max-width: 600px;
-            margin: 20px auto;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            text-align: center;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        h1 {
-            color: #007bff;
-            font-size: 24px;
-        }
-        p {
-            margin: 10px 0;
-        }
-        .highlight {
-            color: #0056b3;
+
+        .email-header {
+            font-size: 28px;
             font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .email-subtitle {
+            font-size: 20px;
+            color: #555;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .email-content {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 30px;
+            margin-top: 30px;
+            text-align:justify;
+        }
+
+        .highlight {
+            color: #333;
+            font-weight: normal;
+        }
+
+        .email-footer {
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+        }
+
+        .confirm-exchange {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            color: black !important; 
+            background-color: #EBFDB8;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .confirm-exchange:hover {
+            background-color: #d0e596;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .email-container {
+                padding: 20px; 
+            }
+            .email-header {
+                font-size: 24px;
+            }
+            .email-subtitle {
+                font-size: 18px;
+            }
+            .email-content {
+                font-size: 14px;
+            }
+            .confirm-exchange {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .email-container {
+                padding: 15px;
+            }
+            .email-header {
+                font-size: 20px;
+            }
+            .email-subtitle {
+                font-size: 16px;
+            }
+            .email-content {
+                font-size: 13px;
+                text-align: left; 
+            }
+            .confirm-exchange {
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+            .email-footer {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>New Inquiry Received</h1>
-        <p><strong>Name:</strong> {{ name }}</p>
-        <p><strong>Email:</strong> {{ email }}</p>
-        <p><strong>Inquiry Type:</strong> {{ inquiries_type }}</p>
-        <p><strong>Message:</strong></p>
-        <p class="highlight">{{ message }}</p>
-        <hr>
-        <p>This is an automated notification. Please do not reply to this email.</p>
+    <div class="email-wrapper">
+        <div class="email-container">
+            <img src="https://i.ibb.co/jfnGCNF/logo-gray.png" alt="Logo" width="80" style="display: block; margin: 0 auto 20px;"/>
+            <h1 class="email-header">New Inquiry Received</h1>
+            <p class="email-subtitle">Thank you for reaching out!</p>
+            <p class="email-content">
+                <strong>Name:</strong> {{ name }}<br>
+                <strong>Email:</strong> {{ email }}<br>
+                <strong>Inquiry Type:</strong> {{ inquiries_type }}<br>
+            </p>
+            <p><strong>Message:</strong></p>
+            <p class="highlight">{{ message }}</p>
+            <a href="#" class="confirm-exchange">View Inquiry</a>
+            <hr>
+            <p class="email-footer">
+                This is an automated notification. Please do not reply to this email.<br>
+                With love, Your Team ❤️
+            </p>
+        </div>
     </div>
 </body>
 </html>

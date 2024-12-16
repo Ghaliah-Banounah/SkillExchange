@@ -4,10 +4,9 @@ from django.db.models import Q
 from django.utils import timezone
 from django.contrib.auth.models import User
 from .models import Chat
-import uuid 
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
-from django.urls import resolve
+from .models import Profile
 
 @login_required
 def chat_list(request):
@@ -43,6 +42,12 @@ def chat_list(request):
 @login_required
 def chat_view(request, user_id):
     receiver = User.objects.get(id=user_id)
+    profile, created = Profile.objects.get_or_create(user=receiver)
+    try:
+        receiver_profile = Profile.objects.get(user=receiver)
+        receiver.is_online = receiver_profile.is_online  
+    except Profile.DoesNotExist:
+        receiver.is_online = False
     
     conversation_id = str(min(request.user.id, receiver.id)) + "-" + str(max(request.user.id, receiver.id))
 
@@ -54,6 +59,8 @@ def chat_view(request, user_id):
 
     for user in users_in_conversation:
         user.unread_messages_count = Chat.objects.filter(sender=user, receiver=request.user, read_at__isnull=True).count()
+        profile = Profile.objects.get(user=user)
+        user.is_online = profile.is_online
 
         last_message = Chat.objects.filter(
             Q(sender=user, receiver=request.user) | Q(sender=request.user, receiver=user)
@@ -67,12 +74,12 @@ def chat_view(request, user_id):
             user.last_message_time = "No messages yet"
         
         #time_diff = timezone.now() - user.last_login if user.last_login else timezone.timedelta(days=1)
-        is_chat_page= resolve(request.path_info).url_name
-        if is_chat_page == 'chat_view':
-            user_id=resolve(request.path_info).kwargs.get('user_id',None)
-            user.is_online = True
-        elif is_chat_page =='chat_list':
-            user.is_online = False
+        #is_chat_page= resolve(request.path_info).url_name
+        #if is_chat_page == 'chat_view':
+            #user_id=resolve(request.path_info).kwargs.get('user_id',None)
+            #user.is_online = True
+        #elif is_chat_page =='chat_list':
+            #user.is_online = False
 
     users_in_conversation = sorted(users_in_conversation, key=lambda user: user.last_message_time, reverse=True)
 
@@ -101,6 +108,7 @@ def chat_view(request, user_id):
         'users_in_conversation': users_in_conversation,
     })
 
+
 @login_required
 def delete_chat(request, user_id):
     user = get_object_or_404(User, id=user_id)
@@ -119,3 +127,19 @@ def delete_chat(request, user_id):
         chats.filter(sender=user).delete() 
     
     return redirect('chats:chat_list')
+
+
+@receiver(user_logged_in)
+def update_last_seen_on_login(sender, request, user, **kwargs):
+    profile, created = Profile.objects.get_or_create(user=user)
+    profile.is_online = True  
+    profile.last_seen = timezone.now()  
+    profile.save()
+
+
+@receiver(user_logged_out)
+def update_last_seen_on_logout(sender, request, user, **kwargs):
+    profile, created = Profile.objects.get_or_create(user=user)
+    profile.is_online = False 
+    profile.last_seen = timezone.now()  
+    profile.save()

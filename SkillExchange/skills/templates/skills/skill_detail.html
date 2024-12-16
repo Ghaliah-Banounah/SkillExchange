@@ -15,12 +15,12 @@
             <div class="d-flex justify-content-between">
                 <h1>{{ skill.name }}</h1>
                 <div class="d-flex gap-2">
-                    {% if user.is_staff %}
+                    {% if user.is_staff and perms.skills.change_skill %}
                     <a href="{% url 'skills:edit_skill' skill.id %}" class="btn-lime shadow-sm p-2 my-auto">
                         <i class="bi bi-pencil-square"></i>
                     </a>
                     {% endif %}
-                    {% if user.is_staff %}
+                    {% if user.is_staff and perms.skills.delete_skill %}
                     <!-- Trigger delete modal -->
                     <button type="button" class="btn btn-danger shadow-sm p-2 my-auto" data-bs-toggle="modal"
                         data-bs-target="#deleteModal">

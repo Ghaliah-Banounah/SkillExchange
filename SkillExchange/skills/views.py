@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from accounts.models import Profile
 
-# Create your views here.
+# All skills View
 def skills_list(request):
     search_query = request.GET.get('search', '')
     if search_query:
@@ -24,7 +24,12 @@ def skills_list(request):
 
     return render(request, 'skills/skills_list.html', {'skills': page_obj})
 
+# Add skill View
 def add_skill(request):
+    if not (request.user.is_staff and request.user.has_perm('skills.add_skill')):
+        messages.warning(request, "You don't have permission to add skills.", "alert-warning")
+        return redirect('main:home_view')
+    
     if request.method == 'POST':
         form = SkillForm(request.POST, request.FILES)
         if form.is_valid():
@@ -35,15 +40,27 @@ def add_skill(request):
 
     return render(request, 'skills/add_skill.html', {'form': form})
 
+# Skill detials View
 def skill_detail(request, skill_id):
+    try:
+        skill = Skill.objects.get(Skill, id=skill_id)  
+    except Exception as e:
+        return render(request, '404.html')
     
-    skill = get_object_or_404(Skill, id=skill_id)
     exchangers = User.objects.filter(profile__skills__id=skill.id)[0:3]
-
     return render(request, 'skills/skill_detail.html', {'skill': skill, 'skill_exchangers': exchangers})
 
+# Update skill View
 def edit_skill(request, skill_id):
-    skill = get_object_or_404(Skill, id=skill_id)
+    if not (request.user.is_staff and request.user.has_perm('skills.change_skill')):
+        messages.warning(request, "You don't have permission to update skills.", "alert-warning")
+        return redirect('main:home_view')
+    
+    try:
+        skill = Skill.objects.get(Skill, id=skill_id)
+    except Exception as e:
+        return render(request, '404.html')
+
     if request.method == 'POST':
         form = SkillForm(request.POST, request.FILES, instance=skill)
         if form.is_valid():
@@ -55,11 +72,21 @@ def edit_skill(request, skill_id):
 
     return render(request, 'skills/edit_skill.html', {'form': form, 'skill': skill})
 
+# Delete skill View
 def delete_skill(request, skill_id):
-    skill = get_object_or_404(Skill, id=skill_id)
+    if not (request.user.is_staff and request.user.has_perm('skills.delete_skill')):
+        messages.warning(request, "You don't have permission to delete skills.", "alert-warning")
+        return redirect('main:home_view')
+    
+    try:
+        skill = Skill.objects.get(Skill, id=skill_id)
+    except Exception as e:
+        return render(request, '404.html')
+    
     if request.method == 'POST':
         skill.delete()
         messages.success(request, 'Skill deleted successfully.', 'alert-danger')
         return redirect('skills:skills_list')  
     else:
         return render(request, 'skills/skill_detail.html', {'skill': skill})
+    

@@ -21,10 +21,12 @@
                 <h5 class="mb-1 text-lime">Contact information:</h5>
                 <p class="text-start m-0"><span class="fw-medium text-lime">Phone Number:</span> {{profile.phone}}</p>
                 <p class="text-start m-0"><span class="fw-medium text-lime">Email:</span> {{profile.user.email}}</p>
-                {% if not user == profile.user %}
+                {% if not user == profile.user and user.is_authenticated %}
                 {% if is_requested %}
                 <a href="{% url 'exchangers:send_request_view' request.user.id profile.user.id %}?next={{request.path}}"
                     class="btn-gray mx-auto mt-4"><i class="bi bi-clock-fill pe-2"></i>Pending</a>
+                {% elif is_connected %}
+                <p class="bg-lime text-black py-1 px-2 mx-auto mt-4 rounded-2"><i class="bi bi-person-fill-check pe-2"></i>Connected</p>
                 {% else %}
                 <button type="button" class="btn-lime mx-auto mt-4" data-bs-toggle="modal"
                     data-bs-target="#connectModal">
@@ -73,7 +75,7 @@
         </div>
         <div class="profile mt-1 mt-sm-5 py-2 text-black">
             <!-- Profile details -->
-            <div class="bg-gray mb-4 p-3 rounded-4 w-100">
+            <div class="bg-gray mb-4 p-3 rounded-4 w-100 h-50">
                 <p class="my-2"><span class="fw-medium">Bio: </span>{{profile.bio}}</p>
                 <p class="my-2">
                     <span class="fw-medium">Skills: </span>

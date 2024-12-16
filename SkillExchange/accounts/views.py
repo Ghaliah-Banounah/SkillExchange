@@ -76,10 +76,9 @@ def profile_view(request: HttpRequest, username: str):
     else:
         profile = Profile(user=user)
 
-    # Get requests sent 
-
+    # Get requests sent or received by the user
     if request.user.is_authenticated:
-        is_requested = Request.objects.filter(sender=request.user, receiver=user).exists()   
+        is_requested = Request.objects.filter(sender=request.user, receiver=user, status='Pending').exists()   
 
         # Check if they already have a connection
         is_connected = Exchanger.objects.filter(

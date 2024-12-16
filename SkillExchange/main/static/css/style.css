@@ -455,3 +455,39 @@ footer {
     object-fit: cover;
     object-position: top;
 }
+
+/* 404 styling */
+.four {
+    fill: none;
+    stroke: #7A98E9;
+    stroke-width: 10;
+    stroke-dasharray: 200 100;
+}
+
+.zero {
+    fill: none;
+    stroke: #ddf894;
+    stroke-width: 10;
+    stroke-dasharray: 200 100;
+}
+
+.animate {
+    -webkit-animation: swirls 2s linear infinite;
+    -moz-animation: swirls 2s linear infinite;
+    -o-animation: swirls 2s linear infinite;
+    animation: swirls 2s linear infinite;
+}
+
+.img-404 {
+    height: 200px
+}
+
+@keyframes swirls {
+    from {
+        stroke-dashoffset: 0;
+    }
+
+    to {
+        stroke-dashoffset: 300;
+    }
+}

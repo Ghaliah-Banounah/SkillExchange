@@ -43,7 +43,7 @@ def add_skill(request):
 # Skill detials View
 def skill_detail(request, skill_id):
     try:
-        skill = Skill.objects.get(Skill, id=skill_id)  
+        skill = Skill.objects.get(pk=skill_id)
     except Exception as e:
         return render(request, '404.html')
     
@@ -55,9 +55,8 @@ def edit_skill(request, skill_id):
     if not (request.user.is_staff and request.user.has_perm('skills.change_skill')):
         messages.warning(request, "You don't have permission to update skills.", "alert-warning")
         return redirect('main:home_view')
-    
     try:
-        skill = Skill.objects.get(Skill, id=skill_id)
+        skill = Skill.objects.get(pk=skill_id)
     except Exception as e:
         return render(request, '404.html')
 
@@ -79,7 +78,7 @@ def delete_skill(request, skill_id):
         return redirect('main:home_view')
     
     try:
-        skill = Skill.objects.get(Skill, id=skill_id)
+        skill = Skill.objects.get(pk=skill_id)
     except Exception as e:
         return render(request, '404.html')
     

@@ -12,5 +12,4 @@ urlpatterns = [
     path('delete/<plan_id>', views.delete_plan_view, name='delete_plan_view'),
     path('payment/<plan_id>/', views.payment_view, name='payment_view'),
     path('payment/<plan_id>/result/', views.payment_result_view, name='payment_success_view'),
-    path('payment/failed/', views.payment_failed_view, name='payment_failed_view'),
 ]

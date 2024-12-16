@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="body_chat">
-    <div class="chat-app mt-4">
+    <div class="chat-app mt-4 mb-5">
         <div class="sidebar">
             <div class="sidebar-header bg-lime">
                 <h2 class="fw-bold">Chats <i class="bi bi-chat-text"></i></h2>
@@ -22,9 +22,11 @@
                         <div class="chat-item-info">
                             <h3>{{ user.first_name }} {{ user.last_name }}</h3>
                             <p>{{ user.last_message|truncatewords:5 }}</p>
-                            <span class="status {% if user.is_online %}online{% else %}offline{% endif %}">
-                                {% if user.is_online %}Online{% else %}Offline{% endif %}
-                            </span>
+                            {% if user.is_online %}
+                            <span class="status online">Online</span>
+                            {% else %}
+                            <span class="status offline">Offline</span>
+                            {% endif %}
                         </div>
                         <span class="message-details-send">
                             {% if user.unread_messages_count > 0 %}
@@ -45,9 +47,14 @@
                     <img src="{{ receiver.profile.pfp.url }}" class="profile-pic">
                     <div>
                         <h2>{{ receiver.first_name }} {{ receiver.last_name }}</h2>
-                        <span class="status {% if receiver.is_online %}online{% else %}offline{% endif %}">
-                            {% if user.is_online %}Online{% else %}Offline{% endif %}
-                        </span>
+                        {% if receiver.profile.last_seen %}
+                        <p class="status">Last seen: {{ receiver.profile.last_seen|date:"F j, Y, g:i a" }}</p>
+                        {% endif %}
+                        {% if receiver.is_online %}
+                            <span class="status online">Online</span>
+                        {% else %}
+                            <span class="status offline">Offline</span>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -101,7 +108,6 @@
         </div>
     </div>
 </div>
-
     <style>
         .message-details-send {
             display: flex;
@@ -131,9 +137,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-        .alert{
-            display: none;
         }
        .chat-app{
             display: flex;
@@ -239,8 +242,8 @@
         }
 
         .profile-pic {
-            width: 50px;
-            height: 50px;
+            width: 57px;
+            height: 57px;
             border-radius: 50%;
             object-fit: cover;
         }
@@ -504,6 +507,19 @@
             var chatBox = document.getElementById('chat-box');
             chatBox.scrollTop = chatBox.scrollHeight;
         }
-    </script>
 
+        //Disable the alerts in Chats app
+        document.addEventListener('DOMContentLoaded', function() {
+        var currentPath = window.location.pathname;
+
+        if (currentPath.includes('/chats/chat/')) {
+            var alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                alert.style.display = 'none';
+            });
+            console.log('Alerts have been disabled on the chat page:', currentPath);
+        }
+    });
+    </script>
 {% endblock %}
+

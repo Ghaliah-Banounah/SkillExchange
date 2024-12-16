@@ -3,7 +3,7 @@ from django.http import HttpRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Profile
+from .models import Profile, Review
 from .forms import ProfileForm
 from exchangers.models import Exchanger, Request
 from django.db import transaction, IntegrityError
@@ -75,6 +75,9 @@ def profile_view(request: HttpRequest, username: str):
             profile: Profile = user.profile
     else:
         profile = Profile(user=user)
+    
+    # Get all reviews on current profile
+    profile_reviews = []
 
     # Get requests sent or received by the user
     if request.user.is_authenticated:
@@ -88,16 +91,19 @@ def profile_view(request: HttpRequest, username: str):
         sent_requests = Request.objects.filter(sender=user, status=Request.RequestStatus.PENDING)
         received_requests = Request.objects.filter(receiver=user, status=Request.RequestStatus.PENDING)
         current_exchanges = Exchanger.objects.filter((Q(user=user) | Q(exchanger=user)) & Q(end_date__gte=datetime.now()))
+        prev_exchanges = Exchanger.objects.filter((Q(user=user) | Q(exchanger=user)) & Q(end_date__lte=datetime.now()))
 
     else:
         sent_requests = []
         received_requests = []
         current_exchanges = []
+        prev_exchanges = []
         is_requested = False
         is_connected = False
     
     return render(request, 'accounts/profile.html', {'profile': profile, 'is_connected': is_connected, 'is_requested': is_requested,
-                   'sent_requests': sent_requests, 'received_requests': received_requests, 'current_exchanges': current_exchanges})
+                   'sent_requests': sent_requests, 'received_requests': received_requests, 'current_exchanges': current_exchanges, 'prev_exchanges': prev_exchanges, 
+                   'profile_reviews': profile_reviews, 'rating': reversed(Review.RatingChoices.choices)})
 
 # Display profile View
 def update_profile_view(request: HttpRequest):
@@ -132,3 +138,40 @@ def update_profile_view(request: HttpRequest):
             messages.error(request, f"{e} Profile wasn't updated.", "alert-danger")
 
     return render(request, 'accounts/updateProfile.html', {'skills': skills})
+
+# Add review View
+def add_review_view(request: HttpRequest, exchanger_id: int):
+    if not (request.user.is_authenticated and Exchanger.objects.filter(Q(user=request.user) | Q(exchanger=request.user)).exists()):
+        messages.error(request, "You can't add a review unless you have a previous exchange with this user." ,"alert-danger")
+        return redirect("accounts:login_view")
+
+    if request.method == "POST":
+        try:
+            exchanger = User.objects.get(pk=exchanger_id)
+            new_review = Review(rating=request.POST['rating'], comment=request.POST['comment'], exchanger=exchanger, user=request.user)
+            new_review.save()
+            messages.success(request, "Review was added successfully.", "alert-success")
+
+        except Exception as e:
+            messages.error(request, "Something went wrong, couldn't add review", "alert-danger")
+
+    return redirect("accounts:profile_view", exchanger.username)
+
+# Delete review View
+def delete_review_view(request: HttpRequest, review_id: int):
+    if not ( request.user.is_staff and request.user.has_perm("accounts.delete_review")) and review.user != request.user:
+        messages.warning(request, "You can't delete this review","alert-warning")
+    else:
+        try:
+            review = Review.objects.get(pk=review_id)
+        except Exception as e:
+            return render(request, '404.html')        
+        try:
+            profile_username = review.exchanger.username
+            review.delete()
+            messages.success(request, "Review was deleted successfully", "alert-success")
+
+        except Exception as e:
+            messages.error(request, "Something went wrong, couldn't delete review", "alert-danger")
+    
+    return redirect("accounts:profile_view", profile_username)

@@ -14,3 +14,20 @@ class Profile(models.Model):
 
     def __str__(self) -> str:
         return f'Profile {self.user.username}'
+    
+class Review(models.Model):
+    class RatingChoices(models.IntegerChoices):
+        STAR1 = 1, "Bad"
+        STAR2 = 2, "Acceptable"
+        STAR3 = 3, "Good"
+        STAR4 = 4, "Great"
+        STAR5 = 5, "Awesome"
+
+    exchanger = models.ForeignKey(User, on_delete=models.CASCADE, related_name="profile_owner")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviewer")
+    rating = models.SmallIntegerField(choices=RatingChoices.choices)
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"{self.user.username} on {self.exchanger.first_name}"

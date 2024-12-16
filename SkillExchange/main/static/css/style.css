@@ -283,6 +283,51 @@ footer {
     }
 }
 
+/* Profile reviews */
+.rate {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 46px;
+    padding: 0 10px;
+    justify-content: center;
+    gap: 2px;
+}
+
+.rate:not(:checked)>input {
+    position: absolute;
+    visibility: hidden;
+}
+
+.rate:not(:checked)>label {
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #9698a0;
+}
+
+.rate:not(:checked)>label::before {
+    content: '★ ';
+}
+
+.rate>input:checked~label {
+    color: #6986d5;
+}
+
+.rate:not(:checked)>label:hover,
+.rate:not(:checked)>label:hover~label {
+    color: #6986d5;
+}
+
+.rate>input:checked+label:hover,
+.rate>input:checked+label:hover~label,
+.rate>input:checked~label:hover,
+.rate>input:checked~label:hover~label,
+.rate>label:hover~input:checked~label {
+    color: #6986d5;
+}
+
 /* Tabs section in profile */
 .tabs-navigation {
     display: flex;

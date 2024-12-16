@@ -47,7 +47,7 @@
     currency: 'SAR',
     description: '{{ plan.plan_name }} Plan',
     publishable_api_key: 'pk_test_mvBbZSFwEE4tNKSJqF6DV7JcEYpcnkFU8qxD9AgK',
-    callback_url: "http://127.0.0.1:8000//payment/callback/",
+    callback_url: "http://127.0.0.1:8000/payment/{{plan.id}}/result/",
     methods: ['creditcard']
   });
 </script>

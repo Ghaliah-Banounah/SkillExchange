@@ -209,25 +209,26 @@ def delete_plan_view(request, plan_id):
 
 
 
-
-
-
-
 #Payment View
 
 def payment_view(request, plan_id):
     
-    plan = get_object_or_404(Plan, id=plan_id)  
+    plan = get_object_or_404(Plan, id=plan_id)
+    
+
     return render(request, "main/payment/payment.html", {"plan": plan})
+
 
 
 
 
 #Success Payment View
 
-def payment_success_view(request):
+def payment_result_view(request, plan_id):
 
-    return render(request, "main/payment/payment_success.html")
+    plan = get_object_or_404(Plan, id=plan_id)
+
+    return render(request, "main/payment/payment_success.html", {"plan": plan})
 
 
 
@@ -237,37 +238,8 @@ def payment_success_view(request):
 
 def payment_failed_view(request):
 
-    return render(request, "main/payment/payment_failed.html")
+    plans = Plan.objects.all()
 
-
-
-
-#CallBack View
-
-@csrf_exempt
-def callback_view(request):
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)  
-            payment_status = data.get("status")  
-            description = data.get("description")  
-            plan_name = description.split()[0] if description else None  
-
-            if payment_status == "paid" and plan_name:
-                plan = Plan.objects.filter(plan_name__iexact=plan_name).first()
-                if plan:
-                    print(f"Payment Successful for Plan: {plan_name}")
-                    return redirect("main:payment_success_view")
-
-            print("Payment Failed or Plan not found")
-            return redirect("main:payment_failed_view")
-
-        except Exception as e:
-            logging.exception("Error processing payment callback")
-            return JsonResponse({"error": "Invalid callback data"}, status=400)
-
-    return JsonResponse({"error": "Invalid request method."}, status=405)
-
-
+    return render(request, "main/payment/payment_failed.html", {"plans":plans})
 
 

@@ -1,9 +1,16 @@
 {% extends 'main/base.html' %}
+{% load static %}
+
 {% block title %}Payment Failed{% endblock %}
+
 {% block content %}
+
+
 <div class="container text-center" style="margin-top: 50px;">
     <h1 class="text-danger">Payment Failed</h1>
     <p>Something went wrong. Please try again or contact support.</p>
     <a href="{% url 'plans_view' %}" class="btn btn-danger mt-3">Retry Payment</a>
 </div>
+
+
 {% endblock %}

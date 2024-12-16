@@ -161,9 +161,11 @@
     </div>
     
     <div class="add-plan">
+      {% if user.is_staff %}
       <a href="{% url 'main:add_plan_view' %}" class="btn-lime rounded-pill align-content-center" style="margin-top: 30px;">
         <i class="bi bi-plus bl fs-4"></i>
       </a>
+      {% endif %}
     </div>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4 g-3">
       
@@ -182,7 +184,9 @@
               <li>{{ plan.plan_feture_3 }}</li>
             </ul>
             <p><strong>SAR {{plan.plan_amount}} / month</strong></p>
+            {% if user.is_staff %}
             <a href="{% url 'main:plan_detail_view' plan.id %}" class="view-plan-detail">View Details</a>
+            {% endif %}
           </div>
         </div>
       </div>

@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Payment Success{% endblock %}
+
+
+{% block content %}
+
+
+<div class="container text-center" style="margin-top: 50px;">
+    <h1 class="text-success">Payment Successful!</h1>
+    <p>Thank you for subscribing to the {{ plan_name }} Plan.</p>
+    <a href="{% url 'main:home_view' %}" class="btn btn-primary mt-3">Go Back to Home</a>
+</div>
+{% endblock %}

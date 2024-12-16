@@ -1,4 +1,3 @@
-import requests
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.core.mail import send_mail
@@ -8,17 +7,24 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from .models import Contact
 from .models import Plan
-from .models import Subscription
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
-import json
 from django.contrib.auth.models import User
-from django.utils.timezone import now
-from datetime import timedelta
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+import logging
+import json
+from django.views.decorators.csrf import csrf_exempt
+
+
+
+
 
 
 
 # Create your views here.
+
+
+# Home View
+
 def home_view(request: HttpRequest):
 
     if request.method == "POST":
@@ -86,6 +92,9 @@ def home_view(request: HttpRequest):
 
 
 
+
+# Display Plans View
+
 def plans_view(request):
 
     plans = Plan.objects.all()
@@ -94,74 +103,143 @@ def plans_view(request):
 
 
 
+
+
+# Add Plan View
+
 def add_plan_view(request):
 
     if request.method == "POST":
-        plan_name = request.POST.get["plan_name"]
-        plan_feture_1 = request.POST.get["plan_feture_1"]
-        plan_feture_2 = request.POST.get ["plan_feture_2"]
-        plan_feture_3 = request.POST.get["plan_feture_3"]
-        plan_amount = request.POST.get["plan_amount"]
+        plan_name = request.POST.get("plan_name")
+        plan_feture_1 = request.POST.get("plan_feture_1")
+        plan_feture_2 = request.POST.get ("plan_feture_2")
+        plan_feture_3 = request.POST.get("plan_feture_3")
+        plan_amount = request.POST.get("plan_amount")
+
+        #validation
+        if not all([plan_name, plan_feture_1, plan_feture_2, plan_feture_3, plan_amount]):
+            messages.error(request, "All fields are required!")
+            return render(request, "main/add_plan.html")
         
-        new_plan = Plan(plan_name=plan_name, plan_feture_1=plan_feture_1, plan_feture_2=plan_feture_2, plan_feture_3=plan_feture_3, plan_amount=plan_amount)
-        new_plan.save()
+        try:
+            
+            plan_amount = int(plan_amount)
 
+            new_plan = Plan(
+                plan_name=plan_name,
+                plan_feture_1=plan_feture_1,
+                plan_feture_2=plan_feture_2,
+                plan_feture_3=plan_feture_3,
+                plan_amount=plan_amount,
+            )
+            new_plan.save()
 
-        messages.success(request, "Plan added successfully!")
-        return redirect("main:plans_view")
+            messages.success(request, "Plan added successfully!", "alert-success")
+            return redirect("main:plans_view")
+        
+        
+        except ValueError:
+            messages.error(request, "Plan amount must be a valid number.", "alert-danger")
+            return render(request, "main/add_plan.html")
 
     return render(request, "main/add_plan.html")
 
 
 
 
-def payment_view(request, plan_type):
 
-    return render(request, "main/payment.html", {"plan_type": plan_type})
+#Detail Plan View
+
+def plan_detail_view(request, plan_id):
+
+    plan = get_object_or_404(Plan, id=plan_id)
+
+    return render(request, "main/plan_detail.html", {"plan": plan})
 
 
 
 
-@csrf_exempt
-def subscription_callback(request):
+
+#Update Plane View
+
+def update_plan_view(request, plan_id):
+
+    from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
+from .models import Plan
+
+def update_plan_view(request, plan_id):
+    plan = get_object_or_404(Plan, id=plan_id)  
+
     if request.method == "POST":
-        try:
-            # Parse the JSON data sent by Moyasar
-            data = json.loads(request.body.decode("utf-8"))
-            payment_status = data.get("status")
-            payment_id = data.get("id")
-            plan_description = data.get("description")
-            user_email = data.get("source", {}).get("email")
+        plan.plan_name = request.POST.get("plan_name", plan.plan_name)
+        plan.plan_feture_1 = request.POST.get("plan_feture_1", plan.plan_feture_1)
+        plan.plan_feture_2 = request.POST.get("plan_feture_2", plan.plan_feture_2)
+        plan.plan_feture_3 = request.POST.get("plan_feture_3", plan.plan_feture_3)
+        plan.plan_amount = request.POST.get("plan_amount", plan.plan_amount)
 
-            # Validate payment status
-            if payment_status == "paid" and "Premium Plan" in plan_description:
-                user, created = User.objects.get_or_create(email=user_email)
-                if created:
-                    user.username = user_email.split("@")[0]
-                    user.save()
+        plan.save() 
+        messages.success(request, "Plan updated successfully!", "alert-success")
+        return redirect("main:plan_detail_view", plan_id=plan.id)  
 
-                # Update or create subscription
-                subscription, created = Subscription.objects.get_or_create(user=user)
-                subscription.is_active = True
-                subscription.plan = "premium"
-                subscription.start_date = now()
-                subscription.end_date = now() + timedelta(days=30)
-                subscription.save()
+    return render(request, "main/update_plan.html", {"plan": plan})
 
-                logger.info(f"Subscription updated for user: {user_email}")
-                return JsonResponse(
-                    {"message": "Payment processed and subscription activated."},
-                    status=200,
-                )
 
-            else:
-                logger.warning("Payment failed or invalid data received.")
-                return JsonResponse(
-                    {"message": "Payment failed or invalid data."}, status=400
-                )
 
-        except Exception as e:
-            logger.exception("Error processing callback data.")
-            return JsonResponse({"error": str(e)}, status=500)
 
-    return JsonResponse({"error": "Invalid request method."}, status=400)
+
+
+
+#Delete Plane View
+
+def delete_plan_view(request, plan_id):
+
+    plan = get_object_or_404(Plan, id=plan_id)
+    if request.method == 'POST':
+        plan.delete()
+
+        messages.success(request, 'Plan deleted successfully.', 'alert-danger')
+        return redirect("main:plans_view")
+      
+    else:
+        return render(request, 'main/plan_detail.html', {'plan': plan})
+
+
+
+
+
+
+#Payment View
+
+def payment_view(request, plan_id):
+    
+    plan = get_object_or_404(Plan, id=plan_id)
+    
+
+    return render(request, "main/payment/payment.html", {"plan": plan})
+
+
+
+
+
+#Success Payment View
+
+def payment_result_view(request, plan_id):
+
+    plan = get_object_or_404(Plan, id=plan_id)
+
+    return render(request, "main/payment/payment_success.html", {"plan": plan})
+
+
+
+
+
+#Failed Payment View
+
+def payment_failed_view(request):
+
+    plans = Plan.objects.all()
+
+    return render(request, "main/payment/payment_failed.html", {"plans":plans})
+
+

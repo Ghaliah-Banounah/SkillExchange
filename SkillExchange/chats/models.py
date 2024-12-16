@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 import uuid
 from django.utils import timezone
 from datetime import timedelta
+from accounts.models import Profile
 
 class Chat(models.Model):
     sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
@@ -19,10 +20,13 @@ class Chat(models.Model):
 
     class Meta:
         ordering = ['sent_at']
-    #@property
-    #def is_sender_online(self):
-        #return self.sender.is_online
+        
+    @property
+    def is_sender_online(self):
+        return self.sender.is_online
 
-    #@property
-    #def is_receiver_online(self):
-        #return self.receiver.is_online
+    @property
+    def is_receiver_online(self):
+        return self.receiver.is_online
+
+

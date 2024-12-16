@@ -5,7 +5,7 @@
 <div class="container mt-5">
         <h2 class="text-center title mx-auto fw-bold mb-3">Direct Messages</h2>
         <div class="row">
-            <div class="chat-list">
+            <div class="chat-list mb-5">
                 {% for user in users_in_conversation %}
                     <div class="chat-card">
                         <a href="{% url 'chats:chat_view' user.id %}" class="chat-card-link">

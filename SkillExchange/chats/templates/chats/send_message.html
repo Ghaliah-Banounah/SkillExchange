@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+<div class="body_chat">
     <div class="chat-app mt-4">
         <div class="sidebar">
             <div class="sidebar-header bg-lime">
@@ -45,7 +46,7 @@
                     <div>
                         <h2>{{ receiver.first_name }} {{ receiver.last_name }}</h2>
                         <span class="status {% if receiver.is_online %}online{% else %}offline{% endif %}">
-                            {% if receiver.is_online %}Online{% else %}Offline{% endif %}
+                            {% if user.is_online %}Online{% else %}Offline{% endif %}
                         </span>
                     </div>
                 </div>
@@ -92,22 +93,23 @@
                             <label for="file-upload" class="file-upload-btn">📎</label>
                             <input type="file" name="file" id="file-upload" class="file-upload-input d-none" onchange="displayFileName()">
                             <span id="file-name-display" style="font-size: 0.9em; color: black; margin-left: 10px;"></span>
-                            <button class="btn-lime" type="submit">Send</button>
+                            <button class="btn-lime px-3 py-1" type="submit">Send</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+</div>
 
     <style>
-        .message-details-send{
+        .message-details-send {
             display: flex;
             align-items: center;
-            gap: 5px; 
-            margin-left: 41px;
-    }
-        .unread-count-send{
+            justify-content: flex-end;  
+            gap: 5px;
+        }
+        .unread-count-send {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -117,16 +119,22 @@
             color: black;
             font-size: 1em;
             font-weight: bold;
-    }
-        body{
-            background-color: #ececec;
-    }
-        * {
+            margin-left: 10px;  
+        }
+        .body_chat {
+            background-color: #f0f0f0;
+            padding: 20px;
+            padding-bottom: 20px;
+            border-radius: 10px;
+        }
+        .body_chat * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-    }
-
+        }
+        .alert{
+            display: none;
+        }
        .chat-app{
             display: flex;
             height: 600px;
@@ -170,6 +178,7 @@
         .chat-item {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             padding: 10px 15px;
             cursor: pointer;
             border-bottom: 1px solid #eee;
@@ -190,7 +199,10 @@
             border-radius: 50%;
             object-fit: cover;
         }
-
+        .chat-item-info {
+            flex-grow: 1;
+            margin-left: 4px;
+        }
         .chat-item-info h3 {
             margin: 0;
             font-size: 0.9em;
@@ -340,9 +352,6 @@
             font-size: 1.6em;
             cursor: pointer;
             background: none;
-        }
-        .alert{
-            display: none;
         }
     @media (max-width: 768px) {
     .chat-app {

@@ -39,6 +39,7 @@
                 {% url 'main:home_view' as home_url %}
                 {% url 'skills:skills_list' as skills_url %}
                 {% url 'exchangers:display_exchangers_view' as exchangers_url %}
+                {% url 'main:plans_view' as plans_url %}
 
                 <!-- Brand name -->
                 <a class="text-center px-4 navbar-brand" href="{{home_url}}">
@@ -56,17 +57,11 @@
                     <!-- Links -->
                     <ul class="navbar-nav align-items-center gap-4">
                         <li class="nav-item">
-                            <a href="{{home_url}}#about" class="a-lime-hover fw-medium">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{exchangers_url}}" class="a-lime-hover fw-medium">Exchangers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{skills_url}}" class="a-lime-hover fw-medium">Skills</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{home_url}}#contact" class="a-lime-hover fw-medium">Contact</a>
-                        </li>
+                            <a href="{{home_url}}#about" class="a-lime-hover fw-medium">About</a></li>
+                        <li class="nav-item"><a href="{{exchangers_url}}" class="a-lime-hover fw-medium">Exchangers</a></li>
+                        <li class="nav-item"><a href="{{skills_url}}" class="a-lime-hover fw-medium">Skills</a></li>
+                        <li class="nav-item"><a href="{{home_url}}#contact" class="a-lime-hover fw-medium">Contact</a></li>
+                        <li class="nav-item"><a href="{{plans_url}}" class="a-lime-hover fw-medium">Our Plans</a></li>
                     </ul>
                 </div>
 
@@ -145,6 +140,7 @@
                         <li><a href="{{skills_url}}" class="a-blue-hover">Browse Skills</a></li>
                         <li><a href="{{exchangers_url}}" class="a-blue-hover">Browse Exchangers</a></li>
                         <li><a href="{{home_url}}#contact" class="a-blue-hover">Contact</a></li>
+                        <li><a href="{{home_url}}#contact" class="a-blue-hover">Our Plans</a></li>
                     </ul>
                 </div>
     

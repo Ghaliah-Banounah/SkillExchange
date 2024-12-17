@@ -6,13 +6,11 @@ from django.contrib import messages
 from django.conf import settings
 from django.template.loader import render_to_string
 from .models import Contact
-from .models import Plan
+from .models import Plan, Subscription
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
-import logging
-import json
-from django.views.decorators.csrf import csrf_exempt
+from django.utils.timezone import now
+from datetime import timedelta
 
 
 
@@ -222,24 +220,66 @@ def payment_view(request, plan_id):
 
 
 
-#Success Payment View
+#Payment Result View
 
 def payment_result_view(request, plan_id):
 
     plan = get_object_or_404(Plan, id=plan_id)
+    payment_status = request.GET.get("status") 
+    payment_status = request.GET.get("status")  
+    transaction_id = request.GET.get("id")      
+    amount = request.GET.get("amount")          
+    message = request.GET.get("message") 
+    
+    #For debugging
+    print(f"Payment Status: {payment_status}")
+    print(f"Transaction ID: {transaction_id}")
+    print(f"Amount: {amount}")
+    print(f"Message: {message}")
 
-    return render(request, "main/payment/payment_success.html", {"plan": plan})
+
+    if payment_status == "paid":
+        subscription, created = Subscription.objects.get_or_create(
+            user=request.user,
+            defaults={"plan": plan, "is_active": True, "start_date": now(), "end_date": now() + timedelta(days=30)}
+        )
+
+        if not created:
+            subscription.plan = plan
+            subscription.is_active = True
+            subscription.start_date = now()
+            subscription.end_date = now() + timedelta(days=30)
+            subscription.save()
+            
+        
+        
+        context = {
+            "plan": plan,
+            "transaction_id": transaction_id,
+            "amount": amount,
+            "message": message,
+            "subscription": subscription
+        }
+        
+        return render(request, "main/payment/payment_success.html", context)
 
 
+    
 
 
+    elif payment_status in ["failed", "denial"]:
+        context = {
+            "plan": plan,
+            "transaction_id": transaction_id,
+            "amount": amount,
+            "message": message
+        }
+        return render(request, "main/payment/payment_failed.html", context)
+    
 
-#Failed Payment View
+    else:
+        context = {"plan": plan, "message": "Unknown payment status."}
 
-def payment_failed_view(request):
-
-    plans = Plan.objects.all()
-
-    return render(request, "main/payment/payment_failed.html", {"plans":plans})
+        return render(request, "main/payment/payment_failed.html", context)
 
 

@@ -95,6 +95,25 @@ body a {
     transform: translateY(0px);
 }
 
+.btn-outline-blue {
+    color: #a8bef9;
+    border: 1px solid #7a98e9;
+    padding: 0.3rem 1rem;
+    border-radius: 0.3rem;
+    transition: all 0.3s;
+}
+
+.btn-outline-blue:hover {
+    background-color: #6986d5;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.btn-outline-blue:active {
+    background-color: #4f69b0;
+    transform: translateY(0px);
+}
+
 .btn-gray {
     display: block;
     padding: 0.3rem 1rem;
@@ -535,4 +554,47 @@ footer {
     to {
         stroke-dashoffset: 300;
     }
+}
+
+/* Home */
+/* Section 1 (hero) */
+.hero {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.55);
+    color: white;
+    margin-bottom: 50px;
+    position: relative;
+    overflow: hidden;
+    min-height: 90vh;
+}
+
+.video-bg {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.section-1 {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Background Video Styling */
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    overflow: hidden;
 }

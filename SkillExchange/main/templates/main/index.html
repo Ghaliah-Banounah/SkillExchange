@@ -10,232 +10,6 @@
 <style>
 /* Home */
 
-/* Section 1 */
-.section-1 {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Background Video Styling */
-.video-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  min-height: 100%;
-  overflow: hidden;
-}
-
-#background-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Dark Overlay */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.557);
-  z-index: 1;
-}
-
-.section-1-text {
-  position: absolute;
-  left: 6rem;
-  top: 14rem;
-  z-index: 2;
-  color: white;
-  padding: 0 1rem;
-}
-
-.main-text {
-  font-size: 3rem;
-  font-weight: bold;
-  text-align: left;
-  margin-bottom: 2rem;
-}
-
-.second-text {
-  font-size: 1.25rem;
-  color: #7a98e9;
-  margin-bottom: 4rem;
-  text-align: left;
-  font-weight: 200;
-}
-
-.main-links {
-  position: relative;
-  right: 12rem;
-  z-index: 2;
-  color: white;
-}
-
-.btn-lime-main {
-  background-color: #ebfdb8;
-  color: black;
-  border: none;
-  padding: 0.5rem 1rem;
-  margin-right: 1rem;
-  border-radius: 0.25rem;
-}
-
-.btn-lime-main:hover {
-  background-color: #b6c982;
-}
-
-.btn-blue-main {
-  color: white;
-  border: 1px solid #7a98e9;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-}
-
-.btn-blue-main:hover {
-  background-color: #6986d5;
-  border-color: #6986d5;
-}
-
-.bi-lightbulb{
-  color: #7a98e9 ;
-}
-
-/* Responsive Text and Links */
-@media (max-width: 1200px) {
-  .section-1-text {
-    left: 1rem; 
-  }
-
-  .main-text {
-    font-size: 2rem; 
-    }
-
-    .second-text {
-    font-size: 1rem; 
-    }
-
-    .main-links a {
-    font-size: 0.6rem;
-    }
-}
-
-@media (max-width: 992px) {
-  .section-1-text {
-    right: 5rem; 
-    top: 1rem;
-    text-align: center;
-  }
-
-  .overlay {
-    width: 100%; 
-    height: 90%;
-  }
-
-  .main-text {
-    font-size: 2.5rem; 
-    text-align: center;
-  }
-
-  .second-text {
-    font-size: 1.1rem;
-    text-align: center;
-  }
-
-  .main-links {
-    right: 0; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem; 
-  }
-}
-
-@media (max-width: 768px) {
-  .section-1 {
-    height: 60vh; 
-  }
-
-  .video-container {
-    height: 100%; 
-  }
-
-  #background-video {
-    height: 100%; 
-    width: 100%;
-    object-fit: cover; 
-  }
-
-  .overlay {
-    width: 100%;
-    height: 100%;
-  }
-
-  .main-text {
-    margin-top: 2rem;
-    font-size: 1.8rem; 
-  }
-
-  .second-text {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .section-1-text {
-    height: 50vh;
-  }
-
-  .video-container {
-    height: 100%;
-  }
-
-  #background-video {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
-
-  .overlay {
-    height: 100%;
-  }
-
-  .main-text {
-    font-size: 1.2rem; 
-    text-align: justify;
-    padding-top: 60px;
-  }
-
-  .second-text {
-    font-size: 0.8rem;
-    margin-bottom: 2rem;
-    text-align: justify;
-  }
-
-  .main-links {
-    flex-direction: row;
-    gap: 0.5rem; 
-    align-items: center;
-    justify-content: center;
-    left: 20px;
-    margin-top: 70px;
-  }
-
-  .btn-lime-main, .btn-blue-main {
-    padding: 0.4rem 0.8rem; 
-    font-size: 0.9rem;
-  }
-}
-
-
-
 /* Section 2 */
 
 .section-2 {
@@ -881,26 +655,25 @@
 
 </style>
 
-<section class="section-1">
-
-    <div class="video-container">
-        <video autoplay muted loop id="background-video">
-            <source src="{% static 'videos/skills-exchange.mp4' %}" type="video/mp4">
+<!-- Section 1 -->
+<section>
+    <div class="hero rounded-1 shadow">
+        <!-- Hero Text -->
+        <div class="d-flex flex-column text-start ps-5">
+            <h1 class="display-4 fw-bold">Learn. Share. Grow.<br>Your Skills Exchange Journey Starts Here</h1>
+            <p class="fs-5 text-blue mt-3">Discover a community where you can exchange skills, connect with others, and grow<br>
+              —all for free</p>
+            <div class="d-flex gap-2 my-5">
+              <a href="{%url 'exchangers:display_exchangers_view'%}" class="btn-lime">Start Exchanging</a>
+              <a href="{%url 'skills:skills_list'%}" class="btn-outline-blue"><i class="bi bi-lightbulb me-2"></i>Explore Skills</a>
+          </div>
+        </div>
+        <!-- Hero video -->
+        <video autoplay loop muted class="video-bg">
+            <source src="{% static 'videos/skills-exchange.mp4' %}" type="video/mp4" alt="Hero video">
         </video>
-        <div class="overlay"></div> 
+        
     </div>
-
-    <div class="section-1-text text-center">
-        <h1 class="main-text">Learn. Share. Grow. Your Skills<br>Exchange Journey Starts Here</h1>
-        <h5 class="second-text">
-            Discover a community where you can exchange skills, connect with others, and grow<br>
-            —all for free</h5>
-            <div class="main-links">
-                <a href="{%url 'exchangers:display_exchangers_view'%}" class="btn-lime-main">Start Exchanging</a>
-                <a href="{%url 'skills:skills_list'%}" class="btn-blue-main"><i class="bi bi-lightbulb me-2"></i>Explore Skills</a>
-            </div>
-    </div>
-
 </section>
 
 <!--Section 2-->

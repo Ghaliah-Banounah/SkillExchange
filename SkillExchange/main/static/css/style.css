@@ -565,7 +565,8 @@ footer {
     padding: 30px;
     background-color: rgba(0, 0, 0, 0.55);
     color: white;
-    margin-bottom: 50px;
+    margin-top: .6rem;
+    margin-bottom: 1.3rem;
     position: relative;
     overflow: hidden;
     min-height: 90vh;

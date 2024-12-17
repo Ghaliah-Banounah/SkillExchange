@@ -72,14 +72,6 @@ def chat_view(request, user_id):
         else:
             user.last_message = "No messages yet"
             user.last_message_time = "No messages yet"
-        
-        #time_diff = timezone.now() - user.last_login if user.last_login else timezone.timedelta(days=1)
-        #is_chat_page= resolve(request.path_info).url_name
-        #if is_chat_page == 'chat_view':
-            #user_id=resolve(request.path_info).kwargs.get('user_id',None)
-            #user.is_online = True
-        #elif is_chat_page =='chat_list':
-            #user.is_online = False
 
     users_in_conversation = sorted(users_in_conversation, key=lambda user: user.last_message_time, reverse=True)
 

@@ -22,8 +22,8 @@
             </div>
         </div>
         <h3 class="mb-3 px-3">Skill exchange between 
-            <a href="{% url 'accounts:profile_view' exchange.user.username %}" class="a-lime-hover">{{exchange.user.first_name}} {{exchange.user.last_name}}</a> and 
-            <a href="{% url 'accounts:profile_view' exchange.exchanger.username %}" class="a-lime-hover">{{exchange.exchanger.first_name}} {{exchange.exchanger.last_name}}</a>
+            <a href="{% url 'accounts:profile_view' exchange.user.username %}" class="a-lime-hover fs-3">{{exchange.user.first_name}} {{exchange.user.last_name}}</a> and 
+            <a href="{% url 'accounts:profile_view' exchange.exchanger.username %}" class="a-lime-hover fs-3">{{exchange.exchanger.first_name}} {{exchange.exchanger.last_name}}</a>
         </h3>
         <div class="d-flex flex-column gap-1 px-3 pb-4">    
             <p class="fs-5 m-0"><span class="fs-4 fw-medium text-lime-200">Skills exchanged:</span>

@@ -118,7 +118,7 @@
             </ul>
         </div>
         <div class="button-group">
-            <a href="{% url 'main:update_plan_view' plan.id %}" class="btn-lime shadow-sm">
+            <a href="{% url 'plans:update_plan_view' plan.id %}" class="btn-lime shadow-sm">
                 <i class="bi bi-pencil-square"></i> Update
             </a>
             <button type="button" class="btn btn-danger shadow-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -141,7 +141,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <form method="POST" action="{% url 'main:delete_plan_view' plan.id %}">
+          <form method="POST" action="{% url 'plans:delete_plan_view' plan.id %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>        

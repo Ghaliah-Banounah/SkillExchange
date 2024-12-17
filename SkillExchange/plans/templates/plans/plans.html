@@ -162,7 +162,7 @@
     
     <div class="add-plan">
       {% if user.is_staff %}
-      <a href="{% url 'main:add_plan_view' %}" class="btn-lime rounded-pill align-content-center" style="margin-top: 30px;">
+      <a href="{% url 'plans:add_plan_view' %}" class="btn-lime rounded-pill align-content-center" style="margin-top: 30px;">
         <i class="bi bi-plus bl fs-4"></i>
       </a>
       {% endif %}
@@ -185,7 +185,7 @@
             </ul>
             <p><strong>SAR {{plan.plan_amount}} / month</strong></p>
             {% if user.is_staff %}
-            <a href="{% url 'main:plan_detail_view' plan.id %}" class="view-plan-detail">View Details</a>
+            <a href="{% url 'plans:plan_detail_view' plan.id %}" class="view-plan-detail">View Details</a>
             {% endif %}
           </div>
         </div>
@@ -214,7 +214,7 @@
               {% else %}
               
               <!-- If user is not subscribed -->
-              <a href="{% url 'main:payment_view' plan.id %}" class="submit-btn">Subscribe Now</a>
+              <a href="{% url 'plans:payment_view' plan.id %}" class="submit-btn">Subscribe Now</a>
               {% endif %}
 
               {% elif not user.is_authenticated %}
@@ -223,7 +223,7 @@
               {% endif %}
             
             {% if user.is_staff %}
-            <a href="{% url 'main:plan_detail_view' plan.id %}" class="view-plan-detail">View Details</a>
+            <a href="{% url 'plans:plan_detail_view' plan.id %}" class="view-plan-detail">View Details</a>
             {% endif%}
 
           </div>

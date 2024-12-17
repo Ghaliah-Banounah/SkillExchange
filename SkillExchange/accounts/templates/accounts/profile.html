@@ -5,10 +5,15 @@
 
 {% block content %}
 <section class="container-lg mt-5 rounded-4 bg-blue position-relative text-white">
-    {% if request.user == profile.user %}
-    <a href="{% url 'accounts:update_profile_view' %}" class="btn-lime position-absolute top-0 end-0 mt-3 me-5 py-2"><i
-            class="bi bi-pencil-square"></i></a>
+    {% if profile.user.subscription and profile.user.subscription.is_valid %}
+    <p class="position-absolute top-0 start-0 mt-3 ms-5 bg-lime text-black rounded-pill px-3"><i class="bi bi-patch-check-fill pe-2"></i>Premium</p>
     {% endif %}
+    {% if request.user == profile.user %}
+    <a href="{% url 'accounts:update_profile_view' %}" class="btn-lime position-absolute top-0 end-0 mt-3 me-5 py-2">
+        <i class="bi bi-pencil-square"></i>
+    </a>
+    {% endif %}
+        
     <div class="profile-grid px-4">
         <!-- pfp and contact information -->
         <div class="profile mt-5 py-2">

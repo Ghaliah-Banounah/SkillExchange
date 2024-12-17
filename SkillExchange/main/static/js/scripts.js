@@ -78,7 +78,10 @@ window.onload = function() {
 
 //Disable the alerts in Chats app
 document.addEventListener('DOMContentLoaded', function() {
-    document.body.classList.add('chat-page');
+    const currentPath = window.location.pathname;
+    if (currentPath.match(/^\/chats\/chat\/\d+\/$/)) {
+        document.body.classList.add('chat-page');
+    }
 });
 
 //remove footer margin top for Chats app

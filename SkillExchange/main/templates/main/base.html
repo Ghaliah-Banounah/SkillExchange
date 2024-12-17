@@ -31,9 +31,9 @@
 </head>
 
 <body>
-    <header class="sticky-top">
+    <header>
         <!-- This navbar expands at medium screens, screens smaller than that toggle the collapse property -->
-        <nav class="navbar navbar-expand-md px-2 py-0 navigation">
+        <nav class="navbar navbar-expand-md px-2 py-2 navigation fixed-top">
             <div class="container-fluid p-2 d-flex flex-row justify-content-center gap-5">
 
                 {% url 'main:home_view' as home_url %}
@@ -124,7 +124,7 @@
 
         {% endblock %}
     </main>
-    <footer class="text-dark pt-5 pb-3">
+    <footer class="text-dark pt-5 pb-3 mt-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4">

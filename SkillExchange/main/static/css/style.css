@@ -579,22 +579,3 @@ footer {
     min-width: 100%;
     min-height: 100%;
 }
-
-.section-1 {
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Background Video Styling */
-.video-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-width: 100%;
-    min-height: 100%;
-    overflow: hidden;
-}

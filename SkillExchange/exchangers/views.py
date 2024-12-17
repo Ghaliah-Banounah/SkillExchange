@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q, Avg
 from django.db import transaction
 from skills.models import Skill
+from datetime import datetime
 
 # Display exchangers View
 def display_exchangers_view(request: HttpRequest):
@@ -107,6 +108,10 @@ def new_exchange_view(request: HttpRequest, sender_id: int, receiver_id: int):
         user = User.objects.get(pk=receiver_id)
         # Sender 
         exchanger = User.objects.get(pk=sender_id)
+        if len(Exchanger.objects.filter((Q(user=user) | Q(exchanger=user)) & Q(end_date__gte=datetime.now()))) == 3 or len(Exchanger.objects.filter((Q(user=request.user) | Q(exchanger=user)) & Q(end_date__gte=datetime.now()))) == 3:
+            messages.warning(request,"Exchange limit has been reached, subscribe to add more.","alert-warning")
+            return redirect("accounts:profile_view", user.username)
+
         if request.user == user:
             if request.method == 'POST':
                 try:

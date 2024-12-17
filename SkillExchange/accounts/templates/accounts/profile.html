@@ -39,8 +39,37 @@
                 <!-- Request modal -->
                 <div class="modal fade" id="connectModal" tabindex="-1" aria-labelledby="connectModalLabel"
                     aria-hidden="true">
-                    <div class="modal-dialog text-black">
+                    <div class="modal-dialog text-black modal-dialog-centered">
                         <div class="modal-content">
+                            <!-- If the use has no subscription then they are limited to 3 exchanges only -->
+                            {% if not user.subscription and not user.subscription.is_valid and my_exchanges|length == 3 %}
+                            <div class="modal-header">
+                                <p class="m-0 fs-5" id="connectModalLabel">Echanges Limit Reached</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center" style="font-size: 1.1rem;">
+                                <p>You can only have 3 exchanges at once for free.</p>
+                                <p class="text-blue mb-1">Subscribe now to add more!</p>
+                                <div class="d-flex">
+                                    <a href="{% url 'plans:plans_view' %}" class="btn-lime mx-auto shadow-sm">Subscribe now</a>
+                                </div>
+                            </div>
+                            {% elif not user.subscription and not user.subscription.is_valid and current_exchanges|length == 3 %}
+                            <div class="modal-header">
+                                <p class="m-0 fs-5" id="connectModalLabel">Can't Start Exchange</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center" style="font-size: 1.1rem;">
+                                <p>You can't exchange with {{profile.user.first_name}} since they reached the exchanges limit.</p>
+                                <p class="text-blue mb-1">Find another exchanger?</p>
+                                <div class="d-flex">
+                                    <a href="{% url 'exchangers:display_exchangers_view' %}" class="btn-lime mx-auto shadow-sm">All exchangers</a>
+                                </div>
+                            </div>
+                            {% else %}
+                            <!-- If the use is subscribed or has not reached 3 exchanges they can procceed -->
                             <div class="modal-header">
                                 <p class="m-0 fs-5" id="connectModalLabel">Schedule Exchange</p>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -71,6 +100,7 @@
                                     </div>
                                 </form>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -6,102 +6,10 @@
 
 {% block content %}
 
-<style>
-/* Detail Plan Section */
-.plans-detail-section {
-    padding: 60px 0;
-}
-
-.section-2-text h1 {
-    font-size: 3rem;
-    margin-bottom: 50px;
-    margin-top: 10px;
-    color: #333;
-}
-
-.plan-card {
-    background: #f6f6f6;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    text-align: left;
-    transition: transform 0.3s ease;
-}
-
-
-.plan-card h2 {
-    font-size: 2rem;
-    margin-bottom: 40px;
-    color: #444;
-    text-align: center;
-}
-
-.plan-card ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.plan-card ul li {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.button-group {
-    margin-top: 30px;
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-}
-
-.update-btn, .delete-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    text-decoration: none;
-    margin-top: 30px;
-}
-
-.update-btn {
-    background-color: #3BA55D;
-}
-
-.update-btn:hover {
-    background-color: #2D8A48;
-}
-
-.delete-btn {
-    background-color: #E74C3C;
-}
-
-.delete-btn:hover {
-    background-color: #C0392B;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .section-2-text h1 {
-        font-size: 2rem;
-    }
-
-    .plan-card h2 {
-        font-size: 1.5rem;
-    }
-
-    .plan-card ul li {
-        font-size: 1rem;
-    }
-}
-
-
-</style>
 
 <section class="plans-detail-section">
     <div class="container">
-        <div class="section-2-text text-center mb-4">
+        <div class="plans-detail-text text-center mb-4">
             <h1><span class="bg-lime p-1 rounded-3">{{ plan.plan_name }}</span> Plan</h1>
         </div>
 

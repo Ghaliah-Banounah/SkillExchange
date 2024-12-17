@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=4.8.0&features=fetch"></script>
     <script src="https://cdn.moyasar.com/mpf/1.14.0/moyasar.js"></script>
 
+
     <!-- Date range picker -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -39,7 +40,7 @@
                 {% url 'main:home_view' as home_url %}
                 {% url 'skills:skills_list' as skills_url %}
                 {% url 'exchangers:display_exchangers_view' as exchangers_url %}
-                {% url 'main:plans_view' as plans_url %}
+                {% url 'plans:plans_view' as plans_url %}
 
                 <!-- Brand name -->
                 <a class="text-center px-4 navbar-brand" href="{{home_url}}">
@@ -103,7 +104,7 @@
             </div>
         </nav>
     </header>
-    <main class="pt-5 mt-4">
+    <main class="pt-5 mt-4" style="min-height: 70vh;">
         {% if messages %}
         {% for msg in messages %}
         <div class="container-fluid alerts-container">

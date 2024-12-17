@@ -76,9 +76,10 @@ Bootstrap for responsive design.
 
 
 ## User Stories, Wireframes & UML links
-- User Storie: 
-- Wireframe: 
-- UMLs: 
+- Project Files: https://docs.google.com/document/d/1LKk4GoCqLtXrk6qvJOhTFnNYeQq0NOjQDauNM7YB4hw/edit?usp=sharing
+- User Storie: https://www.figma.com/design/F5bTOgd8CTDoFDlVz5mexM/CAPSTONE?node-id=0-1&t=g4cC3IPT4UakLEMN-1
+- Wireframe: https://www.figma.com/design/F5bTOgd8CTDoFDlVz5mexM/CAPSTONE?node-id=16-995&t=g4cC3IPT4UakLEMN-1 (Go to second page)
+- UMLs: https://lucid.app/lucidchart/23a5bab0-21f1-4612-991f-096e7e3c7a1d/edit?view_items=.L4AyFfzkYYU invitationId=inv_7b005d3e-fd8b-4bd7-b986-e16569a48542
 
 
 ## Resources:

@@ -11,7 +11,7 @@
     </h1>
     <!-- add plan form -->
     <div class="d-flex justify-content-center">
-        <form action="{% url 'main:add_plan_view' %}" method="post" enctype="multipart/form-data" class="text-start p-4 rounded-4 shadow-sm bg-lime needs-validation custom-width" novalidate>
+        <form action="{% url 'plans:add_plan_view' %}" method="post" enctype="multipart/form-data" class="text-start p-4 rounded-4 shadow-sm bg-lime needs-validation custom-width" novalidate>
             {% csrf_token %}
             
             <div class="form-group mb-3">

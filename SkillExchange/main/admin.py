@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Contact, Plan, Subscription
+from .models import Contact
 
 
 admin.site.register(Contact)
-admin.site.register(Plan)
-admin.site.register(Subscription)
+

@@ -14,7 +14,7 @@
     </div>
     
     <div class="add-plan">
-      {% if user.is_staff %}
+      {% if user.is_staff and perms.plans.add_plan %}
       <a href="{% url 'plans:add_plan_view' %}" class="btn-lime rounded-pill align-content-center" style="margin-top: 30px;">
         <i class="bi bi-plus bl fs-4"></i>
       </a>
@@ -58,7 +58,7 @@
             <p><strong>SAR {{ plan.plan_amount }} / month</strong></p>
             
             <!-- User Authentication Check -->
-             {% if user.is_authenticated and not user.is_staff and not user.is_superuser %}
+             {% if user.is_authenticated%}
              {% if user.subscription and user.subscription.is_valid %}
              
              <!-- If user is subscribed -->
@@ -75,7 +75,7 @@
               <a href="{% url 'accounts:login_view'%}" class="submit-btn">Login to Subscribe</a>
               {% endif %}
             
-            {% if user.is_staff %}
+            {% if user.is_staff and perms.plans.change_plan %}
             <a href="{% url 'plans:plan_detail_view' plan.id %}" class="view-plan-detail">View Details</a>
             {% endif%}
 

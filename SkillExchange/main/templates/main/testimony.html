@@ -1,0 +1,73 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Skill Exchange{% endblock %}
+
+{% block content %}
+
+<style>
+/* Payment Page */
+.testimony-section {
+    padding: 100px 0;
+  }
+  
+  .testimony-section-text-text h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
+
+  .testimony-label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 12px; 
+    margin-top: 80px;
+    margin-bottom: 20px;
+    color: #555;
+    display: block; 
+}
+
+.form-control-2 {
+    width: 100%; 
+    max-width: 600px; 
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: none;
+    resize: none;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s ease;
+    margin: 0 auto; 
+    margin-bottom: 20px;
+}
+
+</style>
+
+<section class="testimony-section">
+    <div class="container">
+        <div class="testimony text-center">
+            <div class="testimony-section-text">
+              <h1>Write Your <span class="bg-lime p-1 rounded-3">Testimony</span></h1>
+            </div>
+            
+            <!-- Form Section -->
+             <div class="mx-auto" style="max-width: 600px;">
+              <form action="{% url 'main:testimony_view' request.user.id %}" method="post" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="testimony_comment" class="testimony-label">Your Comment</label>
+                  <textarea class="form-control-2" placeholder="Let us know what you think about the website..." name="testimony_comment"  id="testimony_comment"  rows="4"  minlength="1"  maxlength="150"  required></textarea>
+                  <div class="invalid-feedback">
+                    Comment cannot be empty.
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                  <button type="submit" class="aa-testmoney btn-blue">Add Testimony</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+</section>
+
+{% endblock %}

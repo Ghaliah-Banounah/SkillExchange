@@ -562,7 +562,7 @@ footer {
 /* Section 1 (hero) */
 .hero {
     display: flex;
-    align-items: center;
+    align-items:end;
     padding: 30px;
     background-color: rgba(0, 0, 0, 0.55);
     color: white;

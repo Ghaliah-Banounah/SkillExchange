@@ -22,12 +22,12 @@
             </div>
         </div>
         <h3 class="mb-3 px-3">Request sent from  
-            <a href="{% url 'accounts:profile_view' req.sender.username %}" class="a-lime-hover">{{req.sender.first_name}} {{req.sender.last_name}}</a> to 
-            <a href="{% url 'accounts:profile_view' req.receiver.username %}" class="a-lime-hover">{{req.receiver.first_name}} {{req.receiver.last_name}}</a>
+            <a href="{% url 'accounts:profile_view' req.sender.username %}" class="a-lime-hover fs-3">{{req.sender.first_name}} {{req.sender.last_name}}</a> to 
+            <a href="{% url 'accounts:profile_view' req.receiver.username %}" class="a-lime-hover fs-3">{{req.receiver.first_name}} {{req.receiver.last_name}}</a>
         </h3>
         <div class="d-flex flex-column gap-1 px-3 pb-4">    
-            <p class="fs-5 m-0"><span class="fs-4 fw-medium text-lime-200">Skill requested:</span>
-                <a href="{% url 'skills:skill_detail' req.skill_to_exchange.id %}" class="a-blue-hover">{{req.skill_to_exchange.name}}</a>.
+            <p class="m-0"><span class="fs-4 fw-medium text-lime-200">Skill requested:</span>
+                <a href="{% url 'skills:skill_detail' req.skill_to_exchange.id %}" class="a-blue-hover fs-5">{{req.skill_to_exchange.name}}</a>.
             </p>
             <p class="fs-5 m-0"><span class="fs-4 fw-medium text-lime-200"><i class="bi bi-calendar-event pe-2 fs-5"></i>Scheduled start date: </span>
                 {{req.start_date}}

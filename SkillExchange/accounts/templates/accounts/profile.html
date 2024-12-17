@@ -282,6 +282,7 @@
     </div>
 
     <!-- Write reviews -->
+    {% if not request.user == profile.user %}
     <div class="shadow-sm rounded-4 pt-3 pb-1 px-4 mx-auto mt-5 bg-lime custom-width">
         {% if user.is_authenticated and prev_exchanges %}
         <p class="fs-4 fw-medium text-center">
@@ -317,6 +318,7 @@
         </p>
         {% endif %}
     </div>
+    {% endif %}
 </section>
 
 {% endblock %}

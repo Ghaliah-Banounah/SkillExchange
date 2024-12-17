@@ -6,7 +6,25 @@
 {% block content %}
 <script src="https://unpkg.com/scrollreveal"></script>
 
+<style>
+  .testmoney-link {
+  text-align: right;
+  margin-top: -3rem;
+}
 
+.testmoney-link a {
+  font-size: 0.6rem; 
+  padding: 0.4rem 1rem; 
+  line-height: 1.2;
+}
+
+.custom-hover:hover {
+  background-color: #333;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+  
+</style>
 <!-- Section 1 -->
 <section>
     <div class="hero rounded-1 shadow">
@@ -35,7 +53,7 @@
         <div class="section-2-text text-start">
             <h1>Why <span class="bg-blue p-1 rounded-3">Us</span> ?</h1>
         </div>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-5">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-5 g-5">
 
             <!--Card 1-->
             <div class="col mb-3">
@@ -94,7 +112,7 @@
       <div class="section-6-text text-start mt-2">
           <h1><span class="bg-blue p-1 rounded-3">Our</span> Mission, Vision, and Values</h1>
       </div>
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4 g-5">
 
           <!--Card 1-->
           <div class="col mb-3">
@@ -162,43 +180,32 @@
         </div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4">
             <!-- Card 1 -->
+             {% for exchanger in exchangers %}
              <div class="col mb-4">
                 <div class="card-exchanger">
                         <div class="card-image">
-                            <img src="{% static 'images/exchanger 1.jpg' %}" class="img-fluid" alt="Exchanger 1">
+                            <img src="{{exchanger.user.profile.pfp.url}}" class="img-fluid" alt="Exchanger 1">
                             <div class="icon-toggle" onclick="toggleCard(this)"></div>
                         </div>
                         <div class="card-info">
                           <div class="header-info ">
-                            <h5>Khalid Al........</h5>
-                            <p class="text-muted">Web Developer</p>
+                            <h5>{{ exchanger.user.first_name }} {{ exchanger.user.last_name }}</h5>
+                            <p class="text-muted"></p>
                           </div>
                           <div class="card-details">
-                            <p>Skills: HTML, CSS, JavaScript, Python, etc.</p>
-                            <a href="{}" class="card-link">View Profile</a>
+                            <p>Skills:
+                              {% for skill in exchanger.skills_exchanged.all %}
+                              {{ skill.name }}{% if not forloop.last %}, {% endif %}
+                              {% empty %}
+                              No skills listed.
+                              {% endfor %}
+                            </p>
+                            <a href="{% url 'accounts:profile_view' exchanger.user.username %}" class="card-link">View Profile</a>
                           </div>
                         </div>
                 </div>
+                {% endfor %}
               </div>
-            <!-- Card 2 -->
-             <div class="col mb-4">
-              <div class="card-exchanger">
-                <div class="card-image">
-                  <img src="{% static 'images/exchanger 3.jpg' %}" class="img-fluid" alt="Exchanger 1">
-                  <div class="icon-toggle" onclick="toggleCard(this)"></div>
-                </div>
-                <div class="card-info w-100">
-                  <div class="header-info ">
-                    <h5>Khalid Al........</h5>
-                    <p class="text-muted">Web Developer</p>
-                  </div>
-                  <div class="card-details">
-                    <p>Skills: HTML, CSS, JavaScript, Python, etc.</p>
-                    <a href="{}" class="card-link">View Profile</a>
-                  </div>
-                </div>
-              </div>
-            </div>
         </div>
     </div>
 </section>
@@ -207,15 +214,18 @@
 
 <section class="section-4 bg-lime overflow-hidden">
   <div class="container text-center position-relative">
-      <div class="section-4-text text-start">
+      <div class="section-4-text d-flex justify-content-start">
         <h1>Click to Explore What</h1>
       </div>
-      <div class="section-4-second-text text-start">
-        <h1><span class="bg-gray px-2 py-1 rounded-4">Our Users</span> Thinks</h1>
+      <div class="section-4-second-text d-flex align-items-center justify-content-start">
+        <h1 class="mb-8"><span class="bg-gray px-2 py-1 rounded-4 d-inline-block">Our Users</span> Thinks</h1>
+      </div>
+      <div class="testmoney-link mb-4 d-flex justify-content-end">
+        <a href="{% url 'main:testimony_view' user.id %}" class="btn btn-outline-dark text-uppercase fw-medium px-4 py-2 rounded-pill custom-hover small-link">Let Us Know What You Think <span class="fw-bold">+</span></a>
       </div>
 
       <div class="review-button d-flex justify-content-center">
-        <button class="btn btn-light p-4 rounded-circle" id="toggleReviews">
+        <button class="btn btn-light p-4 rounded-circle mt-4" id="toggleReviews">
           <span class="toggle-text"><i class="bi bi-arrow-down-right"></i></span>
         </button>
       </div>
@@ -235,34 +245,25 @@
     <!-- Review Cards Section -->
       <div class="view-cards d-none mt-5">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+          {% for testimony in testimonies %}
           <div class="col">
             <div class="card h-200 text-center p-4">
-              <i class="bi bi-person display-5"></i>
-              <h5 class="mt-3 text-left">User Name</h5>
-              <p class="text-muted text-left">Review Review Review Review Review Review Review Review</p>
+              <img src="{{ testimony.user.profile.pfp.url }}" 
+               class="img-fluid rounded-circle mb-3"
+               alt="Profile Picture" 
+               style="width: 80px; height: 80px; object-fit: cover;">
+              <h5 class="mt-3 text-left">{{testimony.user.username}}</h5>
+              <p class="text-muted text-left">{{testimony.testimony_comment}}</p>
+
+              {% if user.is_staff and perms.main.delete_testimony %}
+                <form action="{% url 'main:delete_testimony' testimony.id %}" method="post" class="text-end d-flex justify-content-center mt-5">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+                {% endif %}
             </div>
           </div>
-          <div class="col">
-            <div class="card h-200 text-center p-4">
-              <i class="bi bi-person display-5"></i>
-              <h5 class="mt-3">User Name</h5>
-              <p class="text-muted">Review Review Review Review Review Review Review Review</p>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-200 text-center p-4">
-              <i class="bi bi-person display-5"></i>
-              <h5 class="mt-3">User Name</h5>
-              <p class="text-muted">Review Review Review Review Review Review Review Review</p>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-200 text-center p-4">
-              <i class="bi bi-person display-5"></i>
-              <h5 class="mt-3">User Name</h5>
-              <p class="text-muted">Review Review Review Review Review Review Review Review</p>
-            </div>
-          </div>
+          {% endfor%}
         </div>
       </div>
   </div>
@@ -368,7 +369,7 @@ function toggleCard(element) {
     toggleButton.classList.add("small-button");
     toggleButton.classList.remove("rounded-circle"); 
     toggleButton.style.position = "absolute"; 
-    toggleButton.style.top = "150px"; 
+    toggleButton.style.top = "200px"; 
     toggleButton.style.right = "20px"; 
 
   } else {

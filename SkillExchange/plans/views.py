@@ -6,6 +6,11 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.utils.timezone import now
 from datetime import timedelta
+from django.contrib.auth.decorators import login_required
+
+
+
+
 # Create your views here.
 
 
@@ -13,16 +18,25 @@ from datetime import timedelta
 # Display Plans View
 
 def plans_view(request):
-
+    
     plans = Plan.objects.all()
-
+    
     return render(request, "plans/plans.html", {"plans":plans})
+
+
+
+
 
 
 
 # Add Plan View
 
+@login_required
 def add_plan_view(request):
+    if not request.user.has_perm('plans.add_plan'):
+        messages.warning(request, "You don't have permission to add plan.", "alert-warning")
+        return redirect("main:home_view")
+    
 
     if request.method == "POST":
         plan_name = request.POST.get("plan_name")
@@ -64,8 +78,11 @@ def add_plan_view(request):
 
 
 #Detail Plan View
-
+@login_required
 def plan_detail_view(request, plan_id):
+    if not request.user.has_perm('plans.view_plan'):
+        messages.warning(request, "You don't have permission to view this plan.", "alert-warning")
+        return redirect("main:home_view")
 
     plan = get_object_or_404(Plan, id=plan_id)
 
@@ -76,8 +93,12 @@ def plan_detail_view(request, plan_id):
 
 
 #Update Plane View
-
+@login_required
 def update_plan_view(request, plan_id):
+    if not request.user.has_perm('plans.change_plan'):
+        messages.warning(request, "You don't have permission to edit this plan.", "alert-warning")
+        return redirect("main:home_view")
+    
     plan = get_object_or_404(Plan, id=plan_id)  
 
     if request.method == "POST":
@@ -100,8 +121,12 @@ def update_plan_view(request, plan_id):
 
 
 #Delete Plane View
-
+@login_required
 def delete_plan_view(request, plan_id):
+    
+    if not request.user.has_perm('plans.delete_plan'):
+        messages.warning(request, "You don't have permission to delete this plan.", "alert-warning")
+        return redirect("main:home_view")
 
     plan = get_object_or_404(Plan, id=plan_id)
     if request.method == 'POST':

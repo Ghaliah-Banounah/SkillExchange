@@ -34,3 +34,15 @@ class Contact(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+
+
+
+
+class Testimony(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="my_testimony")
+    testimony_comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"{self.user.username} write {self.testimony_comment} at {self.created_at}" 

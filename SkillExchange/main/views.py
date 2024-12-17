@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpRequest
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage
@@ -6,6 +6,13 @@ from django.contrib import messages
 from django.conf import settings
 from django.template.loader import render_to_string
 from .models import Contact
+from django.db.models import Avg
+from exchangers.models import Exchanger
+from django.contrib.auth.models import User
+from .models import Testimony
+from django.contrib.auth.decorators import login_required
+
+
 
 
 
@@ -20,6 +27,9 @@ from .models import Contact
 # Home View
 
 def home_view(request: HttpRequest):
+
+    exchangers = Exchanger.objects.annotate(average_rating=Avg("user__reviews__rating")).filter(average_rating__gte=4).order_by("-average_rating")
+    testimonies = Testimony.objects.all().order_by("-created_at")[:4]
 
     if request.method == "POST":
         try:
@@ -80,11 +90,43 @@ def home_view(request: HttpRequest):
             messages.error(request, f"Error: {str(e)}", "alert-danger")
             return redirect("main:home_view")
 
-    return render(request, "main/index.html")
+    return render(request, "main/index.html", {"exchangers": exchangers, "testimonies": testimonies})
 
 
 
 
 
+def testimony_view(request: HttpRequest,user_id):
+
+    if request.method == "POST":
+        user = get_object_or_404(User, id=user_id)
+        testimony_comment = request.POST.get("testimony_comment", "").strip()
+
+        if testimony_comment:
+            Testimony.objects.create(user=user, testimony_comment=testimony_comment)
+            messages.success(request, "Your testimony has been added successfully!", "alert-success")
+            return redirect('main:home_view')
+
+    return render(request, "main/testimony.html")
 
 
+
+
+@login_required
+def delete_testimony(request, testimony_id):
+    
+    if not request.user.is_staff and not request.user.has_perm("main.delete_testimony"):
+        messages.warning(request, "You don't have permission to delete this testimony.", "alert-warning")
+        return redirect("main:home_view")
+    
+    testimony = get_object_or_404(Testimony, id=testimony_id)
+    
+    
+    try:
+        testimony.delete()
+        messages.success(request, "Testimony deleted successfully!", "alert-success")
+
+    except Exception as e:
+        messages.error(request, "Something went wrong. Could not delete the testimony.", "alert-danger")
+    
+    return redirect("main:home_view") 

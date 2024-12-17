@@ -7,6 +7,7 @@ from .models import Chat
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
 from .models import Profile
+from django.contrib import messages
 
 @login_required
 def chat_list(request):
@@ -43,6 +44,12 @@ def chat_list(request):
 def chat_view(request, user_id):
     receiver = User.objects.get(id=user_id)
     profile, created = Profile.objects.get_or_create(user=receiver)
+
+    if not (Chat.objects.filter(sender=request.user, receiver=receiver).exists() or 
+            Chat.objects.filter(sender=receiver, receiver=request.user).exists()):
+        messages.error(request, "You cannot access this chat because you're not a part of it.","alert-warning")
+        return redirect('main:home_view')
+    
     try:
         receiver_profile = Profile.objects.get(user=receiver)
         receiver.is_online = receiver_profile.is_online  
@@ -51,7 +58,7 @@ def chat_view(request, user_id):
     
     conversation_id = str(min(request.user.id, receiver.id)) + "-" + str(max(request.user.id, receiver.id))
 
-    messages = Chat.objects.filter(conversation_id=conversation_id).order_by('sent_at')
+    chat_messages = Chat.objects.filter(conversation_id=conversation_id).order_by('sent_at')
 
     users_in_conversation = User.objects.filter(
         Q(sent_messages__receiver=request.user) | Q(received_messages__sender=request.user)
@@ -95,7 +102,7 @@ def chat_view(request, user_id):
     Chat.objects.filter(sender=receiver, receiver=request.user, read_at__isnull=True).update(read_at=timezone.now())
 
     return render(request, 'chats/send_message.html', {
-        'messages': messages,
+        'messages': chat_messages,
         'receiver': receiver,
         'users_in_conversation': users_in_conversation,
     })

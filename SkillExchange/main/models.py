@@ -69,7 +69,7 @@ class Subscription(models.Model):
         super().save(*args, **kwargs)
 
     def is_valid(self):
-        return self.end_date and now() <= self.end_date
+        return self.is_active and self.end_date and now() <= self.end_date
 
     def __str__(self):
         return f"{self.user.username} - {self.plan.plan_name if self.plan else 'No Plan'}"

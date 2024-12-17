@@ -12,7 +12,7 @@
   padding: 50px 0;
 }
 
-.section-2-text h1 {
+.plans-section-2-text h1 {
   font-size: 64px;
   margin-top: 30px;
 }
@@ -156,7 +156,7 @@
 
 <section class="plans-section">
   <div class="container text-center">
-    <div class="section-2-text text-center">
+    <div class="plans-section-2-text text-center">
       <h1>Choose <span class="bg-lime p-1 rounded-3">Your Plan</span></h1>
     </div>
     
@@ -203,7 +203,25 @@
               <li>{{ plan.plan_feture_3 }}</li>
             </ul>
             <p><strong>SAR {{ plan.plan_amount }} / month</strong></p>
-            <a href="{% url 'main:payment_view' plan.id %}" class="submit-btn">Subscribe Now</a>
+            
+            <!-- User Authentication Check -->
+             {% if user.is_authenticated and not user.is_staff and not user.is_superuser %}
+             {% if user.subscription and user.subscription.is_valid %}
+             
+             <!-- If user is subscribed -->
+              <p class="text-success" style="font-size: 0.9rem;">
+                You are already subscribed to the {{ user.subscription.plan.plan_name }} plan.</p>
+              {% else %}
+              
+              <!-- If user is not subscribed -->
+              <a href="{% url 'main:payment_view' plan.id %}" class="submit-btn">Subscribe Now</a>
+              {% endif %}
+
+              {% elif not user.is_authenticated %}
+              <!-- If user is not logged in -->
+              <a href="{% url 'accounts:login_view'%}" class="submit-btn">Login to Subscribe</a>
+              {% endif %}
+            
             {% if user.is_staff %}
             <a href="{% url 'main:plan_detail_view' plan.id %}" class="view-plan-detail">View Details</a>
             {% endif%}

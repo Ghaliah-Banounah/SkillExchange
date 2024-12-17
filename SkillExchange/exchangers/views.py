@@ -20,6 +20,18 @@ def display_exchangers_view(request: HttpRequest):
     # Calculate average reviews per exchanger and assigining them to temp field
     exchangers = exchangers.annotate(average_rating=Avg("reviews__rating"))
 
+    # Filtering by rating
+    if 'rating' in request.GET and request.GET['rating'] == "highest":
+        exchangers = exchangers.order_by('-average_rating')
+    elif 'rating' in request.GET and request.GET['rating'] == "lowest":
+        exchangers = exchangers.order_by('average_rating')
+
+    # Filtering by join date
+    if 'join_date' in request.GET and request.GET['join_date'] == "latest":
+        exchangers = exchangers.order_by('-date_joined')
+    elif 'join_date' in request.GET and request.GET['join_date'] == "oldest":
+        exchangers = exchangers.order_by('date_joined')
+
     paginator = Paginator(exchangers, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)

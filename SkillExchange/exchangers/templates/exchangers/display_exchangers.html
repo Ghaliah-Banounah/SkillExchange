@@ -8,7 +8,7 @@
     <h1 class="mt-5 mb-3 mx-auto title">
         Exchangers
     </h1>
-    <form method="get" action="{% url 'exchangers:display_exchangers_view' %}" class="mb-5 d-flex mx-auto custom-width">
+    <form method="get" action="{% url 'exchangers:display_exchangers_view' %}" class="mb-2 d-flex mx-auto custom-width">
         <div class="input-group justify-content-center mt-4">
             <input type="search" name="search" class="form-control" placeholder="Search for an exchanger..."
                 value="{{ request.GET.search }}" aria-label="Search" aria-describedby="button-addon2" minlength="1">
@@ -16,6 +16,32 @@
                     class="bi bi-search"></i></button>
         </div>
     </form>
+    <div class="mb-5 d-flex gap-2 mx-auto custom-width">
+        <form method="get" action="{% url 'exchangers:display_exchangers_view' %}{% querystring %}" class="flex-fill">
+            <div class="input-group mb-3">
+                <select class="form-select" name="rating" aria-label="Filter by ratind select">
+                    <option value="" disabled selected>Filter by rating</option>
+                    <option value="highest" {% if request.GET.rating == "highest" %}selected{% endif %}>Highest</option>
+                    <option value="lowest" {% if request.GET.rating == "lowest" %}selected{% endif %}>Lowest</option>
+                </select>
+                <button type="submit" class="btn-lime">
+                    <i class="bi bi-funnel"></i>
+                </button>
+            </div>
+        </form>
+        <form method="get" action="{% url 'exchangers:display_exchangers_view' %}{% querystring %}" class="flex-fill">
+            <div class="input-group mb-3">
+                <select class="form-select" name="join_date" aria-label="Filter by join date select">
+                    <option value="" disbaled selected>Filter by join date</option>
+                    <option value="latest" {% if request.GET.join_date == "latest" %}selected{% endif %}>Latest</option>
+                    <option value="oldest" {% if request.GET.join_date == "oldest" %}selected{% endif %}>Oldest</option>
+                </select>
+                <button type="submit" class="btn-lime">
+                    <i class="bi bi-funnel"></i>
+                </button>
+            </div>
+        </form>
+    </div>
 
     {% include 'exchangers/components/exchangers_list.html' %}
 
@@ -25,8 +51,7 @@
             <ul class="pagination">
                 {% if exchangers.has_previous %}
                 <li class="page-item">
-                    <a class="page-link"
-                        href="{% url 'exchangers:display_exchangers_view' %}{% querystring page=1 %}"
+                    <a class="page-link" href="{% url 'exchangers:display_exchangers_view' %}{% querystring page=1 %}"
                         aria-label="First">
                         <span aria-hidden="true"> First</span>
                     </a>
@@ -39,19 +64,20 @@
                     </a>
                 </li>
                 {% endif %}
-    
+
                 {% for num in exchangers.paginator.page_range %}
                 {% if exchangers.number == num %}
                 <li class="page-item active"><span class="page-link">{{ num }}</span></li>
                 {% else %}
                 <li class="page-item">
-                    <a class="page-link" href="{% url 'exchangers:display_exchangers_view' %}{% querystring page=num %}">
+                    <a class="page-link"
+                        href="{% url 'exchangers:display_exchangers_view' %}{% querystring page=num %}">
                         {{ num }}
                     </a>
                 </li>
                 {% endif %}
                 {% endfor %}
-    
+
                 {% if exchangers.has_next %}
                 <li class="page-item">
                     <a class="page-link"

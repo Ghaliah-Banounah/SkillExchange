@@ -53,3 +53,38 @@ $('input[name="scheduled_at"]').daterangepicker({
     },
     minDate: new Date(),
 });
+
+
+// Delete Chat from Direct Messages for Chats app
+function confirmDelete() {
+    return confirm("Are You sure you want delete this chat ?");
+}
+
+// Function to display the name of the selected file for Chats app
+function displayFileName() {
+    var fileInput = document.getElementById('file-upload');
+    var fileNameDisplay = document.getElementById('file-name-display');
+    if (fileInput.files.length > 0) {
+        fileNameDisplay.textContent = fileInput.files[0].name;
+    } else {
+         fileNameDisplay.textContent = '';
+        }
+    }
+// This function is called when the page is fully loaded for Chats app
+window.onload = function() {
+    var chatBox = document.getElementById('chat-box');
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+//Disable the alerts in Chats app
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.classList.add('chat-page');
+});
+
+//remove footer margin top for Chats app
+document.addEventListener('DOMContentLoaded', function() {
+if (window.location.pathname.includes('/chats/chat/')) {
+   var footer = document.querySelector('footer');
+   footer.classList.remove('mt-5');
+   }
+});

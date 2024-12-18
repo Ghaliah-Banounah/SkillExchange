@@ -76,22 +76,29 @@ def profile_view(request: HttpRequest, username: str):
     else:
         profile = Profile(user=user)
 
+    # Set status of ended exchanges
+    for exchange in Exchanger.objects.filter(end_date__lt=datetime.now()):
+        exchange.status = Exchanger.ExchangeStatus.ENDED
+        exchange.save()
+
     # Get requests sent or received by the user
     if request.user.is_authenticated:
         is_requested = Request.objects.filter(sender=request.user, receiver=user, status='Pending').exists()   
 
         # Check if they already have a connection
         is_connected = Exchanger.objects.filter(
-            (Q(user=request.user) & Q(exchanger=user)) |
-            (Q(user=user) & Q(exchanger=request.user))).exists()
+            (Q(user=request.user) & Q(exchanger=user) & Q(status='Ongoing')) |
+            (Q(user=user) & Q(exchanger=request.user) & Q(status='Ongoing'))).exists()
         
         sent_requests = Request.objects.filter(sender=user, status=Request.RequestStatus.PENDING)
         received_requests = Request.objects.filter(receiver=user, status=Request.RequestStatus.PENDING)
         # Profile user exchanges
-        current_exchanges = Exchanger.objects.filter((Q(user=user) | Q(exchanger=user)) & Q(end_date__gte=datetime.now()))
+        current_exchanges = Exchanger.objects.filter((Q(user=user) | Q(exchanger=user)) & Q(status='Ongoing'))
         # Current logged in user exchanges
-        my_exchanges = Exchanger.objects.filter((Q(user=request.user) | Q(exchanger=request.user)) & Q(end_date__gte=datetime.now()))
-        prev_exchanges = Exchanger.objects.filter((Q(user=user) | Q(exchanger=user)) & Q(end_date__lte=datetime.now()))
+        my_exchanges = Exchanger.objects.filter((Q(user=request.user) | Q(exchanger=request.user)) & Q(status='Ongoing'))
+
+        prev_exchanges = Exchanger.objects.filter((Q(user=user) | Q(exchanger=request.user)) & Q(status='Ended') |
+                                                  (Q(user=request.user) | Q(exchanger=user)) & Q(status='Ended'))
 
     else:
         sent_requests = []

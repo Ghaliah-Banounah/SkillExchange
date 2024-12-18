@@ -11,10 +11,10 @@ from accounts.models import Profile
 def skills_list(request):
     search_query = request.GET.get('search', '')
     if search_query:
-        skills_list = Skill.objects.filter(name__icontains=search_query)
+        skills_list = Skill.objects.filter(name__icontains=search_query).order_by('-added_at')
 
     else:
-        skills_list = Skill.objects.all()
+        skills_list = Skill.objects.all().order_by('-added_at')
     
     skills_list = skills_list.annotate(exchangers_count=Count("skills"))
 
@@ -30,13 +30,15 @@ def add_skill(request):
         messages.warning(request, "You don't have permission to add skills.", "alert-warning")
         return redirect('main:home_view')
     
+    form = SkillForm()
     if request.method == 'POST':
         form = SkillForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save() 
+            form.save()
+            messages.success(request, "Skill was added successfully.", "alert-success")
             return redirect('skills:skills_list')
-    else:
-        form = SkillForm() 
+        else:
+            messages.error(request, f"{form.errors.as_data()}, skill wasn't added.", "alert-danger")
 
     return render(request, 'skills/add_skill.html', {'form': form})
 
@@ -60,14 +62,15 @@ def edit_skill(request, skill_id):
     except Exception as e:
         return render(request, '404.html')
 
+    form = SkillForm(instance=skill)
     if request.method == 'POST':
         form = SkillForm(request.POST, request.FILES, instance=skill)
         if form.is_valid():
             form.save()
             messages.success(request, 'Skill updated successfully' , 'alert-primary')
-            return redirect('skills:skills_list')
-    else:
-        form = SkillForm(instance=skill)
+            return redirect('skills:skill_detail', skill.id)
+        else:
+            messages.error(request, f"{form.errors.as_data()}, skill wasn't updated.", "alert-danger")
 
     return render(request, 'skills/edit_skill.html', {'form': form, 'skill': skill})
 
@@ -84,7 +87,7 @@ def delete_skill(request, skill_id):
     
     if request.method == 'POST':
         skill.delete()
-        messages.success(request, 'Skill deleted successfully.', 'alert-danger')
+        messages.success(request, 'Skill deleted successfully.', 'alert-success')
         return redirect('skills:skills_list')  
     else:
         return render(request, 'skills/skill_detail.html', {'skill': skill})

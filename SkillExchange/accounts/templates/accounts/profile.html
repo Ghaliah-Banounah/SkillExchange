@@ -275,7 +275,7 @@
                             <i class="bi bi-star-fill"></i>
                         </div>
                     </div>
-                    <p>{{review.comment}}</p>
+                    <p class="lh-sm">{{review.comment}}</p>
                     <p class="text-muted position-absolute bottom-0 start-0 ms-3 mb-2">{{review.created_at}}</p>
                     {% if review.user == request.user or perms.accounts.delete_review %}
                     <button type="button" class="btn-blue p-2 position-absolute bottom-0 end-0 m-2" data-bs-toggle="modal"

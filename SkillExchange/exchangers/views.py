@@ -108,7 +108,8 @@ def new_exchange_view(request: HttpRequest, sender_id: int, receiver_id: int):
         user = User.objects.get(pk=receiver_id)
         # Sender 
         exchanger = User.objects.get(pk=sender_id)
-        if len(Exchanger.objects.filter((Q(user=user) | Q(exchanger=user)) & Q(end_date__gte=datetime.now()))) == 3 or len(Exchanger.objects.filter((Q(user=request.user) | Q(exchanger=user)) & Q(end_date__gte=datetime.now()))) == 3:
+        
+        if len(Exchanger.objects.filter((Q(user=user) | Q(exchanger=user)) & Q(status='Ongoing'))) == 3 or len(Exchanger.objects.filter((Q(user=request.user) | Q(exchanger=user)) & Q(status='Ongoing'))) == 3:
             messages.warning(request,"Exchange limit has been reached, subscribe to add more.","alert-warning")
             return redirect("accounts:profile_view", user.username)
 

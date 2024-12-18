@@ -9,6 +9,7 @@ from django.dispatch import receiver
 from .models import Profile
 from django.contrib import messages
 
+
 @login_required
 def chat_list(request):
     users_in_conversation = User.objects.exclude(id=request.user.id)

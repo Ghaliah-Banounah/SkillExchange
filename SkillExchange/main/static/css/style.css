@@ -1531,7 +1531,7 @@ footer {
 }
 
 /** Styles for send_message.html (chats) **/
-.chat-page .alerts-container.pt-3 {
+.chat-page .alerts-container.pt-5 {
   padding-top: 0 !important;
 }
 .chat-page .alert {

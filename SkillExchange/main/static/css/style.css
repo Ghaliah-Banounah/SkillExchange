@@ -692,10 +692,11 @@ footer {
   }
   
   
-  .card-custom {
+  .card-custom-2 {
     position: relative;
     margin-top: 80px;
     border-radius: 20px;
+    padding: 20px;
   
   }
   
@@ -726,18 +727,18 @@ footer {
     background-image: url("/static/images/Vector 3.png");
   }
   
-  .card-body {
+  .card-body-2 {
     position: relative;
     z-index: 1;
   }
   
-  .card-body img{
+  .card-body-2 img{
     position: relative;
     width: 200px;
     margin-top: 30px;
   }
   
-  .card-custom .mvv-name {
+  .card-custom-2 .mvv-name {
     font-size: 5rem;
     font-weight: normal;
     color: rgba(160, 158, 158, 0.519);
@@ -747,30 +748,24 @@ footer {
     z-index: 0;
     text-align: center;
   }
+
   
-  .card-custom .card-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-top: 30px;
-    margin-bottom: 60px;
-  }
-  
-  .card-custom .card-text {
+  .card-custom-2 .card-text-2 {
     font-size: 1.1rem;
     line-height: 1.6;
     text-align: justify;
     font-weight: normal;
-    margin-top: 80px;
+    margin-top: 100px;
   }
   
-  .card-custom .custom-list {
+  .card-custom-2 .custom-list {
     text-align: justify; 
     padding-left: 0; 
     margin-left: 0; 
     list-style-position: inside; 
   }
   
-  .card-custom li {
+  .card-custom-2 li {
     text-align: justify; 
     margin-bottom: 10px; 
   }
@@ -1468,6 +1463,58 @@ footer {
       font-size: 1.8rem; 
     }
   }
+
+  /* Testimony Page */
+.testimony-section {
+  padding: 100px 0;
+}
+
+.testimony-section-text-text h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.testimony-label {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 12px; 
+  margin-top: 80px;
+  margin-bottom: 20px;
+  color: #555;
+  display: block; 
+}
+
+.form-control-2 {
+  width: 100%; 
+  max-width: 600px; 
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: none;
+  resize: none;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s ease;
+  margin: 0 auto; 
+  margin-bottom: 20px;
+}
+
+.testmoney-link {
+  text-align: right;
+  margin-top: -3rem;
+}
+
+.testmoney-link a {
+  font-size: 0.6rem; 
+  padding: 0.4rem 1rem; 
+  line-height: 1.2;
+}
+
+.custom-hover:hover {
+  background-color: #333;
+  color: #fff;
+  transition: all 0.3s ease;
+}
 
 /** Styles for send_message.html (chats) **/
 .chat-page .alerts-container.pt-3 {

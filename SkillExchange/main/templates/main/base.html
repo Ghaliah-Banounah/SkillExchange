@@ -35,7 +35,7 @@
     <header>
         <!-- This navbar expands at medium screens, screens smaller than that toggle the collapse property -->
         <nav class="navbar navbar-expand-md px-2 py-2 navigation fixed-top">
-            <div class="container-fluid p-2 d-flex flex-row justify-content-center gap-5">
+            <div class="container-fluid p-2 d-flex flex-row justify-content-center gap-3">
 
                 {% url 'main:home_view' as home_url %}
                 {% url 'skills:skills_list' as skills_url %}
@@ -43,8 +43,9 @@
                 {% url 'plans:plans_view' as plans_url %}
 
                 <!-- Brand name -->
-                <a class="text-center px-4 navbar-brand" href="{{home_url}}">
-                    <img src="{% static 'images/logo-black.png' %}" class="logo" style="width: 60px;" alt="logo"> Skill Exchange
+                <a class="text-center px-2 navbar-brand" href="{{home_url}}">
+                    <img src="{% static 'images/logo-black.png' %}" class="logo" style="width: 60px; margin-bottom: 7px;" alt="logo">
+                    <span class="d-none d-lg-inline-block">Skill Exchange</span>
                 </a>
                 <!-- Toggle button to display navbar on small screens -->
                 <button class="navbar-toggler order-4" type="button" data-bs-toggle="collapse"
@@ -57,8 +58,7 @@
                 <div class="collapse navbar-collapse justify-content-center" id="navbarCollapseItems">
                     <!-- Links -->
                     <ul class="navbar-nav align-items-center gap-4">
-                        <li class="nav-item">
-                            <a href="{{home_url}}#about" class="a-lime-hover fw-medium">About</a></li>
+                        <li class="nav-item"><a href="{{home_url}}#about" class="a-lime-hover fw-medium">About</a></li>
                         <li class="nav-item"><a href="{{exchangers_url}}" class="a-lime-hover fw-medium">Exchangers</a></li>
                         <li class="nav-item"><a href="{{skills_url}}" class="a-lime-hover fw-medium">Skills</a></li>
                         <li class="nav-item"><a href="{{home_url}}#contact" class="a-lime-hover fw-medium">Contact</a></li>
@@ -107,7 +107,7 @@
     <main class="pt-5 mt-4" style="min-height: 70vh;">
         {% if messages %}
         {% for msg in messages %}
-        <div class="container-fluid alerts-container pt-3">
+        <div class="container-fluid alerts-container pt-5">
             <div class="alert {{msg.tags}} alert-dismissible fade show mx-auto mb-0" role="alert">
                 {{msg}}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

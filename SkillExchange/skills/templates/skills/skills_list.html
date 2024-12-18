@@ -2,7 +2,7 @@
 {% block title %}Skills{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container-lg">
     <h1 class="mt-5 mb-3 title mx-auto">Skills List</h1>
     <form method="get" action="" class="mb-4 d-flex mx-auto custom-width">
         <div class="input-group justify-content-center mt-4">
@@ -18,9 +18,9 @@
         </a>
     </div>
     {% endif %}
-    <div class="row">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
         {% for skill in skills %}
-        <div class="col-md-4 mb-4">
+        <div class="col mb-4">
             <div class="card-skills-list border-0">
                 <div>
                     <img src="{{ skill.image.url }}" alt="{{ skill.name }}" class="image-skills-list">

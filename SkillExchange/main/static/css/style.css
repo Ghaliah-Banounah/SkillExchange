@@ -501,14 +501,14 @@ footer {
 
 .details-img {
     width: 100%;
-    height: 450px;
+    height: 560px;
     object-fit: cover;
     border-radius: 1.4rem;
 }
 
 .details-card {
     width: 100%;
-    height: 400px;
+    height: 500px;
     border-radius: 1.4rem;
     background-color: #F6F6F6;
 }
@@ -563,7 +563,7 @@ footer {
 .hero {
     display: flex;
     align-items:end;
-    padding: 30px;
+    padding: 30px 10px;
     background-color: rgba(0, 0, 0, 0.55);
     color: white;
     margin-top: .6rem;

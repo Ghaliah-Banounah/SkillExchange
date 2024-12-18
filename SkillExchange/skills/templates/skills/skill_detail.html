@@ -4,15 +4,15 @@
 {% block title %}{{skill.name}}{% endblock %}
 {% block content %}
 
-<div class="container mt-5">
-    <div class="row row-cols-1 row-cols-md-2 align-items-center">
+<div class="container-fluid mt-5">
+    <div class="row row-cols-1 row-cols-md-2 align-items-end row-gap-4">
         <div class="col">
             {% if skill.image %}
             <img src="{{ skill.image.url }}" alt="{{ skill.name }}" class="details-img shadow-sm">
             {% endif %}
         </div>
         <div class="col">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mb-3">
                 <h1>{{ skill.name }}</h1>
                 <div class="d-flex gap-2">
                     {% if user.is_staff and perms.skills.change_skill %}
@@ -31,7 +31,7 @@
             </div>
             <div class="details-card shadow-sm">
                 <div class="p-4">
-                    <p class="mt-2" style="text-align: justify;">
+                    <p class="mt-2 fs-5" style="text-align: justify;">
                         <strong>Description:</strong> {{ skill.description }}
                     </p>
                 </div>
@@ -60,14 +60,10 @@
     </div>
 </div>
 <!-- Reviews section -->
-<section class="container-lg my-5 px-3">
-    <div class="d-flex justify-content-between">
-        <h3 class="title mb-3">
-        Exchangers with <span class="text-blue">{{skill.name}}</span> skill:
-        </h3>
-        <!-- Go to all exchangers with current skill filtering -->
-        <a href="" class="small btn-lime my-auto">See more</a>
-    </div>
+<section class="container-fluid my-5 px-5">
+    <h3 class="title mb-3">
+    Exchangers with <span class="text-blue">{{skill.name}}</span> skill:
+    </h3>
           
     {% with skill_exchangers as exchangers %}
     {% include 'exchangers/components/exchangers_list.html' %}

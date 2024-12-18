@@ -15,7 +15,7 @@
             <div class="mb-3">
                 <label for="id_name" class="form-label fw-medium">Skill Name</label>
                 <input type="text" name="name" id="id_name" class="form-control"
-                    value="{{ form.name.value|default:'' }}" required>
+                    value="{{ form.name.value|default:'' }}" maxlength="256" required>
                 <div class="invalid-feedback">
                     Please enter a valid skill name.
                 </div>
@@ -24,7 +24,7 @@
             <div class="mb-3">
                 <label for="id_description" class="form-label fw-medium">Skill Description</label>
                 <textarea name="description" id="id_description" class="form-control"
-                    rows="4" required>{{ form.description.value|default:'' }}</textarea>
+                    rows="4" maxlength="600" required>{{ form.description.value|default:'' }}</textarea>
                 <div class="invalid-feedback">
                     Please enter a valid skill description.
                 </div>

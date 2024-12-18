@@ -28,7 +28,7 @@ from django.contrib.auth.decorators import login_required
 
 def home_view(request: HttpRequest):
 
-    exchangers = Exchanger.objects.annotate(average_rating=Avg("user__reviews__rating")).filter(average_rating__gte=4).order_by("-average_rating")
+    exchangers = Exchanger.objects.annotate(average_rating=Avg("user__reviews__rating")).filter(average_rating__gte=4).order_by("-average_rating")[:4]
     testimonies = Testimony.objects.all().order_by("-created_at")[:4]
 
     if request.method == "POST":
@@ -95,8 +95,10 @@ def home_view(request: HttpRequest):
 
 
 
-
 def testimony_view(request: HttpRequest,user_id):
+    if not request.user.is_authenticated:
+        messages.warning(request, "You Need to login to Write Testimony", "alert-warning")
+        return redirect("main:home_view")
 
     if request.method == "POST":
         user = get_object_or_404(User, id=user_id)
@@ -105,7 +107,7 @@ def testimony_view(request: HttpRequest,user_id):
         if testimony_comment:
             Testimony.objects.create(user=user, testimony_comment=testimony_comment)
             messages.success(request, "Your testimony has been added successfully!", "alert-success")
-            return redirect('main:home_view')
+            return redirect("main:home_view")
 
     return render(request, "main/testimony.html")
 

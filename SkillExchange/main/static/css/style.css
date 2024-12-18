@@ -743,8 +743,8 @@ footer {
     font-weight: normal;
     color: rgba(160, 158, 158, 0.519);
     position: absolute;
-    top: -65px;
-    left: 95px;
+    top: -80px;
+    left: 70px;
     z-index: 0;
     text-align: center;
   }
@@ -994,7 +994,7 @@ footer {
   
   @media (max-width: 768px) {
     .card-preview {
-      bottom: -170%; 
+      bottom: -140%; 
       right: 5%; 
       width: 200px; 
       height: 300px; 
@@ -1053,16 +1053,16 @@ footer {
   @media (max-width: 768px) {
     .view-cards .card {
     width: 90%; 
-    height: 350px; 
-    margin: 0 auto; 
+    height: 400px; 
+    margin-top: 30px; 
     }
   }
   
   @media (max-width: 480px) {
     .view-cards .card {
     width: 80%; 
-    height: 320px;
-    margin: 0 auto; 
+    height: 400px;
+    margin-top: 30px; 
     }
   }
   
@@ -1231,7 +1231,7 @@ footer {
   }
   
   @media (max-width: 768px) {
-    .section-2-text h1 {
+    .plans-text h1 {
       font-size: 1.8rem; 
     }
   }
@@ -1508,6 +1508,20 @@ footer {
   font-size: 0.6rem; 
   padding: 0.4rem 1rem; 
   line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .testmoney-link {
+    text-align: right;
+    margin-top: 10px;
+    margin-left: 100px;
+  }
+  
+  .testmoney-link a {
+    font-size: 0.6rem; 
+    padding: 0.2rem 0.3rem;
+    line-height: 1.2; 
+  }
 }
 
 .custom-hover:hover {

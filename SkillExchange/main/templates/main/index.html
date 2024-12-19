@@ -6,212 +6,228 @@
 {% block content %}
 <script src="https://unpkg.com/scrollreveal"></script>
 
-
 <!-- Section 1 -->
 <section>
-    <div class="hero rounded-1 shadow">
-        <!-- Hero Text -->
-        <div class="d-flex flex-column text-start ps-md-5">
-            <h1 class="display-4 fw-bold">Learn. Share. Grow.<br>Your Skills Exchange Journey Starts Here</h1>
-            <p class="fs-5 text-blue mt-3">Discover a community where you can exchange skills, connect with others, and grow<br>
-              —all for free</p>
-            <div class="d-flex gap-2 my-5">
-              <a href="{%url 'exchangers:display_exchangers_view'%}" class="btn-lime">Start Exchanging</a>
-              <a href="{%url 'skills:skills_list'%}" class="btn-outline-blue"><i class="bi bi-lightbulb me-2"></i>Explore Skills</a>
-          </div>
-        </div>
-        <!-- Hero video -->
-        <video autoplay loop muted class="video-bg">
-            <source src="{% static 'videos/skills-exchange.mp4' %}" type="video/mp4" alt="Hero video">
-        </video>
-        
-    </div>
-</section>
-
-<!--Section 2-->
-
-<section class="section-2" id="about">
-    <div class="container text-center">
-        <div class="section-2-text text-start">
-            <h1>Why <span class="bg-blue p-1 rounded-3">Us</span> ?</h1>
-        </div>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-5 g-5">
-
-            <!--Card 1-->
-            <div class="col mb-3">
-                <div class="card card-custom card-1" style="height: 510px; background-color: rgba(122, 152, 233, 0.75); border-radius: 20px; border:none">
-                    <!--<img src="{% static 'images/Vector 1.png' %}" alt="background-motion" class="card-bg">-->
-
-                    <div class="card-body">
-                      <h1 class="number">01</h1>
-                      <h5 class="card-title">Free of Cost</h5>
-                      <p class="card-text">
-                        Our platform enables you to share and acquire skills through a reciprocal exchange model, eliminating the need for expensive courses or subscriptions. Whether you’re looking to learn something new or teach what you already know, you can do it here without worrying about costs.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-            <!-- Card 2 -->
-             <div class="col mb-3">
-                <div class="card card-custom card-2"  style="height: 510px; background-color: rgba(235, 253, 184, 0.75); border-radius: 20px; border:none">
-                    <!--<img src="{% static 'images/Vector 2.png' %}" alt="background-motion" class="card-bg">-->
-
-                    <div class="card-body">
-                        <h1 class="number">02</h1>
-                        <h5 class="card-title">Easy to Use</h5>
-                        <p class="card-text">
-                            Our user-friendly platform is designed to help you get started quickly and effortlessly. With just a few clicks, you can create your profile, list your skills, and search for others to connect with. With built-in messaging allows seamless communication to arrange skill exchanges. Whether you’re a beginner or tech-savvy, our platform ensures a smooth and enjoyable experience for everyone.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Card 3 -->
-             <div class="col mb-3">
-                <div class="card card-custom card-3" style="height: 510px; background-color: #F6F6F6; border-radius: 20px; border: none;">
-                    <!--<img src="{% static 'images/Vector 2.png' %}" alt="background-motion" class="card-bg">-->
-
-                    <div class="card-body">
-                        <h1 class="number">03</h1>
-                        <h5 class="card-title">Personalized Learning Journey</h5>
-                        <p class="card-text">
-                            Our platform tailors your journey based on your interests, goals, and preferences, ensuring you get the most relevant matches and resources. From discovering new skills to collaborating with peers, you’re in control of how and what you learn, making your experience truly personal and impactful.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-<!--Section 6-->
-
-<section class="section-6">
-  <div class="container text-center">
-      <div class="section-6-text text-start mt-2">
-          <h1><span class="bg-blue p-1 rounded-3">Our</span> Mission, Vision, and Values</h1>
+  <div class="hero rounded-1 shadow">
+    <!-- Hero Text -->
+    <div class="d-flex flex-column text-start ps-md-5">
+      <h1 class="display-4 fw-bold">Learn. Share. Grow.<br>Your Skills Exchange Journey Starts Here</h1>
+      <p class="fs-5 text-blue mt-3">Discover a community where you can exchange skills, connect with others, and
+        grow<br>
+        —all for free</p>
+      <div class="d-flex gap-2 my-5">
+        <a href="{%url 'exchangers:display_exchangers_view'%}" class="btn-lime">Start Exchanging</a>
+        <a href="{%url 'skills:skills_list'%}" class="btn-outline-blue"><i class="bi bi-lightbulb me-2"></i>Explore
+          Skills</a>
       </div>
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4 g-5">
+    </div>
+    <!-- Hero video -->
+    <video autoplay loop muted class="video-bg">
+      <source src="{% static 'videos/skills-exchange.mp4' %}" type="video/mp4" alt="Hero video">
+    </video>
 
-          <!--Card 1-->
-          <div class="col mb-3">
-              <div class="card card-custom-2 card-1" style="height: 600px; background-color: rgba(122, 152, 233, 0.75); border-radius: 20px; border:none">
-                  <!--<img src="{% static 'images/Vector 1.png' %}" alt="background-motion" class="card-bg">-->
-
-                  <div class="card-body-2">
-                    <h1 class="mvv-name">Mission</h1>
-                    <p class="card-text-2">
-                      Our mission is to create a vibrant platform where individuals from all walks of life can connect, exchange skills, and grow together. We aim to empower users by providing an inclusive and cost-effective environment to foster learning, collaboration, and personal development.
-                    </p>
-                    <img src="{% static 'images/mision.png' %}" class="img-mision mt-1" alt="Mission">
-                  </div>
-                </div>
-              </div>
-              
-          <!-- Card 2 -->
-           <div class="col mb-3">
-              <div class="card card-custom-2 card-2"  style="height: 600px; background-color: rgba(235, 253, 184, 0.75); border-radius: 20px; border:none ">
-                  <!--<img src="{% static 'images/Vector 2.png' %}" alt="background-motion" class="card-bg">-->
-
-                  <div class="card-body-2">
-                      <h1 class="mvv-name">Vision</h1>
-                      <p class="card-text-2">
-                        Our vision is to become the leading global hub for skill exchange, where every user can discover, share, and master new skills, bridging gaps between diverse communities and fostering meaningful connections in an ever-evolving digital world.
-                      </p>
-                      <img src="{% static 'images/vision.png' %}" class="img-vision" style="margin-top: 60px;" alt="Vision">
-                  </div>
-              </div>
-          </div>
-          
-          <!-- Card 3 -->
-           <div class="col mb-3">
-              <div class="card card-custom-2 card-3" style="height: 600px; background-color: #F6F6F6; border-radius: 20px; border:none;">
-                  <!--<img src="{% static 'images/Vector 2.png' %}" alt="background-motion" class="card-bg">-->
-
-                  <div class="card-body-2">
-                      <h1 class="mvv-name">Values</h1>
-                      <p class="card-text-2 custom-list">
-                        <ul>
-                          <li><strong>Empowerment:</strong> We believe in enabling individuals to reach their full potential through shared knowledge and resources.</li>
-                          <li><strong>Inclusivity:</strong> We welcomes everyone, ensuring diversity and equal opportunities for all.</li>
-                          <li><strong>Collaboration:</strong> We encourage cooperation and mutual support, fostering strong connections within our community.</li>
-
-                        </ul>
-                        </strong>
-                      </p>
-                      <img src="{% static 'images/values3.png' %}" class="img-value mt-2" alt="Value">
-                  </div>
-              </div>
-          </div>
-      </div>
   </div>
 </section>
 
+<!--Section 2-->
+<section class="section-2" id="about">
+  <div class="container text-center">
+    <div class="section-2-text text-start">
+      <h1>Why <span class="bg-blue p-1 rounded-3">Us</span> ?</h1>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-5 g-5">
 
+      <!--Card 1-->
+      <div class="col mb-3">
+        <div class="card card-custom card-1"
+          style="height: 510px; background-color: rgba(122, 152, 233, 0.75); border-radius: 20px; border:none">
+          <!--<img src="{% static 'images/Vector 1.png' %}" alt="background-motion" class="card-bg">-->
+
+          <div class="card-body">
+            <h1 class="number">01</h1>
+            <h5 class="card-title">Free of Cost</h5>
+            <p class="card-text">
+              Our platform enables you to share and acquire skills through a reciprocal exchange model, eliminating the
+              need for expensive courses or subscriptions. Whether you’re looking to learn something new or teach what
+              you already know, you can do it here without worrying about costs.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col mb-3">
+        <div class="card card-custom card-2"
+          style="height: 510px; background-color: rgba(235, 253, 184, 0.75); border-radius: 20px; border:none">
+          <!--<img src="{% static 'images/Vector 2.png' %}" alt="background-motion" class="card-bg">-->
+
+          <div class="card-body">
+            <h1 class="number">02</h1>
+            <h5 class="card-title">Easy to Use</h5>
+            <p class="card-text">
+              Our user-friendly platform is designed to help you get started quickly and effortlessly. With just a few
+              clicks, you can create your profile, list your skills, and search for others to connect with. With
+              built-in messaging allows seamless communication to arrange skill exchanges. Whether you’re a beginner or
+              tech-savvy, our platform ensures a smooth and enjoyable experience for everyone.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col mb-3">
+        <div class="card card-custom card-3"
+          style="height: 510px; background-color: #F6F6F6; border-radius: 20px; border: none;">
+          <!--<img src="{% static 'images/Vector 2.png' %}" alt="background-motion" class="card-bg">-->
+
+          <div class="card-body">
+            <h1 class="number">03</h1>
+            <h5 class="card-title">Personalized Learning Journey</h5>
+            <p class="card-text">
+              Our platform tailors your journey based on your interests, goals, and preferences, ensuring you get the
+              most relevant matches and resources. From discovering new skills to collaborating with peers, you’re in
+              control of how and what you learn, making your experience truly personal and impactful.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--Section 6-->
+<section class="section-6">
+  <div class="container text-center">
+    <div class="section-6-text text-start mt-2">
+      <h1><span class="bg-blue p-1 rounded-3">Our</span> Mission, Vision, and Values</h1>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4 g-5">
+
+      <!--Card 1-->
+      <div class="col mb-3">
+        <div class="card card-custom-2 card-1"
+          style="height: 600px; background-color: rgba(122, 152, 233, 0.75); border-radius: 20px; border:none">
+          <!--<img src="{% static 'images/Vector 1.png' %}" alt="background-motion" class="card-bg">-->
+
+          <div class="card-body-2">
+            <h1 class="mvv-name">Mission</h1>
+            <p class="card-text-2">
+              Our mission is to create a vibrant platform where individuals from all walks of life can connect, exchange
+              skills, and grow together. We aim to empower users by providing an inclusive and cost-effective
+              environment to foster learning, collaboration, and personal development.
+            </p>
+            <img src="{% static 'images/mision.png' %}" class="img-mision mt-1" alt="Mission">
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col mb-3">
+        <div class="card card-custom-2 card-2"
+          style="height: 600px; background-color: rgba(235, 253, 184, 0.75); border-radius: 20px; border:none ">
+          <!--<img src="{% static 'images/Vector 2.png' %}" alt="background-motion" class="card-bg">-->
+
+          <div class="card-body-2">
+            <h1 class="mvv-name">Vision</h1>
+            <p class="card-text-2">
+              Our vision is to become the leading global hub for skill exchange, where every user can discover, share,
+              and master new skills, bridging gaps between diverse communities and fostering meaningful connections in
+              an ever-evolving digital world.
+            </p>
+            <img src="{% static 'images/vision.png' %}" class="img-vision" style="margin-top: 60px;" alt="Vision">
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col mb-3">
+        <div class="card card-custom-2 card-3"
+          style="height: 600px; background-color: #F6F6F6; border-radius: 20px; border:none;">
+          <!--<img src="{% static 'images/Vector 2.png' %}" alt="background-motion" class="card-bg">-->
+
+          <div class="card-body-2">
+            <h1 class="mvv-name">Values</h1>
+            <p class="card-text-2 custom-list">
+            <ul>
+              <li><strong>Empowerment:</strong> We believe in enabling individuals to reach their full potential through
+                shared knowledge and resources.</li>
+              <li><strong>Inclusivity:</strong> We welcomes everyone, ensuring diversity and equal opportunities for
+                all.</li>
+              <li><strong>Collaboration:</strong> We encourage cooperation and mutual support, fostering strong
+                connections within our community.</li>
+
+            </ul>
+            </strong>
+            </p>
+            <img src="{% static 'images/values3.png' %}" class="img-value mt-2" alt="Value">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!--Section 3-->
-
 <section class="section-3">
-    <div class="container text-center">
-        <div class="section-3-text text-start d-flex flex-column flex-md-row justify-content-md-between align-items-start align-items-md-center">
-            <h1>Explore Our <span class="bg-lime p-2 rounded-4">Top Exchangers</span></h1>
-            <a href="{%url 'exchangers:display_exchangers_view'%}" class="bg-lime py-1 px-3 rounded-pill small mt-3 mt-md-0">See All</a>
-        </div>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4">
-            <!-- Card 1 -->
-             {% for exchanger in exchangers %}
-             <div class="col mb-4">
-                <div class="card-exchanger">
-                        <div class="card-image">
-                            <img src="{{exchanger.user.profile.pfp.url}}" class="img-fluid" alt="Exchanger 1">
-                            <div class="icon-toggle" onclick="toggleCard(this)"></div>
-                        </div>
-                        <div class="card-info">
-                          <div class="header-info ">
-                            <h5>{{ exchanger.user.first_name }} {{ exchanger.user.last_name }}</h5>
-                            <p class="text-muted"></p>
-                          </div>
-                          <div class="card-details">
-                            <p>Skills:
-                              {% for skill in exchanger.skills_exchanged.all %}
-                              {{ skill.name }}{% if not forloop.last %}, {% endif %}
-                              {% empty %}
-                              No skills listed.
-                              {% endfor %}
-                            </p>
-                            <a href="{% url 'accounts:profile_view' exchanger.user.username %}" class="card-link">View Profile</a>
-                          </div>
-                        </div>
-                </div>
-                {% endfor %}
-              </div>
-        </div>
+  <div class="container text-center">
+    <div
+      class="section-3-text text-start d-flex flex-column flex-md-row justify-content-md-between align-items-start align-items-md-center">
+      <h1>Explore Our <span class="bg-lime p-2 rounded-4">Top Exchangers</span></h1>
+      <a href="{%url 'exchangers:display_exchangers_view'%}"
+        class="bg-lime py-1 px-3 rounded-pill small mt-3 mt-md-0">See All</a>
     </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-4">
+      <!-- Card 1 -->
+      {% for exchanger in exchangers %}
+      <div class="col mb-4">
+        <div class="card-exchanger">
+          <div class="card-image">
+            <img src="{{exchanger.profile.pfp.url}}" class="img-fluid" alt="Exchanger 1">
+            <div class="icon-toggle" onclick="toggleCard(this)"></div>
+          </div>
+          <div class="card-info">
+            <div class="header-info ">
+              <h5>{{ exchanger.first_name }} {{ exchanger.last_name }}</h5>
+              <p class="text-muted"></p>
+            </div>
+            <div class="card-details">
+              <p>Skills:
+                {% for skill in exchanger.profile.skills.all %}
+                {{ skill.name }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                No skills listed.
+                {% endfor %}
+              </p>
+              <a href="{% url 'accounts:profile_view' exchanger.username %}" class="card-link">View Profile</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </section>
 
 <!--Section 4-->
-
 <section class="section-4 bg-lime overflow-hidden">
   <div class="container text-center position-relative">
-      <div class="section-4-text d-flex justify-content-start">
-        <h1>Click to Explore What</h1>
-      </div>
-      <div class="section-4-second-text d-flex align-items-center justify-content-start">
-        <h1 class="mb-8"><span class="bg-gray px-2 py-1 rounded-4 d-inline-block">Our Users</span> Thinks</h1>
-      </div>
-      <div class="testmoney-link mb-4 d-flex justify-content-end">
-        <a href="{% url 'main:testimony_view' user.id %}" class="btn btn-outline-dark text-uppercase fw-medium px-4 py-2 rounded-pill custom-hover small-link">Let Us Know What You Think <span class="fw-bold">+</span></a>
-      </div>
+    <div class="section-4-text d-flex justify-content-start">
+      <h1>Click to Explore What</h1>
+    </div>
+    <div class="section-4-second-text d-flex align-items-center justify-content-start">
+      <h1 class="mb-8"><span class="bg-gray px-2 py-1 rounded-4 d-inline-block">Our Users</span> Thinks</h1>
+    </div>
+    <div class="testmoney-link mb-4 d-flex justify-content-end">
+      <a href="{% url 'main:testimony_view' user.id %}"
+        class="btn btn-outline-dark text-uppercase fw-medium px-4 py-2 rounded-pill custom-hover small-link">Let Us Know
+        What You Think <span class="fw-bold">+</span></a>
+    </div>
 
-      <div class="review-button d-flex justify-content-center">
-        <button class="btn btn-light p-4 rounded-circle mt-4" id="toggleReviews">
-          <span class="toggle-text"><i class="bi bi-arrow-down-right"></i></span>
-        </button>
-      </div>
-
+    <div class="review-button d-flex justify-content-center">
+      <button class="btn btn-light p-4 rounded-circle mt-4" id="toggleReviews">
+        <span class="toggle-text"><i class="bi bi-arrow-down-right"></i></span>
+      </button>
+    </div>
 
     <!-- Card Preview -->
     <div class="card-preview position-absolute" id="cardPreview">
@@ -225,41 +241,40 @@
     </div>
 
     <!-- Review Cards Section -->
-      <div class="view-cards d-none mt-5">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-          {% for testimony in testimonies %}
-          <div class="col">
-            <div class="card h-200 text-center p-4">
-              <img src="{{ testimony.user.profile.pfp.url }}" 
-               class="img-fluid rounded-circle mb-3"
-               alt="Profile Picture" 
-               style="width: 80px; height: 80px; object-fit: cover;">
-              <h5 class="mt-3 text-left">{{testimony.user.username}}</h5>
-              <p class="text-muted text-left">{{testimony.testimony_comment}}</p>
+    <div class="view-cards d-none mt-5">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        {% for testimony in testimonies %}
+        <div class="col">
+          <div class="card h-200 text-center p-4">
+            <img src="{{ testimony.user.profile.pfp.url }}" class="img-fluid rounded-circle mb-3" alt="Profile Picture"
+              style="width: 80px; height: 80px; object-fit: cover;">
+            <h5 class="mt-3 text-left">{{testimony.user.username|capfirst}}</h5>
+            <p class="text-muted text-left">{{testimony.testimony_comment}}</p>
 
-              {% if user.is_staff and perms.main.delete_testimony %}
-                <form action="{% url 'main:delete_testimony' testimony.id %}" method="post" class="text-end d-flex justify-content-center mt-5">
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                </form>
-                {% endif %}
-            </div>
+            {% if user.is_staff and perms.main.delete_testimony %}
+            <form action="{% url 'main:delete_testimony' testimony.id %}" method="post"
+              class="text-end d-flex justify-content-center mt-5">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+            {% endif %}
           </div>
-          {% endfor%}
         </div>
+        {% endfor%}
       </div>
+    </div>
   </div>
 </section>
 
 <!--Section 5-->
 
-<section class="section-5" id="contact" >
-  
+<section class="section-5" id="contact">
+
   <div class="container">
     <div class="section-4-text text-center">
       <h1>Send Us <span class="bg-lime px-2 py-1 rounded-4">Your Question</span></h1>
     </div>
-    
+
     <div class="row align-items-center mt-5">
       <div class="col-md-6">
         <div class="contact-form-left">
@@ -272,7 +287,7 @@
                   <input type="text" id="name" name="name" placeholder="Enter Your Name..." required />
                 </div>
               </div>
-              
+
               <div class="form-group">
                 <label for="email">Email</label>
                 <div class="field-wrapper">
@@ -280,7 +295,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="form-group">
               <label for="inquiries_type">Your inquiries Type:</label>
               <div class="field-wrapper">
@@ -296,28 +311,30 @@
                 </select>
               </div>
             </div>
-            
+
             <div class="form-group">
               <label for="message">Your message</label>
               <div class="field-wrapper">
-                <textarea id="message" name="message" placeholder="Type your Question or Message..." required></textarea>
+                <textarea id="message" name="message" placeholder="Type your Question or Message..."
+                  required></textarea>
               </div>
             </div>
             <button type="submit" class="contact-submit-button btn-lime px-5 py-2">Send</button>
           </form>
         </div>
       </div>
-      
+
       <!-- Image Section -->
       <div class="col-md-6 text-center">
         <div class="contact-image">
-          <iframe src='https://my.spline.design/voiceinteractionanimation-253c2051460bff078eadad6f2846e15f/' frameborder='0'></iframe>
+          <iframe src='https://my.spline.design/voiceinteractionanimation-253c2051460bff078eadad6f2846e15f/'
+            frameborder='0'></iframe>
         </div>
       </div>
     </div>
   </div>
 </section>
-  
+
 
 
 
@@ -327,10 +344,10 @@
 
 
 <script>
-function toggleCard(element) {
+  function toggleCard(element) {
     const card = element.closest('.card-exchanger');
     card.classList.toggle('expanded');
-    }
+  }
 </script>
 
 
@@ -338,34 +355,34 @@ function toggleCard(element) {
 
 <script>
   document.getElementById("toggleReviews").addEventListener("click", function () {
-  const viewCards = document.querySelector(".view-cards");
-  const cardPreview = document.getElementById("cardPreview");
-  const toggleText = this.querySelector(".toggle-text");
-  const toggleButton = this;
+    const viewCards = document.querySelector(".view-cards");
+    const cardPreview = document.getElementById("cardPreview");
+    const toggleText = this.querySelector(".toggle-text");
+    const toggleButton = this;
 
-  if (viewCards.classList.contains("d-none")) {
-    // Show review cards and hide the preview card
-    viewCards.classList.remove("d-none");
-    cardPreview.classList.add("hidden");
-    toggleButton.textContent = "Hide X"; 
-    toggleButton.classList.add("small-button");
-    toggleButton.classList.remove("rounded-circle"); 
-    toggleButton.style.position = "absolute"; 
-    toggleButton.style.top = "200px"; 
-    toggleButton.style.right = "20px"; 
+    if (viewCards.classList.contains("d-none")) {
+      // Show review cards and hide the preview card
+      viewCards.classList.remove("d-none");
+      cardPreview.classList.add("hidden");
+      toggleButton.textContent = "Hide X";
+      toggleButton.classList.add("small-button");
+      toggleButton.classList.remove("rounded-circle");
+      toggleButton.style.position = "absolute";
+      toggleButton.style.top = "200px";
+      toggleButton.style.right = "20px";
 
-  } else {
-    // Hide review cards and show the preview card
-    viewCards.classList.add("d-none");
-    cardPreview.classList.remove("hidden");
-    toggleButton.innerHTML = `<i class="bi bi-arrow-down-right"></i>`; 
-    toggleButton.classList.remove("small-button");
-    toggleButton.classList.add("rounded-circle"); 
-    toggleButton.style.position = ""; 
-    toggleButton.style.top = ""; 
-    toggleButton.style.right = "";
-  }
-});
+    } else {
+      // Hide review cards and show the preview card
+      viewCards.classList.add("d-none");
+      cardPreview.classList.remove("hidden");
+      toggleButton.innerHTML = `<i class="bi bi-arrow-down-right"></i>`;
+      toggleButton.classList.remove("small-button");
+      toggleButton.classList.add("rounded-circle");
+      toggleButton.style.position = "";
+      toggleButton.style.top = "";
+      toggleButton.style.right = "";
+    }
+  });
 
 </script>
 
@@ -375,26 +392,26 @@ function toggleCard(element) {
     const cardWrapper = document.querySelector('.card-wrapper');
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
-        const clone = card.cloneNode(true);
-        cardWrapper.appendChild(clone);
+      const clone = card.cloneNode(true);
+      cardWrapper.appendChild(clone);
     });
-});
+  });
 
 </script>
 
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-  // Initialize ScrollReveal
-  const sr = ScrollReveal();
+    // Initialize ScrollReveal
+    const sr = ScrollReveal();
 
-  // Reveal for each section
-  sr.reveal('.section-2', { duration: 2000, reset: true });
-  sr.reveal('.section-3', { duration: 2000, reset: true });
-  sr.reveal('.section-4', { duration: 2000, reset: true });
-  sr.reveal('.section-5', { duration: 2000, reset: true });
-  sr.reveal('.section-6', { duration: 2000, reset: true });
-});
+    // Reveal for each section
+    sr.reveal('.section-2', { duration: 2000, reset: true });
+    sr.reveal('.section-3', { duration: 2000, reset: true });
+    sr.reveal('.section-4', { duration: 2000, reset: true });
+    sr.reveal('.section-5', { duration: 2000, reset: true });
+    sr.reveal('.section-6', { duration: 2000, reset: true });
+  });
 
 </script>
 

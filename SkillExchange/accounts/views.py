@@ -97,8 +97,8 @@ def profile_view(request: HttpRequest, username: str):
         # Current logged in user exchanges
         my_exchanges = Exchanger.objects.filter((Q(user=request.user) | Q(exchanger=request.user)) & Q(status='Ongoing'))
 
-        prev_exchanges = Exchanger.objects.filter((Q(user=user) | Q(exchanger=request.user)) & Q(status='Ended') |
-                                                  (Q(user=request.user) | Q(exchanger=user)) & Q(status='Ended'))
+        prev_exchanges = Exchanger.objects.filter((Q(user=user) & Q(exchanger=request.user)) & Q(status='Ended') |
+                                                  (Q(user=request.user) & Q(exchanger=user)) & Q(status='Ended'))
 
     else:
         sent_requests = []

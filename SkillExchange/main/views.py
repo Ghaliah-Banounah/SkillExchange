@@ -6,30 +6,17 @@ from django.contrib import messages
 from django.conf import settings
 from django.template.loader import render_to_string
 from .models import Contact
-from django.db.models import Avg
+from django.db.models import Avg, Count
 from exchangers.models import Exchanger
 from django.contrib.auth.models import User
 from .models import Testimony
 from django.contrib.auth.decorators import login_required
 
-
-
-
-
-
-
-
-
-
-# Create your views here.
-
-
 # Home View
-
 def home_view(request: HttpRequest):
 
-    exchangers = Exchanger.objects.annotate(average_rating=Avg("user__reviews__rating")).filter(average_rating__gte=4).order_by("-average_rating")[:4]
-    testimonies = Testimony.objects.all().order_by("-created_at")[:4]
+    exchangers = User.objects.annotate(average_rating=Avg("reviews__rating")).filter(average_rating__gte=4).order_by("-average_rating")[:4]
+    testimonies = Testimony.objects.all().order_by("-created_at")[:3]
 
     if request.method == "POST":
         try:
@@ -93,8 +80,6 @@ def home_view(request: HttpRequest):
     return render(request, "main/index.html", {"exchangers": exchangers, "testimonies": testimonies})
 
 
-
-
 def testimony_view(request: HttpRequest,user_id):
     if not request.user.is_authenticated:
         messages.warning(request, "You Need to login to Write Testimony", "alert-warning")
@@ -110,8 +95,6 @@ def testimony_view(request: HttpRequest,user_id):
             return redirect("main:home_view")
 
     return render(request, "main/testimony.html")
-
-
 
 
 @login_required
